@@ -29,7 +29,7 @@ export function ExperienceContent() {
         <div className="relative">
           {/* Timeline line - animated */}
           <motion.div 
-            className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent -translate-x-1/2 hidden md:block"
+            className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent -translate-x-1/2 hidden md:block"
             initial={{ scaleY: 0, originY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
@@ -44,18 +44,18 @@ export function ExperienceContent() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative md:w-1/2 ${
+                className={`relative md:w-[calc(50%-1rem)] ${
                   index % 2 === 0
-                    ? "md:pr-8 md:ml-0"
-                    : "md:pl-8 md:ml-auto"
+                    ? "md:mr-auto"
+                    : "md:ml-auto"
                 }`}
               >
                 {/* Timeline dot - animated */}
                 <motion.div
-                  className={`absolute top-8 w-4 h-4 bg-primary rounded-full hidden md:block shadow-lg shadow-primary/50 ${
+                  className={`absolute top-8 w-4 h-4 bg-primary rounded-full hidden md:flex items-center justify-center shadow-lg shadow-primary/50 ${
                     index % 2 === 0
-                      ? "right-0 translate-x-1/2 md:-right-2"
-                      : "left-0 -translate-x-1/2 md:-left-2"
+                      ? "left-[calc(100%+0.5rem)]"
+                      : "right-[calc(100%+0.5rem)]"
                   }`}
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
