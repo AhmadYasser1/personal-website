@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,10 +21,19 @@ export function ContactContent() {
     submitContactForm,
     initialState
   );
-  const [key, setKey] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [formKey, setFormKey] = useState(0);
+
+  // Update showSuccess when state changes
+  useEffect(() => {
+    if (state.success) {
+      setShowSuccess(true);
+    }
+  }, [state.success]);
 
   const handleSendAnother = () => {
-    setKey((prev) => prev + 1);
+    setShowSuccess(false);
+    setFormKey((prev) => prev + 1);
   };
 
   return (
@@ -58,9 +67,9 @@ export function ContactContent() {
                 <CardTitle>Send a Message</CardTitle>
               </CardHeader>
               <CardContent>
-                {state.success ? (
+                {showSuccess ? (
                   <motion.div
-                    key={`success-${key}`}
+                    key={`success-${formKey}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-8"
@@ -91,7 +100,7 @@ export function ContactContent() {
                     </Button>
                   </motion.div>
                 ) : (
-                  <form key={`form-${key}`} action={formAction} className="space-y-4">
+                  <form key={`form-${formKey}`} action={formAction} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
                       <Input
