@@ -22,40 +22,74 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
+    <motion.header 
+      className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link
           href="/"
           className="font-heading text-xl font-bold tracking-tight"
         >
-          <span className="text-foreground">Ahmed</span>
-          <span className="text-primary">.</span>
+          <motion.span 
+            className="text-foreground"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          >
+            Ahmed
+          </motion.span>
+          <motion.span 
+            className="text-primary"
+            animate={{ opacity: [1, 0.5, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            .
+          </motion.span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex md:items-center md:gap-6">
-          {navLinks.map((link) => (
-            <Link
+          {navLinks.map((link, index) => (
+            <motion.div
               key={link.href}
-              href={link.href}
-              className={`relative text-sm font-medium transition-colors hover:text-foreground ${
-                pathname === link.href
-                  ? "text-foreground"
-                  : "text-muted-foreground"
-              }`}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
             >
-              {link.label}
-              {pathname === link.href && (
-                <motion.div
-                  layoutId="navbar-indicator"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                  initial={false}
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                />
-              )}
-            </Link>
+              <Link
+                href={link.href}
+                className={`relative text-sm font-medium transition-colors hover:text-foreground ${
+                  pathname === link.href
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                }`}
+              >
+                <motion.span
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  {link.label}
+                </motion.span>
+                {pathname === link.href && (
+                  <motion.div
+                    layoutId="navbar-indicator"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
+              </Link>
+            </motion.div>
           ))}
-          <ThemeToggle />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            <ThemeToggle />
+          </motion.div>
         </div>
 
         {/* Mobile Navigation */}
@@ -64,7 +98,7 @@ export function Navbar() {
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
-                <svg
+                <motion.svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -74,11 +108,13 @@ export function Navbar() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <line x1="4" x2="20" y1="12" y2="12" />
                   <line x1="4" x2="20" y1="6" y2="6" />
                   <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
+                </motion.svg>
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
@@ -101,7 +137,13 @@ export function Navbar() {
                             : "text-muted-foreground"
                         }`}
                       >
-                        {link.label}
+                        <motion.span
+                          whileHover={{ x: 10 }}
+                          transition={{ type: "spring", stiffness: 400 }}
+                          className="inline-block"
+                        >
+                          {link.label}
+                        </motion.span>
                       </Link>
                     </motion.div>
                   ))}
@@ -111,7 +153,6 @@ export function Navbar() {
           </Sheet>
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 }
-

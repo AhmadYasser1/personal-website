@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 export function Hero() {
   return (
@@ -45,6 +46,9 @@ export function Hero() {
             ease: "easeInOut",
           }}
         />
+        
+        {/* Animated grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
       </div>
 
       <div className="container mx-auto px-4">
@@ -54,9 +58,13 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+            <motion.span 
+              className="inline-block px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
               Digital Fellow at BSE Global
-            </span>
+            </motion.span>
           </motion.div>
 
           <motion.h1
@@ -65,10 +73,21 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Hi, I&apos;m{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              Hi, I&apos;m{" "}
+            </motion.span>
+            <motion.span 
+              className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60 inline-block"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
               Ahmed Yasser
-            </span>
+            </motion.span>
           </motion.h1>
 
           <motion.p
@@ -88,23 +107,27 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Button asChild size="lg" className="min-w-[160px]">
-              <Link href="/projects">View Projects</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="min-w-[160px]">
-              <Link href="/contact">Get in Touch</Link>
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button asChild size="lg" className="min-w-[160px]">
+                <Link href="/projects">View Projects</Link>
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button asChild variant="outline" size="lg" className="min-w-[160px]">
+                <Link href="/contact">Get in Touch</Link>
+              </Button>
+            </motion.div>
           </motion.div>
 
           <motion.div
-            className="mt-16 flex items-center justify-center gap-8 flex-wrap"
+            className="mt-16 flex items-center justify-center gap-8 sm:gap-12 flex-wrap"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <Stat label="GPA" value="4.0" />
-            <Stat label="CHI 2025" value="Published" />
-            <Stat label="Projects" value="20+" />
+            <Stat label="GPA" value={4.0} />
+            <Stat label="CHI 2025" value="Published" isText />
+            <Stat label="Projects" value={20} suffix="+" />
           </motion.div>
         </div>
       </div>
@@ -128,14 +151,37 @@ export function Hero() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ 
+  label, 
+  value, 
+  suffix = "", 
+  isText = false 
+}: { 
+  label: string; 
+  value: number | string; 
+  suffix?: string;
+  isText?: boolean;
+}) {
   return (
-    <div className="text-center">
+    <motion.div 
+      className="text-center"
+      whileHover={{ scale: 1.1 }}
+      transition={{ type: "spring", stiffness: 400 }}
+    >
       <div className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
-        {value}
+        {isText ? (
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
+            {value}
+          </motion.span>
+        ) : (
+          <AnimatedCounter value={value as number} suffix={suffix} duration={1.5} />
+        )}
       </div>
       <div className="text-sm text-muted-foreground">{label}</div>
-    </div>
+    </motion.div>
   );
 }
-

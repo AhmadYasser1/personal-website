@@ -114,3 +114,4 @@ export const projectCategories = [
   { id: "web-dev", label: "Development" },
 ] as const;
 
+
