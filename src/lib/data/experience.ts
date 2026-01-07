@@ -14,7 +14,7 @@ export interface Experience {
 export const experiences: Experience[] = [
   {
     id: "bse-global",
-    company: "Brooklyn Sports & Entertainment Global",
+    company: "Brooklyn Sports & Entertainment",
     role: "Digital Fellow",
     location: "Brooklyn, NY",
     startDate: "June 2025",
@@ -200,5 +200,3 @@ export const researchExperiences: Experience[] = [
     type: "research",
   },
 ];
-
-

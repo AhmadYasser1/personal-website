@@ -63,7 +63,7 @@ export function Hero() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              Digital Fellow at BSE Global
+              Digital Fellow at Brooklyn Sports and Entertainment
             </motion.span>
           </motion.div>
 
@@ -86,7 +86,7 @@ export function Hero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Ahmed Yasser
+              Ahmad Yasser
             </motion.span>
           </motion.h1>
 
@@ -96,9 +96,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Dual-degree CS graduate from UMN (4.0 GPA) and Egypt University of
-            Informatics. Building AI agents and data-driven solutions.
-            Published researcher at CHI 2025.
+            HCI Researcher and Dual-degree CS graduate from University of Minnesota-Twin Cities.
           </motion.p>
 
           <motion.div
@@ -125,8 +123,8 @@ export function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <Stat label="GPA" value={4.0} />
-            <Stat label="CHI 2025" value="Published" isText />
+            <Stat label="GPA" value="4.0" isText />
+            <Stat label="HCI Publications" value="2+" isText />
             <Stat label="Projects" value={20} suffix="+" />
           </motion.div>
         </div>

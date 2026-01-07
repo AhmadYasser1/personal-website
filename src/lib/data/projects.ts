@@ -8,21 +8,49 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   featured: boolean;
+  featuredOrder?: number;
   image?: string;
 }
 
 export const projects: Project[] = [
   {
+    id: "corra",
+    title: "C.O.R.R.A - Opioid Overdose Detection",
+    description:
+      "Research project using Thermal Infrared and RGB cameras to track breathing patterns and identify potential opioid overdoses in public spaces.",
+    longDescription:
+      "Collaborated with Dr. Lana Yarosh and Minzhu Zhao on the C.O.R.R.A. project at GroupLens, which utilizes Thermal Infrared and RGB cameras to track breathing patterns in public spaces, identifying potential opioid overdoses and triggering alarms for intervention.",
+    technologies: ["Python", "Computer Vision", "Thermal Imaging", "Research"],
+    category: "research",
+    githubUrl: "https://github.com/AhmadYasser1/C.O.R.R.A",
+    featured: true,
+    featuredOrder: 1,
+  },
+  {
     id: "word2vec-measurements",
     title: "Meaningful Word2Vec Measurements",
     description:
-      "NLP research on word embeddings with UMN professors, testing new measurements including mahalanobis cosine similarity for semantic relationships.",
+      "NLP research on word embeddings with UMN Carlson School of Management professors, testing new measurements including mahalanobis cosine similarity for semantic relationships.",
     longDescription:
-      "Collaborated with professors Russell J. Funk, Thomas Gebhardt, and Alex Reineck on word embedding research to better understand how natural language processing algorithms capture semantic relationships. Analyzed parameter combinations for embedding models to optimize performance metrics.",
+      "Collaborated with professors Russell J. Funk, Thomas Gebhardt, and Alex Reineck at UMN Carlson School of Management on word embedding research to better understand how natural language processing algorithms capture semantic relationships. Analyzed parameter combinations for embedding models to optimize performance metrics.",
     technologies: ["Python", "NLP", "Word2Vec", "Machine Learning"],
     category: "research",
     githubUrl: "https://github.com/rfunklab/Meaningful-Word2Vec-Measurements",
     featured: true,
+    featuredOrder: 2,
+  },
+  {
+    id: "food-chatbot",
+    title: "Mr. Hungry - Food Recommending Chatbot",
+    description:
+      "Task-oriented food recommendation chatbot helping users find meals based on preferences and dietary restrictions.",
+    longDescription:
+      "Developed a food recommendation chatbot using OCaml, helping users find meals based on preferences and dietary restrictions. Applied natural language processing for fast and accurate responses to user queries.",
+    technologies: ["OCaml", "NLP", "Functional Programming"],
+    category: "ai-ml",
+    githubUrl: "https://github.com/AhmadYasser1/Food-Recommending-Chatbot",
+    featured: true,
+    featuredOrder: 3,
   },
   {
     id: "cinemate",
@@ -35,30 +63,7 @@ export const projects: Project[] = [
     category: "ai-ml",
     githubUrl: "https://github.com/Weiwen58/Cinemate-A_Movie_Identification_System",
     featured: true,
-  },
-  {
-    id: "food-chatbot",
-    title: "Mr. Hungry - Food Recommending Chatbot",
-    description:
-      "Task-oriented food recommendation chatbot built with OCaml and NLP, helping users find meals based on preferences and dietary restrictions.",
-    longDescription:
-      "Developed a food recommendation chatbot using OCaml, helping users find meals based on preferences and dietary restrictions. Applied natural language processing for fast and accurate responses to user queries.",
-    technologies: ["OCaml", "NLP", "Functional Programming"],
-    category: "ai-ml",
-    githubUrl: "https://github.com/AhmadYasser1/Food-Recommending-Chatbot",
-    featured: true,
-  },
-  {
-    id: "corra",
-    title: "C.O.R.R.A - Opioid Overdose Detection",
-    description:
-      "Research project using Thermal Infrared and RGB cameras to track breathing patterns and identify potential opioid overdoses in public spaces.",
-    longDescription:
-      "Collaborated with Dr. Lana Yarosh and Minzhu Zhao on the C.O.R.R.A. project at GroupLens, which utilizes Thermal Infrared and RGB cameras to track breathing patterns in public spaces, identifying potential opioid overdoses and triggering alarms for intervention.",
-    technologies: ["Python", "Computer Vision", "Thermal Imaging", "Research"],
-    category: "research",
-    githubUrl: "https://github.com/AhmadYasser1/C.O.R.R.A",
-    featured: true,
+    featuredOrder: 4,
   },
   {
     id: "advanced-tictactoe",
@@ -113,5 +118,3 @@ export const projectCategories = [
   { id: "research", label: "Research" },
   { id: "web-dev", label: "Development" },
 ] as const;
-
-

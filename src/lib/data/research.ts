@@ -13,7 +13,7 @@ export const publications: Publication[] = [
   {
     id: "happi-chi-2025",
     title: "Fostering Positive Connections Through Interactive Messages: HAPPI",
-    authors: ["Ahmed Yasser Hassanein", "et al."],
+    authors: ["Ahmad Yasser Hassanein", "et al."],
     venue: "CHI 2025 Student Design Competition",
     year: 2025,
     doi: "https://doi.org/10.1145/3706599.3720296",
@@ -24,7 +24,7 @@ export const publications: Publication[] = [
   {
     id: "arabic-pile",
     title: "The Arabic Pile",
-    authors: ["Premio.AI Team", "Ahmed Yasser Hassanein"],
+    authors: ["Premio.AI Team", "Ahmad Yasser Hassanein"],
     venue: "HuggingFace Datasets",
     year: 2024,
     doi: "https://huggingface.co/premio-ai",
@@ -132,5 +132,3 @@ export const socialLinks = {
   medium: "https://medium.com/@ahmadyasser03",
   portfolio: "https://www.datascienceportfol.io/ahmedyhassanein",
 };
-
-

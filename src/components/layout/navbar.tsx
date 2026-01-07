@@ -38,7 +38,7 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
-            Ahmed
+            Ahmad
           </motion.span>
           <motion.span 
             className="text-primary"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,10 +21,15 @@ export function ContactContent() {
     submitContactForm,
     initialState
   );
+  const [key, setKey] = useState(0);
+
+  const handleSendAnother = () => {
+    setKey((prev) => prev + 1);
+  };
 
   return (
     <div className="min-h-screen py-24">
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4 max-w-2xl">
         {/* Header */}
         <motion.div
           className="text-center mb-16"
@@ -41,11 +46,11 @@ export function ContactContent() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <Card>
@@ -55,6 +60,7 @@ export function ContactContent() {
               <CardContent>
                 {state.success ? (
                   <motion.div
+                    key={`success-${key}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-8"
@@ -79,10 +85,13 @@ export function ContactContent() {
                     <h3 className="font-semibold text-lg mb-2">
                       Message Sent!
                     </h3>
-                    <p className="text-muted-foreground">{state.message}</p>
+                    <p className="text-muted-foreground mb-6">{state.message}</p>
+                    <Button onClick={handleSendAnother} variant="outline">
+                      Send another message?
+                    </Button>
                   </motion.div>
                 ) : (
-                  <form action={formAction} className="space-y-4">
+                  <form key={`form-${key}`} action={formAction} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
                       <Input
@@ -173,68 +182,18 @@ export function ContactContent() {
             </Card>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Connect Card */}
           <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card>
-              <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ContactItem
-                  icon={
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect width="20" height="16" x="2" y="4" rx="2" />
-                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                    </svg>
-                  }
-                  label="Email"
-                  value={socialLinks.email}
-                  href={`mailto:${socialLinks.email}`}
-                />
-                <ContactItem
-                  icon={
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                  }
-                  label="Location"
-                  value="Brooklyn, NY"
-                />
-              </CardContent>
-            </Card>
-
             <Card>
               <CardHeader>
                 <CardTitle>Connect</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <SocialLink
                     href={socialLinks.github}
                     label="GitHub"
@@ -305,41 +264,6 @@ export function ContactContent() {
   );
 }
 
-function ContactItem({
-  icon,
-  label,
-  value,
-  href,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  href?: string;
-}) {
-  const content = (
-    <div className="flex items-center gap-3">
-      <div className="text-muted-foreground">{icon}</div>
-      <div>
-        <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="font-medium">{value}</p>
-      </div>
-    </div>
-  );
-
-  if (href) {
-    return (
-      <Link
-        href={href}
-        className="block hover:text-primary transition-colors"
-      >
-        {content}
-      </Link>
-    );
-  }
-
-  return content;
-}
-
 function SocialLink({
   href,
   label,
@@ -361,5 +285,3 @@ function SocialLink({
     </Link>
   );
 }
-
-

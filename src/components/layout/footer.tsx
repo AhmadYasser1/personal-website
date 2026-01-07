@@ -36,26 +36,6 @@ const socialIcons = [
     ),
   },
   {
-    href: `mailto:${socialLinks.email}`,
-    label: "Email",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect width="20" height="16" x="2" y="4" rx="2" />
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-      </svg>
-    ),
-  },
-  {
     href: socialLinks.orcid,
     label: "ORCID",
     icon: (
@@ -73,8 +53,6 @@ const socialIcons = [
 ];
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <motion.footer 
       className="border-t border-border/40 bg-background"
@@ -96,7 +74,7 @@ export function Footer() {
               href="/"
               className="font-heading text-lg font-bold tracking-tight"
             >
-              <span className="text-foreground">Ahmed Yasser</span>
+              <span className="text-foreground">Ahmad Yasser</span>
               <motion.span 
                 className="text-primary"
                 animate={{ opacity: [1, 0.5, 1] }}
@@ -106,7 +84,7 @@ export function Footer() {
               </motion.span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              CS Graduate | AI Researcher | Digital Fellow at BSE Global
+              AI Researcher | Digital Fellow at Brooklyn Sports and Entertainment
             </p>
           </motion.div>
 
@@ -128,8 +106,8 @@ export function Footer() {
               >
                 <Link
                   href={social.href}
-                  target={social.href.startsWith("mailto") ? undefined : "_blank"}
-                  rel={social.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground transition-colors hover:text-foreground"
                   aria-label={social.label}
                 >
@@ -139,19 +117,6 @@ export function Footer() {
             ))}
           </motion.div>
         </div>
-
-        <motion.div 
-          className="mt-8 border-t border-border/40 pt-6 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-        >
-          <p className="text-sm text-muted-foreground">
-            {currentYear} Ahmed Yasser Hassanein. Built with Next.js and
-            Tailwind CSS.
-          </p>
-        </motion.div>
       </div>
     </motion.footer>
   );

@@ -45,7 +45,7 @@ export function AboutContent() {
                   </p>
                   <p className="leading-relaxed">
                     Currently making waves at{" "}
-                    <strong>BSE Global (Brooklyn Nets/Barclays Center)</strong> as
+                    <strong>Brooklyn Sports & Entertainment (Brooklyn Nets/Barclays Center)</strong> as
                     a Digital Fellow, where I get to merge my love for sports,
                     technology, and data. My journey spans multiple domains - from
                     developing machine learning models to researching word

@@ -19,37 +19,37 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Ahmed Yasser | CS Graduate & AI Researcher",
-    template: "%s | Ahmed Yasser",
+    default: "Ahmad Yasser | HCI Researcher",
+    template: "%s | Ahmad Yasser",
   },
   description:
-    "Dual-degree CS graduate from UMN and EUI. Digital Fellow at BSE Global. Published researcher at CHI 2025. Building AI agents and data-driven solutions.",
+    "Dual-degree CS graduate from University of Minnesota-Twin Cities. Digital Fellow at Brooklyn Sports and Entertainment. HCI Researcher with 2+ publications.",
   keywords: [
-    "Ahmed Yasser",
+    "Ahmad Yasser",
     "Software Engineer",
-    "AI Researcher",
+    "HCI Researcher",
     "Data Science",
     "Machine Learning",
     "Brooklyn Nets",
-    "BSE Global",
+    "Brooklyn Sports and Entertainment",
     "University of Minnesota",
   ],
-  authors: [{ name: "Ahmed Yasser Hassanein" }],
-  creator: "Ahmed Yasser Hassanein",
+  authors: [{ name: "Ahmad Yasser Hassanein" }],
+  creator: "Ahmad Yasser Hassanein",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ahmedyasser.dev",
-    siteName: "Ahmed Yasser Portfolio",
-    title: "Ahmed Yasser | CS Graduate & AI Researcher",
+    url: "https://ahmadyasser.dev",
+    siteName: "Ahmad Yasser Portfolio",
+    title: "Ahmad Yasser | HCI Researcher",
     description:
-      "Dual-degree CS graduate. Digital Fellow at BSE Global. Published researcher at CHI 2025.",
+      "Dual-degree CS graduate. Digital Fellow at Brooklyn Sports and Entertainment. HCI Researcher.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ahmed Yasser | CS Graduate & AI Researcher",
+    title: "Ahmad Yasser | HCI Researcher",
     description:
-      "Dual-degree CS graduate. Digital Fellow at BSE Global. Published researcher at CHI 2025.",
+      "Dual-degree CS graduate. Digital Fellow at Brooklyn Sports and Entertainment. HCI Researcher.",
   },
   robots: {
     index: true,
