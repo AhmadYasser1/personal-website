@@ -84,7 +84,7 @@ export function Footer() {
               </motion.span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              AI Researcher | Digital Fellow at Brooklyn Sports and Entertainment
+              HCI Researcher | Digital Fellow at Brooklyn Sports and Entertainment
             </p>
           </motion.div>
 
