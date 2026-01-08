@@ -47,7 +47,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "umn-cse-it",
-    company: "University of Minnesota",
+    company: "University of Minnesota - Twin Cities",
     role: "CSE-IT Service Desk Student Worker",
     location: "Minneapolis, MN",
     startDate: "August 2024",

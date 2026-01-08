@@ -96,7 +96,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            HCI Researcher and Dual-degree CS graduate from University of Minnesota-Twin Cities.
+            HCI Researcher and Dual-degree CS graduate from University of Minnesota - Twin Cities.
           </motion.p>
 
           <motion.div

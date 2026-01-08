@@ -4,9 +4,79 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { publications } from "@/lib/data/research";
+import { publications, type Publication } from "@/lib/data/research";
 import { researchExperiences } from "@/lib/data/experience";
+
+function getPublicationBadge(type: Publication["type"]) {
+  switch (type) {
+    case "conference":
+      return { label: "Conference", variant: "default" as const };
+    case "workshop":
+      return { label: "Workshop", variant: "default" as const };
+    case "dataset":
+      return { label: "Dataset", variant: "secondary" as const };
+    default:
+      return { label: type, variant: "secondary" as const };
+  }
+}
+
+function PublicationCard({ pub }: { pub: Publication }) {
+  const badge = getPublicationBadge(pub.type);
+  
+  return (
+    <Card className="hover:border-primary/50 transition-colors cursor-pointer group">
+      <CardHeader>
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Badge variant={badge.variant}>
+                {badge.label}
+              </Badge>
+              <span className="text-sm text-muted-foreground">
+                {pub.year}
+              </span>
+            </div>
+            <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">
+              {pub.title}
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mb-2">
+              {pub.authors.join(", ")}
+            </p>
+            <p className="text-sm font-medium text-primary">
+              {pub.venue}
+            </p>
+          </div>
+          {pub.doi && (
+            <div className="text-muted-foreground group-hover:text-primary transition-colors shrink-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" x2="21" y1="14" y2="3" />
+              </svg>
+            </div>
+          )}
+        </div>
+      </CardHeader>
+      {pub.abstract && (
+        <CardContent>
+          <p className="text-muted-foreground text-sm">
+            {pub.abstract}
+          </p>
+        </CardContent>
+      )}
+    </Card>
+  );
+}
 
 export function ResearchContent() {
   return (
@@ -43,74 +113,15 @@ export function ResearchContent() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
+                whileHover={{ y: -3 }}
               >
-                <Card className="hover:border-primary/50 transition-colors">
-                  <CardHeader>
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge
-                            variant={
-                              pub.type === "conference"
-                                ? "default"
-                                : "secondary"
-                            }
-                          >
-                            {pub.type === "conference"
-                              ? "Conference"
-                              : "Dataset"}
-                          </Badge>
-                          <span className="text-sm text-muted-foreground">
-                            {pub.year}
-                          </span>
-                        </div>
-                        <CardTitle className="text-xl mb-2">
-                          {pub.title}
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          {pub.authors.join(", ")}
-                        </p>
-                        <p className="text-sm font-medium text-primary">
-                          {pub.venue}
-                        </p>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    {pub.abstract && (
-                      <p className="text-muted-foreground text-sm mb-4">
-                        {pub.abstract}
-                      </p>
-                    )}
-                    {pub.doi && (
-                      <Button asChild variant="outline" size="sm">
-                        <Link
-                          href={pub.doi}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="mr-2"
-                          >
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                            <polyline points="15 3 21 3 21 9" />
-                            <line x1="10" x2="21" y1="14" y2="3" />
-                          </svg>
-                          View Publication
-                        </Link>
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
+                {pub.doi ? (
+                  <Link href={pub.doi} target="_blank" rel="noopener noreferrer" className="block">
+                    <PublicationCard pub={pub} />
+                  </Link>
+                ) : (
+                  <PublicationCard pub={pub} />
+                )}
               </motion.div>
             ))}
           </div>
@@ -174,5 +185,6 @@ export function ResearchContent() {
     </div>
   );
 }
+
 
 
