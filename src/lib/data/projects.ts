@@ -10,6 +10,7 @@ export interface Project {
   featured: boolean;
   featuredOrder?: number;
   image?: string;
+  isPrivate?: boolean;
 }
 
 export const projects: Project[] = [
@@ -109,6 +110,30 @@ export const projects: Project[] = [
     liveUrl: "https://huggingface.co/premio-ai",
     featured: false,
   },
+  {
+    id: "customer-feedback-dashboard",
+    title: "Customer Feedback Executive Dashboard",
+    description:
+      "Tableau dashboard for executives to make data-driven decisions based on customer feedback for Brooklyn Nets games, NY Liberty games, and Barclays Center events.",
+    longDescription:
+      "Built a comprehensive Tableau dashboard for executive stakeholders at Brooklyn Sports & Entertainment to analyze customer feedback across Brooklyn Nets games, New York Liberty games, and Barclays Center events & concerts, enabling data-driven decision making.",
+    technologies: ["Snowflake", "Tableau", "Python", "Monday.com", "Claude Code", "PostgreSQL"],
+    category: "data-analysis",
+    featured: false,
+    isPrivate: true,
+  },
+  {
+    id: "partnerships-sales-agent",
+    title: "Partnerships Sales Agent",
+    description:
+      "AI Agent for partnerships sales reps to create partnership stories between Brooklyn Sports & Entertainment properties and prospective brands using internal and public data.",
+    longDescription:
+      "Developed an AI agent that partnerships sales reps at Brooklyn Sports & Entertainment chat with to help create partnership stories between current properties and prospective brands. The agent researches brands and generates stories based on internal and public data.",
+    technologies: ["LangGraph", "LangChain", "Slack", "AWS EC2", "Cursor", "Codex", "AWS Athena", "DynamoDB", "AWS Bedrock", "AWS S3"],
+    category: "ai-ml",
+    featured: false,
+    isPrivate: true,
+  },
 ];
 
 export const projectCategories = [
@@ -118,3 +143,13 @@ export const projectCategories = [
   { id: "research", label: "Research" },
   { id: "web-dev", label: "Development" },
 ] as const;
+
+export const getCategoryLabel = (category: string): string => {
+  const categoryMap: Record<string, string> = {
+    "ai-ml": "AI & ML",
+    "data-analysis": "Data Analysis",
+    "research": "Research",
+    "web-dev": "Development",
+  };
+  return categoryMap[category] || category;
+};
