@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -21,6 +21,27 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [indicatorProps, setIndicatorProps] = useState({ left: 0, width: 0 });
+  const navLinksRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const navContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const activeIndex = navLinks.findIndex(link => link.href === pathname);
+    if (activeIndex !== -1 && navLinksRefs.current[activeIndex] && navContainerRef.current) {
+      const activeLink = navLinksRefs.current[activeIndex];
+      const container = navContainerRef.current;
+      
+      if (activeLink && container) {
+        const linkRect = activeLink.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        
+        const left = linkRect.left - containerRect.left;
+        const width = linkRect.width;
+        
+        setIndicatorProps({ left, width });
+      }
+    }
+  }, [pathname]);
 
   return (
     <motion.header 
@@ -51,7 +72,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex md:items-center md:gap-6">
+        <div ref={navContainerRef} className="hidden md:flex md:items-center md:gap-6 relative">
           {navLinks.map((link, index) => (
             <motion.div
               key={link.href}
@@ -60,6 +81,7 @@ export function Navbar() {
               transition={{ delay: index * 0.1 }}
             >
               <Link
+                ref={(el) => { navLinksRefs.current[index] = el; }}
                 href={link.href}
                 className={`relative text-sm font-medium transition-colors hover:text-foreground ${
                   pathname === link.href
@@ -73,18 +95,20 @@ export function Navbar() {
                 >
                   {link.label}
                 </motion.span>
-                {pathname === link.href && (
-                  <motion.div
-                    layoutId="navbar-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                    initial={false}
-                    layout="position"
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
               </Link>
             </motion.div>
           ))}
+          {indicatorProps.width > 0 && (
+            <motion.div
+              className="absolute -bottom-1 h-0.5 bg-primary"
+              initial={false}
+              animate={{
+                left: indicatorProps.left,
+                width: indicatorProps.width,
+              }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
+          )}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
