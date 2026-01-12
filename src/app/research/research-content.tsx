@@ -14,7 +14,7 @@ function getPublicationBadge(type: Publication["type"]) {
     case "workshop":
       return { label: "Workshop", variant: "default" as const };
     case "dataset":
-      return { label: "Dataset", variant: "secondary" as const };
+      return { label: "Dataset", variant: "default" as const };
     default:
       return { label: type, variant: "secondary" as const };
   }

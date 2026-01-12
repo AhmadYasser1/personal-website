@@ -96,6 +96,7 @@ export const education: Education[] = [
     achievements: [
       "Ranked 6th in Faculty of Computing & Information Sciences",
       "Founder & President of EUI Competitive Programming Community",
+      "Co-lead at Google Developer Student Club EUI",
       "Head of Project Management for Enactus EUI",
       "Certificate of Appreciation for Outstanding Performance in Extracurricular Activities",
     ],

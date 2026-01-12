@@ -40,7 +40,6 @@ export const experiences: Experience[] = [
       "Developed AI prototypes for healthcare risk detection at an early-stage startup.",
     achievements: [
       "Automated technical workflows to help set up the startup's initial AI infrastructure",
-      "Developed AI prototypes for risk detection by analyzing complex health datasets",
     ],
     technologies: ["Python", "Machine Learning", "Healthcare AI"],
     type: "work",
