@@ -78,6 +78,7 @@ export function Navbar() {
                     layoutId="navbar-indicator"
                     className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
                     initial={false}
+                    layout="position"
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
