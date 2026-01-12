@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -79,6 +80,7 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
