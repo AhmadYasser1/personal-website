@@ -1,9 +1,68 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/lib/data/experience";
+
+// Skill icons mapping - using simple-icons CDN for tech logos
+const skillIcons: Record<string, string> = {
+  // Programming
+  Python: "https://cdn.simpleicons.org/python",
+  "C/C++": "https://cdn.simpleicons.org/cplusplus",
+  "C#": "https://cdn.simpleicons.org/csharp",
+  TypeScript: "https://cdn.simpleicons.org/typescript",
+  SQL: "https://cdn.simpleicons.org/mysql",
+  // Frameworks & Libraries
+  React: "https://cdn.simpleicons.org/react",
+  "Next.js": "https://cdn.simpleicons.org/nextdotjs",
+  Flask: "https://cdn.simpleicons.org/flask",
+  "ASP.NET": "https://cdn.simpleicons.org/dotnet",
+  LangChain: "https://cdn.simpleicons.org/langchain",
+  LangGraph: "https://cdn.simpleicons.org/langchain",
+  Flutter: "https://cdn.simpleicons.org/flutter",
+  // Data Science & ML
+  Pandas: "https://cdn.simpleicons.org/pandas",
+  NumPy: "https://cdn.simpleicons.org/numpy",
+  "Scikit-Learn": "https://cdn.simpleicons.org/scikitlearn",
+  PySpark: "https://cdn.simpleicons.org/apachespark",
+  Matplotlib: "https://cdn.simpleicons.org/plotly",
+  "Machine Learning": "https://cdn.simpleicons.org/tensorflow",
+  NLP: "https://cdn.simpleicons.org/openai",
+  Word2Vec: "https://cdn.simpleicons.org/openai",
+  "Computer Vision": "https://cdn.simpleicons.org/opencv",
+  // Tools & Platforms
+  Git: "https://cdn.simpleicons.org/git",
+  GitHub: "https://cdn.simpleicons.org/github",
+  Jira: "https://cdn.simpleicons.org/jira",
+  "Monday.com": "https://cdn.simpleicons.org/monday",
+  "Power BI": "https://cdn.simpleicons.org/powerbi",
+  Tableau: "https://cdn.simpleicons.org/tableau",
+  Snowflake: "https://cdn.simpleicons.org/snowflake",
+  PostgreSQL: "https://cdn.simpleicons.org/postgresql",
+  HuggingFace: "https://cdn.simpleicons.org/huggingface",
+  // AWS
+  "Amazon S3": "https://cdn.simpleicons.org/amazons3",
+  "AWS Athena": "https://cdn.simpleicons.org/amazonaws",
+  "AWS Glue": "https://cdn.simpleicons.org/amazonaws",
+  DynamoDB: "https://cdn.simpleicons.org/amazondynamodb",
+  AppFlow: "https://cdn.simpleicons.org/amazonaws",
+  EC2: "https://cdn.simpleicons.org/amazonec2",
+  ECS: "https://cdn.simpleicons.org/amazonecs",
+  Lambda: "https://cdn.simpleicons.org/awslambda",
+  "AWS Bedrock": "https://cdn.simpleicons.org/amazonaws",
+  "Bedrock AgentCore": "https://cdn.simpleicons.org/amazonaws",
+  "API Gateway": "https://cdn.simpleicons.org/amazonapigateway",
+  // Development Tools
+  Cursor: "https://cdn.simpleicons.org/cursor",
+  "Claude Code": "https://cdn.simpleicons.org/anthropic",
+  Linux: "https://cdn.simpleicons.org/linux",
+  SSH: "https://cdn.simpleicons.org/gnubash",
+  // Methodologies
+  SCRUM: "https://cdn.simpleicons.org/scrumalliance",
+  "Project Management": "https://cdn.simpleicons.org/trello",
+};
 
 export function ExperienceContent() {
   return (
@@ -94,29 +153,6 @@ function ExperienceCard({ experience, index }: ExperienceCardProps) {
         <CardHeader>
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
-              <motion.div 
-                className="flex items-center gap-2 mb-2"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 + index * 0.1 }}
-              >
-                <Badge
-                  variant={
-                    experience.type === "work"
-                      ? "default"
-                      : experience.type === "research"
-                      ? "secondary"
-                      : "outline"
-                  }
-                >
-                  {experience.type === "work"
-                    ? "Work"
-                    : experience.type === "research"
-                    ? "Research"
-                    : "Teaching"}
-                </Badge>
-              </motion.div>
               <CardTitle className="text-xl">{experience.company}</CardTitle>
               <p className="text-primary font-medium">{experience.role}</p>
               <p className="text-sm text-muted-foreground">
@@ -133,7 +169,7 @@ function ExperienceCard({ experience, index }: ExperienceCardProps) {
 
           <div className="mb-4">
             <h4 className="text-sm font-semibold mb-2">Key Achievements</h4>
-            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+            <ul className="list-disc list-outside pl-5 text-sm text-muted-foreground space-y-1">
               {experience.achievements.map((achievement, i) => (
                 <motion.li 
                   key={achievement}
@@ -149,20 +185,45 @@ function ExperienceCard({ experience, index }: ExperienceCardProps) {
           </div>
 
           <div className="flex flex-wrap gap-1.5">
-            {experience.technologies.map((tech, i) => (
-              <motion.div
-                key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 + i * 0.05 }}
-                whileHover={{ scale: 1.1 }}
-              >
-                <Badge variant="secondary" className="text-xs">
-                  {tech}
-                </Badge>
-              </motion.div>
-            ))}
+            {experience.technologies.map((tech, i) => {
+              const iconUrl = skillIcons[tech];
+              return (
+                <motion.div
+                  key={tech}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + i * 0.05 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  {iconUrl ? (
+                    <Link
+                      href={`https://www.google.com/search?q=${encodeURIComponent(tech)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block"
+                    >
+                      <Badge variant="secondary" className="text-xs flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 transition-colors">
+                        <img
+                          src={iconUrl}
+                          alt={tech}
+                          className="w-3 h-3"
+                          style={{ filter: "brightness(0) saturate(100%) invert(1)" }}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = "none";
+                          }}
+                        />
+                        {tech}
+                      </Badge>
+                    </Link>
+                  ) : (
+                    <Badge variant="secondary" className="text-xs">
+                      {tech}
+                    </Badge>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </CardContent>
       </Card>

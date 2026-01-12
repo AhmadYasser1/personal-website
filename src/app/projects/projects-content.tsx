@@ -66,6 +66,7 @@ export function ProjectsContent() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="h-full"
               >
                 <ProjectCard project={project} />
               </motion.div>
