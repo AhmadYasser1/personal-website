@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const navLinks = [
@@ -119,6 +120,9 @@ export function Navbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <VisuallyHidden.Root>
+                <SheetTitle>Navigation Menu</SheetTitle>
+              </VisuallyHidden.Root>
               <nav className="flex flex-col gap-4 mt-8">
                 <AnimatePresence>
                   {navLinks.map((link, index) => (
