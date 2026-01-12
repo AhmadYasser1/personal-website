@@ -78,8 +78,8 @@ export function AboutContent() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.15}>
-            <StaggerItem>
-              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
+            <StaggerItem className="h-full">
+              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
@@ -95,8 +95,8 @@ export function AboutContent() {
                 </Card>
               </motion.div>
             </StaggerItem>
-            <StaggerItem>
-              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
+            <StaggerItem className="h-full">
+              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
@@ -112,8 +112,8 @@ export function AboutContent() {
                 </Card>
               </motion.div>
             </StaggerItem>
-            <StaggerItem>
-              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
+            <StaggerItem className="h-full">
+              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
@@ -203,16 +203,16 @@ export function AboutContent() {
             Technical Skills
           </h2>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
-            <StaggerItem>
+            <StaggerItem className="h-full">
               <SkillCategory title="Programming Languages" skills={skills.programming} />
             </StaggerItem>
-            <StaggerItem>
+            <StaggerItem className="h-full">
               <SkillCategory title="Frameworks & Libraries" skills={skills.frameworks} />
             </StaggerItem>
-            <StaggerItem>
+            <StaggerItem className="h-full">
               <SkillCategory title="Data Science" skills={skills.dataScience} />
             </StaggerItem>
-            <StaggerItem>
+            <StaggerItem className="h-full">
               <SkillCategory title="Tools & Platforms" skills={skills.tools} />
             </StaggerItem>
           </StaggerContainer>

@@ -65,6 +65,7 @@ export function FeaturedProjects() {
                 visible: { opacity: 1, y: 0, scale: 1 },
               }}
               transition={{ duration: 0.5, ease: "easeOut" }}
+              className="h-full"
             >
               <ProjectCard project={project} />
             </motion.div>
