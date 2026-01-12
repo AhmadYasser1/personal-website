@@ -69,7 +69,12 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} font-body antialiased min-h-screen flex flex-col`}
       >
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
