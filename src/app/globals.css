@@ -123,8 +123,16 @@
   }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 0;
   }
   body {
     @apply bg-background text-foreground;
+    scroll-behavior: smooth;
+  }
+  
+  /* Ensure page starts at top on refresh */
+  html, body {
+    scroll-padding-top: 0;
+    scroll-margin-top: 0;
   }
 }
