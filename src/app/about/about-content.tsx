@@ -1,61 +1,85 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { education, awards, skills } from "@/lib/data/research";
 import { StaggerContainer, StaggerItem } from "@/components/ui/animated-section";
+import {
+  Code2,
+  Database,
+  Cpu,
+  Globe,
+  BarChart3,
+  Cloud,
+  GitBranch,
+  Server,
+  Brain,
+  MessageSquare,
+  PieChart,
+  Users,
+  Zap,
+  Package,
+  Wrench,
+  Lightbulb,
+  Target,
+  Layers,
+  Activity,
+  Box,
+  GitPullRequest,
+  Terminal,
+  Braces,
+} from "lucide-react";
 
-// Skill icons mapping - using simple-icons CDN for tech logos
-const skillIcons: Record<string, string> = {
+// Icon mapping using Lucide React icons
+const skillIcons: Record<string, any> = {
   // Programming
-  Python: "https://cdn.simpleicons.org/python",
-  "C/C++": "https://cdn.simpleicons.org/cplusplus",
-  OCaml: "https://cdn.simpleicons.org/ocaml",
-  TypeScript: "https://cdn.simpleicons.org/typescript",
-  SQL: "https://cdn.simpleicons.org/mysql",
+  Python: Code2,
+  "C/C++": Terminal,
+  OCaml: Braces,
+  TypeScript: Code2,
+  SQL: Database,
   // Frameworks
-  React: "https://cdn.simpleicons.org/react",
-  "Next.js": "https://cdn.simpleicons.org/nextdotjs",
-  Flask: "https://cdn.simpleicons.org/flask",
-  LangChain: "https://cdn.simpleicons.org/langchain",
-  LangGraph: "https://cdn.simpleicons.org/langchain",
+  React: Globe,
+  "Next.js": Layers,
+  Flask: Package,
+  LangChain: Brain,
+  LangGraph: Brain,
   // Data Science
-  Pandas: "https://cdn.simpleicons.org/pandas",
-  NumPy: "https://cdn.simpleicons.org/numpy",
-  "Scikit-Learn": "https://cdn.simpleicons.org/scikitlearn",
-  PySpark: "https://cdn.simpleicons.org/apachespark",
-  Matplotlib: "https://cdn.simpleicons.org/plotly",
+  Pandas: BarChart3,
+  NumPy: BarChart3,
+  "Scikit-Learn": Brain,
+  PySpark: Activity,
+  Matplotlib: PieChart,
   // Tools & Platforms
-  Git: "https://cdn.simpleicons.org/git",
-  GitHub: "https://cdn.simpleicons.org/github",
-  Jira: "https://cdn.simpleicons.org/jira",
-  "Monday.com": "https://cdn.simpleicons.org/mondaydotcom",
-  "Power BI": "https://cdn.simpleicons.org/microsoftpowerbi",
-  Tableau: "https://cdn.simpleicons.org/tableau",
-  Snowflake: "https://cdn.simpleicons.org/snowflake",
-  PostgreSQL: "https://cdn.simpleicons.org/postgresql",
-  "Amazon S3": "https://cdn.simpleicons.org/amazons3",
-  "AWS Athena": "https://cdn.simpleicons.org/amazonwebservices",
-  "AWS Glue": "https://cdn.simpleicons.org/amazonwebservices",
-  DynamoDB: "https://cdn.simpleicons.org/amazondynamodb",
-  AppFlow: "https://cdn.simpleicons.org/amazonwebservices",
-  EC2: "https://cdn.simpleicons.org/amazonec2",
-  ECS: "https://cdn.simpleicons.org/amazonecs",
-  Lambda: "https://cdn.simpleicons.org/awslambda",
-  "AWS Bedrock": "https://cdn.simpleicons.org/amazonwebservices",
-  "Bedrock AgentCore": "https://cdn.simpleicons.org/amazonwebservices",
-  "API Gateway": "https://cdn.simpleicons.org/amazonapigateway",
-  Cursor: "https://cdn.simpleicons.org/cursor",
-  "Claude Code": "https://cdn.simpleicons.org/anthropic",
+  Git: GitBranch,
+  GitHub: GitPullRequest,
+  Jira: Target,
+  "Monday.com": Users,
+  "Power BI": PieChart,
+  Tableau: BarChart3,
+  Snowflake: Cloud,
+  PostgreSQL: Database,
+  "Amazon S3": Cloud,
+  "AWS Athena": Server,
+  "AWS Glue": Server,
+  DynamoDB: Database,
+  AppFlow: Zap,
+  EC2: Server,
+  ECS: Server,
+  Lambda: Zap,
+  "AWS Bedrock": Brain,
+  "Bedrock AgentCore": Brain,
+  "API Gateway": Server,
+  Cursor: Code2,
+  "Claude Code": Brain,
   // Concepts
-  "Machine Learning": "https://cdn.simpleicons.org/tensorflow",
-  NLP: "https://cdn.simpleicons.org/openai",
-  "Data Analytics": "https://cdn.simpleicons.org/googledatastudio",
-  "Agile/SCRUM": "https://cdn.simpleicons.org/jira",
-  OOP: "https://cdn.simpleicons.org/java",
+  "Machine Learning": Brain,
+  NLP: MessageSquare,
+  "Data Analytics": BarChart3,
+  "Agile/SCRUM": Users,
+  OOP: Code2,
 };
 
 export function AboutContent() {
@@ -209,7 +233,7 @@ export function AboutContent() {
           <h2 className="font-heading text-2xl font-bold mb-6">
             Technical Skills
           </h2>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
             <StaggerItem className="h-full">
               <SkillCategory title="Programming Languages" skills={skills.programming} />
             </StaggerItem>
@@ -221,6 +245,9 @@ export function AboutContent() {
             </StaggerItem>
             <StaggerItem className="h-full">
               <SkillCategory title="Tools & Platforms" skills={skills.tools} />
+            </StaggerItem>
+            <StaggerItem className="h-full">
+              <SkillCategory title="Concepts" skills={skills.concepts} />
             </StaggerItem>
           </StaggerContainer>
         </motion.section>
@@ -285,7 +312,7 @@ function SkillCategory({ title, skills: skillList }: { title: string; skills: st
         <CardContent className="flex-1">
           <div className="flex flex-wrap gap-2">
             {skillList.map((skill, index) => {
-              const iconUrl = skillIcons[skill];
+              const IconComponent = skillIcons[skill];
               return (
                 <motion.div
                   key={skill}
@@ -295,30 +322,22 @@ function SkillCategory({ title, skills: skillList }: { title: string; skills: st
                   transition={{ delay: index * 0.03 }}
                   whileHover={{ scale: 1.1 }}
                 >
-                  {iconUrl ? (
-                    <Link
-                      href={`https://www.google.com/search?q=${encodeURIComponent(skill)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block"
-                    >
-                      <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 transition-colors">
-                        <Image
-                          src={iconUrl}
-                          alt={skill}
-                          width={14}
-                          height={14}
-                          className="w-3.5 h-3.5 dark:invert"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = "none";
-                          }}
+                  <Link
+                    href={`https://www.google.com/search?q=${encodeURIComponent(skill)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block"
+                  >
+                    <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 transition-colors">
+                      {IconComponent && (
+                        <IconComponent 
+                          className="w-3.5 h-3.5 text-current" 
+                          strokeWidth={2}
                         />
-                        {skill}
-                      </Badge>
-                    </Link>
-                  ) : (
-                    <Badge variant="secondary">{skill}</Badge>
-                  )}
+                      )}
+                      {skill}
+                    </Badge>
+                  </Link>
                 </motion.div>
               );
             })}
