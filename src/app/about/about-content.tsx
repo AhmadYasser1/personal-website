@@ -52,28 +52,32 @@ const skillIcons: Record<string, any> = {
   "Scikit-Learn": Brain,
   PySpark: Activity,
   Matplotlib: PieChart,
-  // Tools & Platforms
+  // Cloud
+  "Amazon S3": Cloud,
+  EC2: Server,
+  ECS: Server,
+  Lambda: Zap,
+  Snowflake: Cloud,
+  // Databases
+  PostgreSQL: Database,
+  DynamoDB: Database,
+  "AWS Athena": Server,
+  "AWS Glue": Server,
+  // Development Tools
   Git: GitBranch,
   GitHub: GitPullRequest,
   Jira: Target,
   "Monday.com": Users,
+  Cursor: Code2,
+  "Claude Code": Brain,
+  // Analytics
   "Power BI": PieChart,
   Tableau: BarChart3,
-  Snowflake: Cloud,
-  PostgreSQL: Database,
-  "Amazon S3": Cloud,
-  "AWS Athena": Server,
-  "AWS Glue": Server,
-  DynamoDB: Database,
   AppFlow: Zap,
-  EC2: Server,
-  ECS: Server,
-  Lambda: Zap,
+  // AI Services
   "AWS Bedrock": Brain,
   "Bedrock AgentCore": Brain,
   "API Gateway": Server,
-  Cursor: Code2,
-  "Claude Code": Brain,
   // Concepts
   "Machine Learning": Brain,
   NLP: MessageSquare,
@@ -244,7 +248,19 @@ export function AboutContent() {
               <SkillCategory title="Data Science" skills={skills.dataScience} />
             </StaggerItem>
             <StaggerItem className="h-full">
-              <SkillCategory title="Tools & Platforms" skills={skills.tools} />
+              <SkillCategory title="Cloud Services" skills={skills.cloud} />
+            </StaggerItem>
+            <StaggerItem className="h-full">
+              <SkillCategory title="Databases" skills={skills.databases} />
+            </StaggerItem>
+            <StaggerItem className="h-full">
+              <SkillCategory title="Development Tools" skills={skills.devTools} />
+            </StaggerItem>
+            <StaggerItem className="h-full">
+              <SkillCategory title="Analytics & BI" skills={skills.analytics} />
+            </StaggerItem>
+            <StaggerItem className="h-full">
+              <SkillCategory title="AI Services" skills={skills.aiServices} />
             </StaggerItem>
             <StaggerItem className="h-full">
               <SkillCategory title="Concepts" skills={skills.concepts} />
