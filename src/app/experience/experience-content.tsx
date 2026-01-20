@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -128,7 +129,7 @@ export function ExperienceContent() {
                   />
                 </motion.div>
 
-                <ExperienceCard experience={exp} index={index} />
+                <ExperienceCard experience={exp} />
               </motion.div>
             ))}
           </div>
@@ -140,10 +141,9 @@ export function ExperienceContent() {
 
 interface ExperienceCardProps {
   experience: (typeof experiences)[0];
-  index: number;
 }
 
-function ExperienceCard({ experience, index }: ExperienceCardProps) {
+function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
     <motion.div
       whileHover={{ y: -5, scale: 1.02 }}
@@ -204,9 +204,11 @@ function ExperienceCard({ experience, index }: ExperienceCardProps) {
                       className="inline-block"
                     >
                       <Badge variant="secondary" className="text-xs flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 transition-colors">
-                        <img
+                        <Image
                           src={iconUrl}
                           alt={tech}
+                          width={12}
+                          height={12}
                           className="w-3 h-3"
                           style={{ filter: "brightness(0) saturate(100%) invert(1)" }}
                           onError={(e) => {

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -296,9 +297,11 @@ function SkillCategory({ title, skills: skillList }: { title: string; skills: st
                       className="inline-block"
                     >
                       <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 transition-colors">
-                        <img
+                        <Image
                           src={iconUrl}
                           alt={skill}
+                          width={14}
+                          height={14}
                           className="w-3.5 h-3.5 dark:invert"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = "none";
