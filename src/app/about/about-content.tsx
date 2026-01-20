@@ -50,6 +50,12 @@ const skillIcons: Record<string, string> = {
   "API Gateway": "https://cdn.simpleicons.org/amazonapigateway",
   Cursor: "https://cdn.simpleicons.org/cursor",
   "Claude Code": "https://cdn.simpleicons.org/anthropic",
+  // Concepts
+  "Machine Learning": "https://cdn.simpleicons.org/tensorflow",
+  NLP: "https://cdn.simpleicons.org/openai",
+  "Data Analytics": "https://cdn.simpleicons.org/googledatastudio",
+  "Agile/SCRUM": "https://cdn.simpleicons.org/jira",
+  OOP: "https://cdn.simpleicons.org/java",
 };
 
 export function AboutContent() {
