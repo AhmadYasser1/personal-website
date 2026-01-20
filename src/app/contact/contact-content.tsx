@@ -27,11 +27,8 @@ export function ContactContent() {
   const showSuccess = state.success && !shouldReset;
 
   const handleSendAnother = () => {
-    // Reset form by incrementing key
-    setFormKey((prev: number) => prev + 1);
-    setShouldReset(true);
-    // Reset the flag after a brief moment
-    setTimeout(() => setShouldReset(false), 100);
+    // Simple page reload to reset the form
+    window.location.reload();
   };
 
   return (
