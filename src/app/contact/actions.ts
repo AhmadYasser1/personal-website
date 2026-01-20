@@ -67,9 +67,8 @@ export async function submitContactForm(
   try {
     const resend = new Resend(resendApiKey);
     
-    // Try using a verified domain or the default Resend domain
-    const fromEmail = "contact@ahmadyasser.dev"; // Your verified domain
-    const fallbackEmail = "onboarding@resend.dev"; // Resend's default domain
+    // Use Resend's verified domain to avoid verification issues
+    const fromEmail = "onboarding@resend.dev"; // Resend's verified domain
     
     // Send email using Resend
     const { data, error } = await resend.emails.send({
