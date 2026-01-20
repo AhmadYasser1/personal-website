@@ -121,7 +121,30 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    scroll-behavior: smooth;
   }
+}
+
+/* Custom smooth scrolling for aesthetic effect */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 0;
+}
+
+/* Enhanced scrolling for touch devices */
+@media (pointer: coarse) {
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Smooth horizontal scrolling */
+* {
+  scroll-behavior: smooth;
 }
