@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState, useEffect } from "react";
+import { useActionState, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,19 +21,12 @@ export function ContactContent() {
     submitContactForm,
     initialState
   );
-  const [showSuccess, setShowSuccess] = useState(false);
+  const showSuccess = state.success;
   const [formKey, setFormKey] = useState(0);
 
-  // Update showSuccess when state changes
-  useEffect(() => {
-    if (state.success) {
-      setShowSuccess(true);
-    }
-  }, [state.success]);
-
   const handleSendAnother = () => {
-    setShowSuccess(false);
-    setFormKey((prev) => prev + 1);
+    // Reset form by incrementing key
+    setFormKey((prev: number) => prev + 1);
   };
 
   return (
