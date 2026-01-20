@@ -15,6 +15,7 @@ const contactSchema = z.object({
 export type ContactFormState = {
   success: boolean;
   message: string;
+  emailDelivered?: boolean;
   errors?: {
     name?: string[];
     email?: string[];
@@ -58,7 +59,8 @@ export async function submitContactForm(
     
     return {
       success: true,
-      message: "Thank you for your message! I'll get back to you soon. (Email service temporarily unavailable - message logged for follow-up)",
+      emailDelivered: false,
+      message: "Thank you for your message! I'll get back to you soon. Note: Email service is currently unavailable - your message has been logged and I'll respond manually.",
     };
   }
 
@@ -119,13 +121,15 @@ This message was sent from your portfolio website.
       
       return {
         success: true,
-        message: "Thank you for your message! I'll get back to you soon. (Email delivery issue - message logged for follow-up)",
+        emailDelivered: false,
+        message: "Thank you for your message! I'll get back to you soon. Note: There was an issue with email delivery - your message has been logged and I'll respond manually.",
       };
     }
 
     console.log("Email sent successfully:", data);
     return {
       success: true,
+      emailDelivered: true,
       message: "Thank you for your message! I will get back to you soon.",
     };
   } catch (error) {
@@ -144,7 +148,8 @@ This message was sent from your portfolio website.
     
     return {
       success: true,
-      message: "Thank you for your message! I'll get back to you soon. (Technical issue - message logged for follow-up)",
+      emailDelivered: false,
+      message: "Thank you for your message! I'll get back to you soon. Note: A technical error occurred - your message has been logged and I'll respond manually.",
     };
   }
 }

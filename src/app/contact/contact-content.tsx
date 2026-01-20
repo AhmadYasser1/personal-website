@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,16 +17,21 @@ const initialState: ContactFormState = {
 };
 
 export function ContactContent() {
+  const [formKey, setFormKey] = useState(0);
+  const [shouldReset, setShouldReset] = useState(false);
+  
   const [state, formAction, isPending] = useActionState(
     submitContactForm,
     initialState
   );
-  const showSuccess = state.success;
-  const [formKey, setFormKey] = useState(0);
+  const showSuccess = state.success && !shouldReset;
 
   const handleSendAnother = () => {
     // Reset form by incrementing key
     setFormKey((prev: number) => prev + 1);
+    setShouldReset(true);
+    // Reset the flag after a brief moment
+    setTimeout(() => setShouldReset(false), 100);
   };
 
   return (
@@ -67,7 +72,9 @@ export function ContactContent() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-8"
                   >
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                    <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
+                      state.emailDelivered ? 'bg-green-100' : 'bg-yellow-100'
+                    }`}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="32"
@@ -78,16 +85,31 @@ export function ContactContent() {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="text-primary"
+                        className={state.emailDelivered ? 'text-green-600' : 'text-yellow-600'}
                       >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
+                        {state.emailDelivered ? (
+                          <>
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                          </>
+                        ) : (
+                          <>
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                          </>
+                        )}
                       </svg>
                     </div>
                     <h3 className="font-semibold text-lg mb-2">
-                      Message Sent!
+                      {state.emailDelivered ? 'Message Sent Successfully!' : 'Message Received!'}
                     </h3>
                     <p className="text-muted-foreground mb-6">{state.message}</p>
+                    {!state.emailDelivered && (
+                      <p className="text-sm text-yellow-600 mb-4">
+                        ⚠️ Email delivery failed - your message has been logged for manual follow-up
+                      </p>
+                    )}
                     <Button onClick={handleSendAnother} variant="outline">
                       Send another message?
                     </Button>
