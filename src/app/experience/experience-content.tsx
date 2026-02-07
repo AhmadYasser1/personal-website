@@ -39,7 +39,6 @@ const skillIcons: Record<string, string> = {
   Jira: "https://cdn.simpleicons.org/jira",
   "Monday.com": "https://cdn.simpleicons.org/mondaydotcom",
   "Power BI": "https://cdn.simpleicons.org/microsoftpowerbi",
-  Tableau: "https://cdn.simpleicons.org/tableau",
   Snowflake: "https://cdn.simpleicons.org/snowflake",
   PostgreSQL: "https://cdn.simpleicons.org/postgresql",
   HuggingFace: "https://cdn.simpleicons.org/huggingface",
@@ -209,6 +208,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                           alt={tech}
                           width={12}
                           height={12}
+                          unoptimized
                           className="w-3 h-3"
                           style={{ filter: "brightness(0) saturate(100%) invert(1)" }}
                           onError={(e) => {

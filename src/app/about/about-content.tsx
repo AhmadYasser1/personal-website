@@ -9,7 +9,6 @@ import { StaggerContainer, StaggerItem } from "@/components/ui/animated-section"
 import {
   Code2,
   Database,
-  Cpu,
   Globe,
   BarChart3,
   Cloud,
@@ -21,19 +20,17 @@ import {
   Users,
   Zap,
   Package,
-  Wrench,
-  Lightbulb,
   Target,
   Layers,
   Activity,
-  Box,
   GitPullRequest,
   Terminal,
   Braces,
+  type LucideIcon,
 } from "lucide-react";
 
 // Icon mapping using Lucide React icons
-const skillIcons: Record<string, any> = {
+const skillIcons: Record<string, LucideIcon> = {
   // Programming
   Python: Code2,
   "C/C++": Terminal,

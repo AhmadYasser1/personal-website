@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { ScrollConfig } from "@/components/ui/scroll-config";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { siteUrl } from "@/lib/site";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -21,6 +22,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Ahmad Yasser | HCI Researcher",
     template: "%s | Ahmad Yasser",
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ahmadyasser.dev",
+    url: siteUrl,
     siteName: "Ahmad Yasser Portfolio",
     title: "Ahmad Yasser | HCI Researcher",
     description:
@@ -59,6 +61,8 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
+
+const isVercelDeployment = process.env.VERCEL === "1";
 
 export default function RootLayout({
   children,
@@ -81,8 +85,8 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
-        <SpeedInsights />
-        <Analytics />
+        {isVercelDeployment ? <SpeedInsights /> : null}
+        {isVercelDeployment ? <Analytics /> : null}
       </body>
     </html>
   );

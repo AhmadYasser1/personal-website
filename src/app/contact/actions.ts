@@ -7,9 +7,18 @@ import { Resend } from "resend";
 const resendApiKey = process.env.RESEND_API_KEY;
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be 100 characters or fewer"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .max(320, "Email must be 320 characters or fewer"),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(5000, "Message must be 5000 characters or fewer"),
 });
 
 export type ContactFormState = {
@@ -23,8 +32,20 @@ export type ContactFormState = {
   };
 };
 
+const fallbackMessage =
+  "Contact form is temporarily unavailable. Please email ahmadyasser03@outlook.com directly.";
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 export async function submitContactForm(
-  prevState: ContactFormState,
+  _prevState: ContactFormState,
   formData: FormData
 ): Promise<ContactFormState> {
   const rawData = {
@@ -45,32 +66,21 @@ export async function submitContactForm(
 
   const { name, email, message } = validatedFields.data;
 
-  // If no API key is configured, provide fallback behavior
   if (!resendApiKey) {
-    console.log("Email service not configured - providing fallback");
-    
-    // Log the contact attempt for manual follow-up
-    console.log("Contact form submission:", {
-      name,
-      email,
-      message: message.substring(0, 100) + "...",
-      timestamp: new Date().toISOString(),
-    });
-    
     return {
-      success: true,
+      success: false,
       emailDelivered: false,
-      message: "Thank you for your message! I'll get back to you soon. Note: Email service is currently unavailable - your message has been logged and I'll respond manually.",
+      message: fallbackMessage,
     };
   }
 
   try {
     const resend = new Resend(resendApiKey);
-    
-    // Use Resend's verified domain to avoid verification issues
     const fromEmail = "onboarding@resend.dev"; // Resend's verified domain
-    
-    // Send email using Resend
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message);
+
     const { data, error } = await resend.emails.send({
       from: `Portfolio Contact <${fromEmail}>`,
       to: ["ahmadyasser03@outlook.com"],
@@ -80,10 +90,10 @@ export async function submitContactForm(
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">New Contact Form Submission</h2>
           <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Name:</strong> ${safeName}</p>
+            <p><strong>Email:</strong> ${safeEmail}</p>
             <p><strong>Message:</strong></p>
-            <p style="white-space: pre-wrap;">${message}</p>
+            <p style="white-space: pre-wrap;">${safeMessage}</p>
           </div>
           <p style="color: #666; font-size: 12px;">This message was sent from your portfolio website.</p>
         </div>
@@ -103,52 +113,40 @@ This message was sent from your portfolio website.
     });
 
     if (error) {
-      console.error("Resend error details:", {
-        message: error.message,
+      console.error("Resend delivery failed:", {
         name: error.name,
         statusCode: error.statusCode,
       });
-      
-      // Fallback to logging if email fails
-      console.log("Email failed - logging contact submission:", {
-        name,
-        email,
-        message: message.substring(0, 100) + "...",
-        error: error.message,
-        timestamp: new Date().toISOString(),
-      });
-      
+
       return {
-        success: true,
+        success: false,
         emailDelivered: false,
-        message: "Thank you for your message! I'll get back to you soon. Note: There was an issue with email delivery - your message has been logged and I'll respond manually.",
+        message: fallbackMessage,
       };
     }
 
-    console.log("Email sent successfully:", data);
+    if (!data) {
+      return {
+        success: false,
+        emailDelivered: false,
+        message: fallbackMessage,
+      };
+    }
+
     return {
       success: true,
       emailDelivered: true,
       message: "Thank you for your message! I will get back to you soon.",
     };
   } catch (error) {
-    console.error("Contact form error:", {
+    console.error("Contact form submission failed:", {
       error: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
     });
-    
-    // Even on error, log the submission and return success to user
-    console.log("Contact submission logged due to error:", {
-      name,
-      email,
-      message: message.substring(0, 100) + "...",
-      timestamp: new Date().toISOString(),
-    });
-    
+
     return {
-      success: true,
+      success: false,
       emailDelivered: false,
-      message: "Thank you for your message! I'll get back to you soon. Note: A technical error occurred - your message has been logged and I'll respond manually.",
+      message: fallbackMessage,
     };
   }
 }
