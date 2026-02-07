@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState, useEffect } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,14 +17,11 @@ const initialState: ContactFormState = {
 };
 
 export function ContactContent() {
-  const [formKey, setFormKey] = useState(0);
-  const [shouldReset, setShouldReset] = useState(false);
-  
   const [state, formAction, isPending] = useActionState(
     submitContactForm,
     initialState
   );
-  const showSuccess = state.success && !shouldReset;
+  const showSuccess = state.success;
 
   const handleSendAnother = () => {
     // Simple page reload to reset the form
@@ -64,7 +61,6 @@ export function ContactContent() {
               <CardContent>
                 {showSuccess ? (
                   <motion.div
-                    key={`success-${formKey}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-8"
@@ -112,7 +108,7 @@ export function ContactContent() {
                     </Button>
                   </motion.div>
                 ) : (
-                  <form key={`form-${formKey}`} action={formAction} className="space-y-4">
+                  <form action={formAction} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
                       <Input

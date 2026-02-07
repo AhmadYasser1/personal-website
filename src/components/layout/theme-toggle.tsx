@@ -1,23 +1,34 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "motion/react";
 
+function subscribe() {
+  return () => {};
+}
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const hydrated = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
+
+  const isDark = hydrated ? theme === "dark" : false;
 
   return (
     <Button
       variant="ghost"
       size="icon"
       className="h-9 w-9"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label="Toggle theme"
-      suppressHydrationWarning
     >
       <AnimatePresence mode="wait" initial={false}>
-        {theme === "dark" ? (
+        {isDark ? (
           <motion.svg
             key="sun"
             xmlns="http://www.w3.org/2000/svg"
