@@ -29,17 +29,17 @@ const statItems = [
   },
   {
     key: "totalPRs" as const,
-    label: "Pull Requests",
+    label: "External PRs",
     icon: GitPullRequest,
   },
   {
     key: "totalRepos" as const,
-    label: "Repositories",
+    label: "Contributed Repos",
     icon: FolderGit2,
   },
   {
     key: "totalStars" as const,
-    label: "Stars",
+    label: "Stars Earned",
     icon: Star,
   },
 ];
