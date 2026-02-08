@@ -118,7 +118,7 @@ export async function submitContactForm(
     const safeMessage = escapeHtml(message);
 
     const { error } = await resend.emails.send({
-      from: "Portfolio <noreply@yourdomain.com>",
+      from: "Portfolio Contact <onboarding@resend.dev>",
       to: ["ahmadyasser03@outlook.com"],
       replyTo: email,
       subject: `Contact from ${safeName}`,
