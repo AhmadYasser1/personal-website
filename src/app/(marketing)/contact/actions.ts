@@ -33,19 +33,28 @@ export type ContactFormState = {
 };
 
 async function verifyTurnstile(token: string): Promise<boolean> {
-  const res = await fetch(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        secret: env.TURNSTILE_SECRET_KEY,
-        response: token,
-      }),
+  try {
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          secret: env.TURNSTILE_SECRET_KEY,
+          response: token,
+        }),
+      }
+    );
+    if (!res.ok) {
+      console.error("Turnstile API error:", res.status, res.statusText);
+      return false;
     }
-  );
-  const data = await res.json();
-  return data.success === true;
+    const data = await res.json();
+    return data.success === true;
+  } catch (err) {
+    console.error("Turnstile verification failed:", err instanceof Error ? err.message : err);
+    return false;
+  }
 }
 
 function escapeHtml(value: string): string {
@@ -109,7 +118,7 @@ export async function submitContactForm(
     const safeMessage = escapeHtml(message);
 
     const { error } = await resend.emails.send({
-      from: "Portfolio <noreply@yourdomain.com>",
+      from: "Portfolio Contact <onboarding@resend.dev>",
       to: ["ahmadyasser03@outlook.com"],
       replyTo: email,
       subject: `Contact from ${safeName}`,
@@ -135,8 +144,8 @@ export async function submitContactForm(
       emailDelivered: true,
       message: "Thank you for your message! I will get back to you soon.",
     };
-  } catch {
-    console.error("Resend email failed");
+  } catch (err) {
+    console.error("Resend email failed:", err instanceof Error ? err.message : err);
     return {
       success: false,
       emailDelivered: false,
