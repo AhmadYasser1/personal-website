@@ -12,6 +12,7 @@ export interface GitHubRepo {
   } | null;
   updatedAt: string;
   isArchived: boolean;
+  isFork: boolean;
 }
 
 export interface ContributionDay {

@@ -48,37 +48,7 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
             <StatsOverview stats={data.stats} />
           </section>
 
-          {/* Repositories */}
-          <section aria-label="Open source repositories">
-            <motion.h2
-              className="font-heading text-2xl sm:text-3xl font-bold mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              Repositories
-            </motion.h2>
-            <RepoGrid repos={data.repos} />
-          </section>
-
-          {/* Pull Requests */}
-          {data.pullRequests.length > 0 && (
-            <section aria-label="External pull requests">
-              <motion.h2
-                className="font-heading text-2xl sm:text-3xl font-bold mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                Pull Requests
-              </motion.h2>
-              <PrTracker pullRequests={data.pullRequests} />
-            </section>
-          )}
-
-          {/* Activity Dashboard */}
+          {/* Activity Dashboard — right after stats */}
           <section aria-label="Contribution activity dashboard">
             <motion.h2
               className="font-heading text-2xl sm:text-3xl font-bold mb-8"
@@ -97,6 +67,38 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
               />
             </GlassmorphismContainer>
           </section>
+
+          {/* Forked Repositories — external contributions */}
+          {data.repos.length > 0 && (
+            <section aria-label="Contributed repositories">
+              <motion.h2
+                className="font-heading text-2xl sm:text-3xl font-bold mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                Contributed Repositories
+              </motion.h2>
+              <RepoGrid repos={data.repos} />
+            </section>
+          )}
+
+          {/* Pull Requests */}
+          {data.pullRequests.length > 0 && (
+            <section aria-label="External pull requests">
+              <motion.h2
+                className="font-heading text-2xl sm:text-3xl font-bold mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                Pull Requests
+              </motion.h2>
+              <PrTracker pullRequests={data.pullRequests} />
+            </section>
+          )}
         </div>
       </div>
     </MotionConfig>
