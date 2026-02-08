@@ -221,6 +221,7 @@ function aggregateMonthlyActivity(
       month: months[monthIdx],
       commits,
       pullRequests: 0, // Will be enriched with PR data
+      yearMonth: key,
     };
   });
 }
@@ -451,14 +452,8 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
   // Enrich monthly activity with PR counts
   for (const pr of pullRequests) {
     const date = new Date(pr.createdAt);
-    const monthEntry = monthlyActivity.find(
-      (m) =>
-        m.month ===
-        [
-          "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-        ][date.getMonth()]
-    );
+    const key = `${date.getFullYear()}-${date.getMonth()}`;
+    const monthEntry = monthlyActivity.find((m) => m.yearMonth === key);
     if (monthEntry) {
       monthEntry.pullRequests += 1;
     }
