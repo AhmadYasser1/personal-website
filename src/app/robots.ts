@@ -1,14 +1,13 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/site";
+import { siteUrl } from "@/config/site";
 
 export default function robots(): MetadataRoute.Robots {
+  const isProduction = process.env.VERCEL_ENV === "production";
   return {
     rules: {
       userAgent: "*",
-      allow: "/",
+      ...(isProduction ? { allow: "/" } : { disallow: "/" }),
     },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    ...(isProduction && { sitemap: `${siteUrl}/sitemap.xml` }),
   };
 }
-
-

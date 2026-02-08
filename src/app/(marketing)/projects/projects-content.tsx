@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,7 @@ export function ProjectsContent() {
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
-        <motion.div
+        <m.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -33,10 +34,10 @@ export function ProjectsContent() {
             A collection of my work in AI, machine learning, data science, and
             software development
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Filter Tabs */}
-        <motion.div
+        <m.div
           className="flex flex-wrap justify-center gap-2 mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,13 +54,13 @@ export function ProjectsContent() {
               {category.label}
             </Button>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
-              <motion.div
+              <m.div
                 key={project.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -69,13 +70,13 @@ export function ProjectsContent() {
                 className="h-full"
               >
                 <ProjectCard project={project} />
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
         </div>
 
         {filteredProjects.length === 0 && (
-          <motion.div
+          <m.div
             className="text-center py-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -83,7 +84,7 @@ export function ProjectsContent() {
             <p className="text-muted-foreground">
               No projects found in this category.
             </p>
-          </motion.div>
+          </m.div>
         )}
       </div>
     </div>
@@ -180,7 +181,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   );
 
   return (
-    <motion.div
+    <m.div
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
@@ -191,7 +192,7 @@ function ProjectCard({ project }: ProjectCardProps) {
       ) : (
         cardContent
       )}
-    </motion.div>
+    </m.div>
   );
 }
 

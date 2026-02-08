@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { env } from "@/env";
 import { ContactContent } from "./contact-content";
 
 export const metadata: Metadata = {
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactContent />;
+  return <ContactContent turnstileSiteKey={env.TURNSTILE_SITE_KEY} />;
 }
