@@ -46,6 +46,7 @@ export interface MonthlyActivity {
   month: string; // "Jan", "Feb", etc.
   commits: number;
   pullRequests: number;
+  yearMonth: string; // "2024-5" for year-month key
 }
 
 export interface CommitEvent {
