@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
+import Script from "next/script";
+import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,7 +17,11 @@ const initialState: ContactFormState = {
   message: "",
 };
 
-export function ContactContent() {
+export function ContactContent({
+  turnstileSiteKey,
+}: {
+  turnstileSiteKey: string;
+}) {
   const [state, formAction, isPending] = useActionState(
     submitContactForm,
     initialState
@@ -24,7 +29,6 @@ export function ContactContent() {
   const showSuccess = state.success;
 
   const handleSendAnother = () => {
-    // Simple page reload to reset the form
     window.location.reload();
   };
 
@@ -32,7 +36,7 @@ export function ContactContent() {
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-2xl">
         {/* Header */}
-        <motion.div
+        <m.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -45,11 +49,11 @@ export function ContactContent() {
             Interested in collaborating, have a question, or just want to say
             hello? I&apos;d love to hear from you.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 gap-8">
           {/* Contact Form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -60,7 +64,7 @@ export function ContactContent() {
               </CardHeader>
               <CardContent>
                 {showSuccess ? (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-8"
@@ -100,15 +104,25 @@ export function ContactContent() {
                     <p className="text-muted-foreground mb-6">{state.message}</p>
                     {!state.emailDelivered && (
                       <p className="text-sm text-yellow-600 mb-4">
-                        ⚠️ Email delivery failed - your message has been logged for manual follow-up
+                        Email delivery failed - your message has been logged for manual follow-up
                       </p>
                     )}
                     <Button onClick={handleSendAnother} variant="outline">
                       Send another message?
                     </Button>
-                  </motion.div>
+                  </m.div>
                 ) : (
                   <form action={formAction} className="space-y-4">
+                    {/* Honeypot — invisible to users, bots fill it */}
+                    <div aria-hidden="true" className="absolute -left-[9999px]">
+                      <input
+                        type="text"
+                        name="website"
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </div>
+
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
                       <Input
@@ -156,6 +170,17 @@ export function ContactContent() {
                       )}
                     </div>
 
+                    {/* Turnstile widget — usually invisible, no puzzles */}
+                    <Script
+                      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+                      async
+                      defer
+                    />
+                    <div
+                      className="cf-turnstile"
+                      data-sitekey={turnstileSiteKey}
+                    />
+
                     {state.message && !state.success && (
                       <p className="text-sm text-destructive">{state.message}</p>
                     )}
@@ -197,10 +222,10 @@ export function ContactContent() {
                 )}
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
 
           {/* Connect Card */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -289,7 +314,7 @@ export function ContactContent() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
+import * as m from "motion/react-m";
+import { useInView } from "motion/react";
 
 interface AnimatedCounterProps {
   value: number | string;
@@ -50,7 +51,7 @@ export function AnimatedCounter({
   }, [isInView, numericValue, duration]);
 
   return (
-    <motion.span
+    <m.span
       ref={ref}
       initial={{ opacity: 0, scale: 0.5 }}
       animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -59,7 +60,7 @@ export function AnimatedCounter({
     >
       {isDecimal ? displayValue.toFixed(1) : Math.floor(displayValue)}
       {suffix}
-    </motion.span>
+    </m.span>
   );
 }
 

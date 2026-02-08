@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { ReactNode } from "react";
 
 interface AnimatedSectionProps {
@@ -15,7 +15,7 @@ export function AnimatedSection({
   delay = 0,
 }: AnimatedSectionProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -23,7 +23,7 @@ export function AnimatedSection({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -33,7 +33,7 @@ export function AnimatedText({
   delay = 0,
 }: AnimatedSectionProps) {
   return (
-    <motion.span
+    <m.span
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -41,7 +41,7 @@ export function AnimatedText({
       className={className}
     >
       {children}
-    </motion.span>
+    </m.span>
   );
 }
 
@@ -57,7 +57,7 @@ export function StaggerContainer({
   staggerDelay = 0.1,
 }: StaggerContainerProps) {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
@@ -71,7 +71,7 @@ export function StaggerContainer({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -83,7 +83,7 @@ export function StaggerItem({
   className?: string;
 }) {
   return (
-    <motion.div
+    <m.div
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
@@ -92,7 +92,7 @@ export function StaggerItem({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { publications, type Publication } from "@/lib/data/research";
@@ -83,7 +83,7 @@ export function ResearchContent() {
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
-        <motion.div
+        <m.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,10 +96,10 @@ export function ResearchContent() {
             Publications, datasets, and academic contributions in AI, NLP, and
             human-computer interaction
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Publications Section */}
-        <motion.section
+        <m.section
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ export function ResearchContent() {
           <h2 className="font-heading text-2xl font-bold mb-6">Publications</h2>
           <div className="space-y-4">
             {publications.map((pub, index) => (
-              <motion.div
+              <m.div
                 key={pub.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -122,13 +122,13 @@ export function ResearchContent() {
                 ) : (
                   <PublicationCard pub={pub} />
                 )}
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.section>
+        </m.section>
 
         {/* Research Experience Section */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -138,7 +138,7 @@ export function ResearchContent() {
           </h2>
           <div className="space-y-4">
             {researchExperiences.map((exp, index) => (
-              <motion.div
+              <m.div
                 key={exp.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -177,10 +177,10 @@ export function ResearchContent() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.section>
+        </m.section>
       </div>
     </div>
   );
