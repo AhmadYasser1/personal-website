@@ -393,12 +393,46 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
     ? transformContributions(calendar.weeks)
     : [];
 
-  // Extract repos — only forked repos (external contributions)
+  // Extract PRs first — needed to filter repos
+  const prsData =
+    prsResult.status === "fulfilled" ? prsResult.value : null;
+  const allPullRequests: PullRequest[] = (prsData?.search.nodes ?? [])
+    .filter((pr) => pr.title && pr.repository)
+    .map((pr) => ({
+      title: pr.title,
+      url: pr.url,
+      state: pr.mergedAt
+        ? ("merged" as const)
+        : (pr.state.toLowerCase() as "open" | "closed"),
+      createdAt: pr.createdAt,
+      mergedAt: pr.mergedAt,
+      repository: pr.repository,
+      additions: pr.additions ?? 0,
+      deletions: pr.deletions ?? 0,
+    }));
+
+  // Only show open or merged PRs (exclude closed/rejected)
+  const pullRequests = allPullRequests.filter(
+    (pr) => pr.state === "open" || pr.state === "merged"
+  );
+
+  // Build set of repos where we have open or merged PRs
+  const reposWithActivePRs = new Set(
+    pullRequests.map((pr) => pr.repository.nameWithOwner)
+  );
+
+  // Extract repos — only forked repos with open/merged PRs in the parent
   // Use the parent repo's data (stars, forks, url) so the correct counts display
   const reposData =
     reposResult.status === "fulfilled" ? reposResult.value : null;
   const repos: GitHubRepo[] = (reposData?.user.repositories.nodes ?? [])
-    .filter((r) => !r.isArchived && r.isFork && r.parent)
+    .filter((r) => {
+      if (r.isArchived || !r.isFork || !r.parent) return false;
+      // Match parent's "owner/name" against PR repository nameWithOwner
+      const parentFullName = r.parent.url
+        .replace("https://github.com/", "");
+      return reposWithActivePRs.has(parentFullName);
+    })
     .map((r) => ({
       name: r.parent!.name,
       description: r.parent!.description,
@@ -414,24 +448,6 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
 
   // Stars scoped to contributed (forked) repos only
   const totalStars = repos.reduce((sum, r) => sum + r.stargazerCount, 0);
-
-  // Extract PRs
-  const prsData =
-    prsResult.status === "fulfilled" ? prsResult.value : null;
-  const pullRequests: PullRequest[] = (prsData?.search.nodes ?? [])
-    .filter((pr) => pr.title && pr.repository)
-    .map((pr) => ({
-      title: pr.title,
-      url: pr.url,
-      state: pr.mergedAt
-        ? ("merged" as const)
-        : (pr.state.toLowerCase() as "open" | "closed"),
-      createdAt: pr.createdAt,
-      mergedAt: pr.mergedAt,
-      repository: pr.repository,
-      additions: pr.additions ?? 0,
-      deletions: pr.deletions ?? 0,
-    }));
 
   // Extract commits
   const commitsData =
@@ -470,7 +486,7 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
   const stats: GitHubStats = {
     totalContributions: calendar?.totalContributions ?? 0,
     totalCommits: contribCollection?.totalCommitContributions ?? 0,
-    totalPRs: prsData?.search.issueCount ?? pullRequests.length,
+    totalPRs: pullRequests.length,
     totalRepos: repos.length,
     totalStars,
   };
