@@ -40,7 +40,6 @@ export interface GitHubStats {
   totalCommits: number;
   totalPRs: number;
   totalRepos: number;
-  totalStars: number;
 }
 
 export interface MonthlyActivity {
