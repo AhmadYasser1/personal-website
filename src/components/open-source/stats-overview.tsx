@@ -7,7 +7,6 @@ import {
   GitCommit,
   GitPullRequest,
   FolderGit2,
-  Star,
   Activity,
 } from "lucide-react";
 import type { GitHubStats } from "@/lib/data/github-types";
@@ -37,17 +36,12 @@ const statItems = [
     label: "Contributed Repos",
     icon: FolderGit2,
   },
-  {
-    key: "totalStars" as const,
-    label: "Stars Earned",
-    icon: Star,
-  },
 ];
 
 export function StatsOverview({ stats }: StatsOverviewProps) {
   return (
     <motion.div
-      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"
+      className="grid grid-cols-2 sm:grid-cols-4 gap-4"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
