@@ -150,15 +150,15 @@ export const awards: Award[] = [
 ];
 
 export const skills = {
-  programming: ["Python", "C/C++", "OCaml", "TypeScript", "SQL"],
-  frameworks: ["React", "Next.js", "Flask", "LangChain", "LangGraph"],
-  dataScience: ["Pandas", "NumPy", "Scikit-Learn", "PySpark", "Matplotlib"],
-  cloud: ["Amazon S3", "EC2", "ECS", "Lambda", "Snowflake"],
+  programming: ["Python", "TypeScript", "JavaScript", "C/C++", "C#", "OCaml", "SQL", "HTML/CSS"],
+  frameworks: ["React", "Next.js", "Flask", "LangChain", "LangGraph", "ASP.NET", "Flutter", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
+  dataScience: ["Pandas", "NumPy", "Scikit-Learn", "PySpark", "Matplotlib", "Word2Vec", "TF-IDF", "Data Visualization"],
+  cloud: ["Amazon S3", "EC2", "ECS", "Lambda", "Snowflake", "Vercel"],
   databases: ["PostgreSQL", "DynamoDB", "AWS Athena", "AWS Glue"],
-  devTools: ["Git", "GitHub", "Jira", "Monday.com", "Cursor", "Claude Code"],
+  devTools: ["Git", "GitHub", "Jira", "Monday.com", "Cursor", "Claude Code", "Codex", "Linux", "ESLint"],
   analytics: ["Power BI", "Tableau", "AppFlow"],
-  aiServices: ["AWS Bedrock", "Bedrock AgentCore", "API Gateway"],
-  concepts: ["Machine Learning", "NLP", "Data Analytics", "Agile/SCRUM", "OOP"],
+  aiServices: ["AWS Bedrock", "Bedrock AgentCore", "API Gateway", "HuggingFace"],
+  concepts: ["Machine Learning", "NLP", "Computer Vision", "Data Engineering", "Data Analytics", "REST API", "Agile/SCRUM", "OOP"],
 };
 
 export const socialLinks = {
