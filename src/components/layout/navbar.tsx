@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
@@ -44,7 +45,7 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <motion.header 
+    <m.header 
       className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -55,26 +56,26 @@ export function Navbar() {
           href="/"
           className="font-heading text-xl font-bold tracking-tight"
         >
-          <motion.span 
+          <m.span 
             className="text-foreground"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
             Ahmad
-          </motion.span>
-          <motion.span 
+          </m.span>
+          <m.span 
             className="text-primary"
             animate={{ opacity: [1, 0.5, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             .
-          </motion.span>
+          </m.span>
         </Link>
 
         {/* Desktop Navigation */}
         <div ref={navContainerRef} className="hidden md:flex md:items-center md:gap-6 relative">
           {navLinks.map((link, index) => (
-            <motion.div
+            <m.div
               key={link.href}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -89,17 +90,17 @@ export function Navbar() {
                     : "text-muted-foreground"
                 }`}
               >
-                <motion.span
+                <m.span
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
                   {link.label}
-                </motion.span>
+                </m.span>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
           {indicatorProps.width > 0 && (
-            <motion.div
+            <m.div
               className="absolute -bottom-1 h-0.5 bg-primary"
               initial={false}
               animate={{
@@ -109,13 +110,13 @@ export function Navbar() {
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
             />
           )}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6 }}
           >
             <ThemeToggle />
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Mobile Navigation */}
@@ -124,7 +125,7 @@ export function Navbar() {
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
-                <motion.svg
+                <m.svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -140,7 +141,7 @@ export function Navbar() {
                   <line x1="4" x2="20" y1="12" y2="12" />
                   <line x1="4" x2="20" y1="6" y2="6" />
                   <line x1="4" x2="20" y1="18" y2="18" />
-                </motion.svg>
+                </m.svg>
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
@@ -151,7 +152,7 @@ export function Navbar() {
               <nav className="flex flex-col gap-4 mt-8">
                 <AnimatePresence>
                   {navLinks.map((link, index) => (
-                    <motion.div
+                    <m.div
                       key={link.href}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -166,15 +167,15 @@ export function Navbar() {
                             : "text-muted-foreground"
                         }`}
                       >
-                        <motion.span
+                        <m.span
                           whileHover={{ x: 10 }}
                           transition={{ type: "spring", stiffness: 400 }}
                           className="inline-block"
                         >
                           {link.label}
-                        </motion.span>
+                        </m.span>
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </AnimatePresence>
               </nav>
@@ -182,6 +183,6 @@ export function Navbar() {
           </Sheet>
         </div>
       </nav>
-    </motion.header>
+    </m.header>
   );
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/lib/data/experience";
@@ -69,7 +69,7 @@ export function ExperienceContent() {
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
-        <motion.div
+        <m.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,12 +82,12 @@ export function ExperienceContent() {
             My professional journey across technology, data science, and
             education
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Timeline */}
         <div className="relative">
           {/* Timeline line - animated */}
-          <motion.div 
+          <m.div 
             className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent -translate-x-1/2 hidden md:block"
             initial={{ scaleY: 0, originY: 0 }}
             whileInView={{ scaleY: 1 }}
@@ -97,7 +97,7 @@ export function ExperienceContent() {
 
           <div className="space-y-8">
             {experiences.map((exp, index) => (
-              <motion.div
+              <m.div
                 key={exp.id}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -110,7 +110,7 @@ export function ExperienceContent() {
                 }`}
               >
                 {/* Timeline dot - animated */}
-                <motion.div
+                <m.div
                   className={`absolute top-8 w-4 h-4 bg-primary rounded-full hidden md:flex items-center justify-center shadow-lg shadow-primary/50 ${
                     index % 2 === 0
                       ? "left-[calc(100%+0.5rem)]"
@@ -121,15 +121,15 @@ export function ExperienceContent() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + index * 0.1, type: "spring", stiffness: 500 }}
                 >
-                  <motion.div
+                  <m.div
                     className="absolute inset-0 rounded-full bg-primary"
                     animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
                     transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
                   />
-                </motion.div>
+                </m.div>
 
                 <ExperienceCard experience={exp} />
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -144,7 +144,7 @@ interface ExperienceCardProps {
 
 function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
-    <motion.div
+    <m.div
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
@@ -170,7 +170,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
             <h4 className="text-sm font-semibold mb-2">Key Achievements</h4>
             <ul className="list-disc list-outside pl-5 text-sm text-muted-foreground space-y-1">
               {experience.achievements.map((achievement, i) => (
-                <motion.li 
+                <m.li 
                   key={achievement}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -178,7 +178,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                   transition={{ delay: 0.3 + i * 0.1 }}
                 >
                   {achievement}
-                </motion.li>
+                </m.li>
               ))}
             </ul>
           </div>
@@ -187,7 +187,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
             {experience.technologies.map((tech, i) => {
               const iconUrl = skillIcons[tech];
               return (
-                <motion.div
+                <m.div
                   key={tech}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -223,12 +223,12 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                       {tech}
                     </Badge>
                   )}
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </m.div>
   );
 }

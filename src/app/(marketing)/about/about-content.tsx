@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { education, awards, skills } from "@/lib/data/research";
@@ -88,7 +88,7 @@ export function AboutContent() {
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
-        <motion.div
+        <m.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -100,10 +100,10 @@ export function AboutContent() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A versatile technologist with diverse skills across industries, driven by a passion to make meaningful change in the world.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Passions Section - 3 Boxes */}
-        <motion.section
+        <m.section
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export function AboutContent() {
         >
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.15}>
             <StaggerItem className="h-full">
-              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+              <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
@@ -125,10 +125,10 @@ export function AboutContent() {
                     </p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             </StaggerItem>
             <StaggerItem className="h-full">
-              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+              <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
@@ -142,10 +142,10 @@ export function AboutContent() {
                     </p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             </StaggerItem>
             <StaggerItem className="h-full">
-              <motion.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+              <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
@@ -161,13 +161,13 @@ export function AboutContent() {
                     </p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             </StaggerItem>
           </StaggerContainer>
-        </motion.section>
+        </m.section>
 
         {/* Education Section */}
-        <motion.section
+        <m.section
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ export function AboutContent() {
           <StaggerContainer className="space-y-4" staggerDelay={0.15}>
             {education.map((edu) => (
               <StaggerItem key={edu.id}>
-                <motion.div 
+                <m.div 
                   whileHover={{ y: -3 }} 
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -195,14 +195,14 @@ export function AboutContent() {
                           </p>
                         </div>
                         <div className="text-right">
-                          <motion.div
+                          <m.div
                             whileHover={{ scale: 1.1 }}
                             transition={{ type: "spring", stiffness: 400 }}
                           >
                             <Badge variant="secondary" className="text-lg px-3">
                               {edu.gpa} GPA
                             </Badge>
-                          </motion.div>
+                          </m.div>
                           <p className="text-sm text-muted-foreground mt-1">
                             {edu.startDate} - {edu.endDate}
                           </p>
@@ -217,14 +217,14 @@ export function AboutContent() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               </StaggerItem>
             ))}
           </StaggerContainer>
-        </motion.section>
+        </m.section>
 
         {/* Skills Section */}
-        <motion.section
+        <m.section
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -263,10 +263,10 @@ export function AboutContent() {
               <SkillCategory title="Concepts" skills={skills.concepts} />
             </StaggerItem>
           </StaggerContainer>
-        </motion.section>
+        </m.section>
 
         {/* Awards Section */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -278,7 +278,7 @@ export function AboutContent() {
           <StaggerContainer className="space-y-4" staggerDelay={0.1}>
             {awards.map((award) => (
               <StaggerItem key={award.id}>
-                <motion.div
+                <m.div
                   whileHover={{ scale: 1.02, x: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -302,11 +302,11 @@ export function AboutContent() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               </StaggerItem>
             ))}
           </StaggerContainer>
-        </motion.section>
+        </m.section>
       </div>
     </div>
   );
@@ -314,7 +314,7 @@ export function AboutContent() {
 
 function SkillCategory({ title, skills: skillList }: { title: string; skills: string[] }) {
   return (
-    <motion.div
+    <m.div
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
@@ -327,7 +327,7 @@ function SkillCategory({ title, skills: skillList }: { title: string; skills: st
             {skillList.map((skill, index) => {
               const IconComponent = skillIcons[skill];
               return (
-                <motion.div
+                <m.div
                   key={skill}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -351,12 +351,12 @@ function SkillCategory({ title, skills: skillList }: { title: string; skills: st
                       {skill}
                     </Badge>
                   </Link>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </m.div>
   );
 }
