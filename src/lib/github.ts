@@ -110,8 +110,26 @@ const REPOS_QUERY = `
 `;
 
 const PRS_QUERY = `
-  query($query: String!) {
-    search(query: $query, type: ISSUE, first: 20) {
+  query($mergedQuery: String!, $openQuery: String!) {
+    merged: search(query: $mergedQuery, type: ISSUE, first: 100) {
+      issueCount
+      nodes {
+        ... on PullRequest {
+          title
+          url
+          state
+          createdAt
+          mergedAt
+          additions
+          deletions
+          repository {
+            nameWithOwner
+            url
+          }
+        }
+      }
+    }
+    open: search(query: $openQuery, type: ISSUE, first: 100) {
       issueCount
       nodes {
         ... on PullRequest {
@@ -261,23 +279,26 @@ interface ReposResponse {
   };
 }
 
-interface PRsResponse {
-  search: {
-    issueCount: number;
-    nodes: Array<{
-      title: string;
+interface PRSearchResult {
+  issueCount: number;
+  nodes: Array<{
+    title: string;
+    url: string;
+    state: "OPEN" | "MERGED" | "CLOSED";
+    createdAt: string;
+    mergedAt: string | null;
+    additions: number;
+    deletions: number;
+    repository: {
+      nameWithOwner: string;
       url: string;
-      state: "OPEN" | "MERGED" | "CLOSED";
-      createdAt: string;
-      mergedAt: string | null;
-      additions: number;
-      deletions: number;
-      repository: {
-        nameWithOwner: string;
-        url: string;
-      };
-    }>;
-  };
+    };
+  }>;
+}
+
+interface PRsResponse {
+  merged: PRSearchResult;
+  open: PRSearchResult;
 }
 
 interface CommitsResponse {
@@ -316,7 +337,8 @@ async function fetchRepos(): Promise<ReposResponse> {
 
 async function fetchPullRequests(): Promise<PRsResponse> {
   return graphqlFetch<PRsResponse>(PRS_QUERY, {
-    query: `is:pr author:${GITHUB_USERNAME} -user:${GITHUB_USERNAME}`,
+    mergedQuery: `is:pr author:${GITHUB_USERNAME} -user:${GITHUB_USERNAME} is:merged`,
+    openQuery: `is:pr author:${GITHUB_USERNAME} -user:${GITHUB_USERNAME} is:open`,
   });
 }
 
@@ -361,7 +383,6 @@ function createEmptyData(): OpenSourcePageData {
       totalCommits: 0,
       totalPRs: 0,
       totalRepos: 0,
-      totalStars: 0,
     },
     contributionDays: [],
     monthlyActivity: [],
@@ -394,9 +415,14 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
     : [];
 
   // Extract PRs first — needed to filter repos
+  // Query already splits into merged + open (no closed PRs returned)
   const prsData =
     prsResult.status === "fulfilled" ? prsResult.value : null;
-  const allPullRequests: PullRequest[] = (prsData?.search.nodes ?? [])
+  const rawPRNodes = [
+    ...(prsData?.merged.nodes ?? []),
+    ...(prsData?.open.nodes ?? []),
+  ];
+  const pullRequests: PullRequest[] = rawPRNodes
     .filter((pr) => pr.title && pr.repository)
     .map((pr) => ({
       title: pr.title,
@@ -410,11 +436,6 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
       additions: pr.additions ?? 0,
       deletions: pr.deletions ?? 0,
     }));
-
-  // Only show open or merged PRs (exclude closed/rejected)
-  const pullRequests = allPullRequests.filter(
-    (pr) => pr.state === "open" || pr.state === "merged"
-  );
 
   // Build set of repos where we have open or merged PRs
   const reposWithActivePRs = new Set(
@@ -445,9 +466,6 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
       isFork: r.isFork,
     }))
     .slice(0, 12);
-
-  // Stars scoped to contributed (forked) repos only
-  const totalStars = repos.reduce((sum, r) => sum + r.stargazerCount, 0);
 
   // Extract commits
   const commitsData =
@@ -488,7 +506,6 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
     totalCommits: contribCollection?.totalCommitContributions ?? 0,
     totalPRs: pullRequests.length,
     totalRepos: repos.length,
-    totalStars,
   };
 
   return {
