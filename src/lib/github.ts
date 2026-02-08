@@ -393,12 +393,6 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
     ? transformContributions(calendar.weeks)
     : [];
 
-  const totalStars =
-    contrib?.user.repositories.nodes.reduce(
-      (sum, r) => sum + r.stargazerCount,
-      0
-    ) ?? 0;
-
   // Extract repos — only forked repos (external contributions)
   // Use the parent repo's data (stars, forks, url) so the correct counts display
   const reposData =
@@ -417,6 +411,9 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
       isFork: r.isFork,
     }))
     .slice(0, 12);
+
+  // Stars scoped to contributed (forked) repos only
+  const totalStars = repos.reduce((sum, r) => sum + r.stargazerCount, 0);
 
   // Extract PRs
   const prsData =
@@ -474,8 +471,7 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
     totalContributions: calendar?.totalContributions ?? 0,
     totalCommits: contribCollection?.totalCommitContributions ?? 0,
     totalPRs: prsData?.search.issueCount ?? pullRequests.length,
-    totalRepos:
-      contrib?.user.repositories.totalCount ?? repos.length,
+    totalRepos: repos.length,
     totalStars,
   };
 
