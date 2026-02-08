@@ -95,6 +95,14 @@ const REPOS_QUERY = `
           updatedAt
           isArchived
           isFork
+          parent {
+            name
+            description
+            url
+            stargazerCount
+            forkCount
+            primaryLanguage { name color }
+          }
         }
       }
     }
@@ -233,10 +241,22 @@ interface ContributionsResponse {
   };
 }
 
+interface RepoNode extends GitHubRepo {
+  __typename?: string;
+  parent: {
+    name: string;
+    description: string | null;
+    url: string;
+    stargazerCount: number;
+    forkCount: number;
+    primaryLanguage: { name: string; color: string } | null;
+  } | null;
+}
+
 interface ReposResponse {
   user: {
     repositories: {
-      nodes: Array<GitHubRepo & { __typename?: string }>;
+      nodes: RepoNode[];
     };
   };
 }
@@ -380,11 +400,22 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
     ) ?? 0;
 
   // Extract repos — only forked repos (external contributions)
-  // Own repos are already shown on the Projects page
+  // Use the parent repo's data (stars, forks, url) so the correct counts display
   const reposData =
     reposResult.status === "fulfilled" ? reposResult.value : null;
   const repos: GitHubRepo[] = (reposData?.user.repositories.nodes ?? [])
-    .filter((r) => !r.isArchived && r.isFork)
+    .filter((r) => !r.isArchived && r.isFork && r.parent)
+    .map((r) => ({
+      name: r.parent!.name,
+      description: r.parent!.description,
+      url: r.parent!.url,
+      stargazerCount: r.parent!.stargazerCount,
+      forkCount: r.parent!.forkCount,
+      primaryLanguage: r.parent!.primaryLanguage,
+      updatedAt: r.updatedAt,
+      isArchived: r.isArchived,
+      isFork: r.isFork,
+    }))
     .slice(0, 12);
 
   // Extract PRs
