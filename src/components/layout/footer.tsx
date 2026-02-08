@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { socialLinks } from "@/lib/data/research";
 
 const socialIcons = [
@@ -69,7 +69,7 @@ const socialIcons = [
 
 export function Footer() {
   return (
-    <motion.footer 
+    <m.footer 
       className="border-t border-border/40 bg-background"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -78,7 +78,7 @@ export function Footer() {
     >
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <motion.div 
+          <m.div 
             className="flex flex-col items-center gap-2 md:items-start"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -90,20 +90,20 @@ export function Footer() {
               className="font-heading text-lg font-bold tracking-tight"
             >
               <span className="text-foreground">Ahmad Yasser</span>
-              <motion.span 
+              <m.span 
                 className="text-primary"
                 animate={{ opacity: [1, 0.5, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
                 .
-              </motion.span>
+              </m.span>
             </Link>
             <p className="text-sm text-muted-foreground">
               HCI Researcher | Digital Fellow at Brooklyn Sports and Entertainment
             </p>
-          </motion.div>
+          </m.div>
 
-          <motion.div 
+          <m.div 
             className="flex items-center gap-4"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -111,7 +111,7 @@ export function Footer() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {socialIcons.map((social, index) => (
-              <motion.div
+              <m.div
                 key={social.label}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -128,11 +128,11 @@ export function Footer() {
                 >
                   {social.icon}
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
-    </motion.footer>
+    </m.footer>
   );
 }

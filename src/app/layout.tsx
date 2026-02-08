@@ -7,7 +7,8 @@ import { Footer } from "@/components/layout/footer";
 import { ScrollConfig } from "@/components/ui/scroll-config";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { siteUrl } from "@/lib/site";
+import { MotionProvider } from "@/components/motion-provider";
+import { siteConfig } from "@/config/site";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -22,13 +23,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Ahmad Yasser | HCI Researcher",
-    template: "%s | Ahmad Yasser",
+    default: `${siteConfig.name} | HCI Researcher`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Dual-degree CS graduate from University of Minnesota-Twin Cities. Digital Fellow at Brooklyn Sports and Entertainment. HCI Researcher with 2+ publications.",
+  description: siteConfig.description,
   keywords: [
     "Ahmad Yasser",
     "Software Engineer",
@@ -39,22 +39,20 @@ export const metadata: Metadata = {
     "Brooklyn Sports and Entertainment",
     "University of Minnesota",
   ],
-  authors: [{ name: "Ahmad Yasser Hassanein" }],
-  creator: "Ahmad Yasser Hassanein",
+  authors: [{ name: siteConfig.author.name }],
+  creator: siteConfig.author.name,
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
-    siteName: "Ahmad Yasser Portfolio",
-    title: "Ahmad Yasser | HCI Researcher",
-    description:
-      "Dual-degree CS graduate. Digital Fellow at Brooklyn Sports and Entertainment. HCI Researcher.",
+    url: siteConfig.url,
+    siteName: `${siteConfig.name} Portfolio`,
+    title: `${siteConfig.name} | HCI Researcher`,
+    description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ahmad Yasser | HCI Researcher",
-    description:
-      "Dual-degree CS graduate. Digital Fellow at Brooklyn Sports and Entertainment. HCI Researcher.",
+    title: `${siteConfig.name} | HCI Researcher`,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
@@ -80,10 +78,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ScrollConfig />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <MotionProvider>
+            <ScrollConfig />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </MotionProvider>
         </ThemeProvider>
         {isVercelDeployment ? <SpeedInsights /> : null}
         {isVercelDeployment ? <Analytics /> : null}
