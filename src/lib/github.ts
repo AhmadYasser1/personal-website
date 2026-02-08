@@ -79,25 +79,11 @@ const CONTRIBUTIONS_QUERY = `
 const REPOS_QUERY = `
   query($username: String!) {
     user(login: $username) {
-      pinnedItems(first: 6, types: REPOSITORY) {
-        nodes {
-          ... on Repository {
-            name
-            description
-            url
-            stargazerCount
-            forkCount
-            primaryLanguage { name color }
-            updatedAt
-            isArchived
-          }
-        }
-      }
       repositories(
-        first: 20
+        first: 100
         ownerAffiliations: OWNER
         privacy: PUBLIC
-        orderBy: { field: STARGAZERS, direction: DESC }
+        orderBy: { field: UPDATED_AT, direction: DESC }
       ) {
         nodes {
           name
@@ -108,6 +94,7 @@ const REPOS_QUERY = `
           primaryLanguage { name color }
           updatedAt
           isArchived
+          isFork
         }
       }
     }
@@ -248,9 +235,6 @@ interface ContributionsResponse {
 
 interface ReposResponse {
   user: {
-    pinnedItems: {
-      nodes: Array<GitHubRepo & { __typename?: string }>;
-    };
     repositories: {
       nodes: Array<GitHubRepo & { __typename?: string }>;
     };
@@ -395,19 +379,13 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
       0
     ) ?? 0;
 
-  // Extract repos
+  // Extract repos — only forked repos (external contributions)
+  // Own repos are already shown on the Projects page
   const reposData =
     reposResult.status === "fulfilled" ? reposResult.value : null;
-  const pinnedNames = new Set(
-    reposData?.user.pinnedItems.nodes.map((r) => r.name) ?? []
-  );
-  const pinned = (reposData?.user.pinnedItems.nodes ?? []).filter(
-    (r) => !r.isArchived
-  );
-  const starred = (reposData?.user.repositories.nodes ?? []).filter(
-    (r) => !r.isArchived && !pinnedNames.has(r.name)
-  );
-  const repos: GitHubRepo[] = [...pinned, ...starred].slice(0, 12);
+  const repos: GitHubRepo[] = (reposData?.user.repositories.nodes ?? [])
+    .filter((r) => !r.isArchived && r.isFork)
+    .slice(0, 12);
 
   // Extract PRs
   const prsData =
