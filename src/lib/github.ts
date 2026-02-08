@@ -221,6 +221,7 @@ function aggregateMonthlyActivity(
       month: months[monthIdx],
       commits,
       pullRequests: 0, // Will be enriched with PR data
+      yearMonth: key,
     };
   });
 }
@@ -347,25 +348,27 @@ export const getCachedCommits = unstable_cache(
 
 // ─── Aggregator ───
 
-const EMPTY_DATA: OpenSourcePageData = {
-  repos: [],
-  pullRequests: [],
-  stats: {
-    totalContributions: 0,
-    totalCommits: 0,
-    totalPRs: 0,
-    totalRepos: 0,
-    totalStars: 0,
-  },
-  contributionDays: [],
-  monthlyActivity: [],
-  recentCommits: [],
-  fetchedAt: new Date().toISOString(),
-};
+function createEmptyData(): OpenSourcePageData {
+  return {
+    repos: [],
+    pullRequests: [],
+    stats: {
+      totalContributions: 0,
+      totalCommits: 0,
+      totalPRs: 0,
+      totalRepos: 0,
+      totalStars: 0,
+    },
+    contributionDays: [],
+    monthlyActivity: [],
+    recentCommits: [],
+    fetchedAt: new Date().toISOString(),
+  };
+}
 
 export async function getOpenSourceData(): Promise<OpenSourcePageData> {
   if (!process.env.GITHUB_TOKEN) {
-    return EMPTY_DATA;
+    return createEmptyData();
   }
 
   const [contribResult, reposResult, prsResult, commitsResult] =
@@ -451,14 +454,8 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
   // Enrich monthly activity with PR counts
   for (const pr of pullRequests) {
     const date = new Date(pr.createdAt);
-    const monthEntry = monthlyActivity.find(
-      (m) =>
-        m.month ===
-        [
-          "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-        ][date.getMonth()]
-    );
+    const key = `${date.getFullYear()}-${date.getMonth()}`;
+    const monthEntry = monthlyActivity.find((m) => m.yearMonth === key);
     if (monthEntry) {
       monthEntry.pullRequests += 1;
     }

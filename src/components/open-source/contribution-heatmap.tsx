@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { ActivityCalendar } from "react-activity-calendar";
 import { useTheme } from "next-themes";
 import {
@@ -14,7 +15,11 @@ interface ContributionHeatmapProps {
   days: ContributionDay[];
 }
 
-const lightTheme = {
+function subscribe() {
+  return () => {};
+}
+
+const calendarTheme = {
   dark: [
     "oklch(0.269 0 0)",
     "oklch(0.4 0.15 264)",
@@ -42,7 +47,11 @@ function formatDate(dateStr: string): string {
 
 export function ContributionHeatmap({ days }: ContributionHeatmapProps) {
   const { resolvedTheme } = useTheme();
-  const colorScheme = resolvedTheme === "dark" ? "dark" : "light";
+  const hydrated = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
 
   if (days.length === 0) {
     return (
@@ -52,6 +61,12 @@ export function ContributionHeatmap({ days }: ContributionHeatmapProps) {
     );
   }
 
+  if (!hydrated) {
+    return <div className="h-32 animate-pulse rounded-lg bg-muted" />;
+  }
+
+  const colorScheme = resolvedTheme === "dark" ? "dark" : "light";
+
   return (
     <div
       aria-label={`GitHub contribution calendar showing ${days.reduce((s, d) => s + d.count, 0)} contributions`}
@@ -59,7 +74,7 @@ export function ContributionHeatmap({ days }: ContributionHeatmapProps) {
       <TooltipProvider>
         <ActivityCalendar
           data={days}
-          theme={lightTheme}
+          theme={calendarTheme}
           colorScheme={colorScheme}
           blockSize={13}
           blockMargin={4}
