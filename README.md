@@ -1,4 +1,4 @@
-# Personal Website: https://ahmad-yasser-hassanein.vercel.app/
+# Personal Website: https://ayasser.com
 
 A portfolio site built with Next.js, TypeScript, Tailwind CSS, and Framer Motion.
 
@@ -13,7 +13,7 @@ A portfolio site built with Next.js, TypeScript, Tailwind CSS, and Framer Motion
    cp .env.example .env.local
    ```
 3. Add `RESEND_API_KEY` in `.env.local` if you want contact-form email delivery.
-4. (Optional) Add `NEXT_PUBLIC_SITE_URL` to set canonical metadata/sitemap URL.
+4. (Optional) Add `SITE_URL` to set canonical metadata/sitemap URL.
 5. Start development server:
    ```bash
    npm run dev
