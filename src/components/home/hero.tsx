@@ -1,48 +1,45 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import * as m from "motion/react-m";
+import { useInView } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0 });
+
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
         <m.div
           className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-          }}
+          animate={isInView ? { x: [0, 30, 0], y: [0, -20, 0] } : { x: 0, y: 0 }}
           transition={{
             duration: 8,
-            repeat: Infinity,
+            repeat: isInView ? Infinity : 0,
             ease: "easeInOut",
           }}
         />
         <m.div
           className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-          animate={{
-            x: [0, -40, 0],
-            y: [0, 30, 0],
-          }}
+          animate={isInView ? { x: [0, -40, 0], y: [0, 30, 0] } : { x: 0, y: 0 }}
           transition={{
             duration: 10,
-            repeat: Infinity,
+            repeat: isInView ? Infinity : 0,
             ease: "easeInOut",
           }}
         />
         <m.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-          }}
+          animate={isInView ? { scale: [1, 1.1, 1] } : { scale: 1 }}
           transition={{
             duration: 6,
-            repeat: Infinity,
+            repeat: isInView ? Infinity : 0,
             ease: "easeInOut",
           }}
         />
@@ -138,8 +135,8 @@ export function Hero() {
         transition={{ delay: 1 }}
       >
         <m.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          animate={isInView ? { y: [0, 8, 0] } : { y: 0 }}
+          transition={{ duration: 1.5, repeat: isInView ? Infinity : 0 }}
           className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
         >
           <m.div className="w-1 h-2 rounded-full bg-muted-foreground/50" />

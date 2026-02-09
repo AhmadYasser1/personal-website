@@ -1,16 +1,41 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "motion/react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ContributionHeatmap } from "./contribution-heatmap";
-import { ActivityChart } from "./activity-chart";
 import { CommitTimeline } from "./commit-timeline";
 import type {
   ContributionDay,
   MonthlyActivity,
   CommitEvent,
 } from "@/lib/data/github-types";
+
+const ContributionHeatmap = dynamic(
+  () =>
+    import("./contribution-heatmap").then((mod) => ({
+      default: mod.ContributionHeatmap,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-32 animate-pulse rounded-lg bg-muted" />
+    ),
+  }
+);
+
+const ActivityChart = dynamic(
+  () =>
+    import("./activity-chart").then((mod) => ({
+      default: mod.ActivityChart,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[300px] w-full animate-pulse rounded-lg bg-muted" />
+    ),
+  }
+);
 
 interface ActivityTabsProps {
   contributionDays: ContributionDay[];
