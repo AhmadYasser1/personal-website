@@ -164,7 +164,7 @@ export const skills = {
 export const socialLinks = {
   github: "https://github.com/AhmadYasser1",
   linkedin: "https://linkedin.com/in/ahmedyhassanein",
-  email: "ahmadyasser03@outlook.com",
+  email: "hey@ayasser.com",
   orcid: "https://orcid.org/0009-0000-8643-4747",
   medium: "https://medium.com/@ahmadyasser03",
   portfolio: "https://www.datascienceportfol.io/ahmedyhassanein",

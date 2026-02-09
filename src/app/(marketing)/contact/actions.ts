@@ -118,8 +118,8 @@ export async function submitContactForm(
     const safeMessage = escapeHtml(message);
 
     const { error } = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: ["ahmadyasser03@outlook.com"],
+      from: "Ahmad Yasser <hey@ayasser.com>",
+      to: ["hey@ayasser.com"],
       replyTo: email,
       subject: `Contact from ${safeName}`,
       html: `
@@ -150,7 +150,7 @@ export async function submitContactForm(
       success: false,
       emailDelivered: false,
       message:
-        "Unable to send your message. Please email me directly at ahmadyasser03@outlook.com.",
+        "Unable to send your message. Please email me directly at hey@ayasser.com.",
     };
   }
 }
