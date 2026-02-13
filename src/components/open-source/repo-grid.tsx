@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { RepoCard } from "./repo-card";
 import type { GitHubRepo } from "@/lib/data/github-types";
 
@@ -18,7 +18,7 @@ export function RepoGrid({ repos }: RepoGridProps) {
   }
 
   return (
-    <motion.div
+    <m.div
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       initial="hidden"
       whileInView="visible"
@@ -28,7 +28,7 @@ export function RepoGrid({ repos }: RepoGridProps) {
       }}
     >
       {repos.map((repo) => (
-        <motion.div
+        <m.div
           key={repo.name}
           variants={{
             hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -38,8 +38,8 @@ export function RepoGrid({ repos }: RepoGridProps) {
           className="h-full"
         >
           <RepoCard repo={repo} />
-        </motion.div>
+        </m.div>
       ))}
-    </motion.div>
+    </m.div>
   );
 }

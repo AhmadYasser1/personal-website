@@ -120,13 +120,7 @@ export function ExperienceContent() {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + index * 0.1, type: "spring", stiffness: 500 }}
-                >
-                  <m.div
-                    className="absolute inset-0 rounded-full bg-primary"
-                    animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
-                  />
-                </m.div>
+                />
 
                 <ExperienceCard experience={exp} />
               </m.div>
