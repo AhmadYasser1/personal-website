@@ -64,8 +64,8 @@ export function Navbar() {
           >
             Ahmad
           </m.span>
-          <m.span 
-            className="text-primary"
+          <m.span
+            className="text-emerald-500"
             animate={{ opacity: [1, 0.5, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >

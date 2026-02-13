@@ -90,8 +90,8 @@ export function Footer() {
               className="font-heading text-lg font-bold tracking-tight"
             >
               <span className="text-foreground">Ahmad Yasser</span>
-              <m.span 
-                className="text-primary"
+              <m.span
+                className="text-emerald-500"
                 animate={{ opacity: [1, 0.5, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
