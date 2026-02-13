@@ -339,49 +339,36 @@ export function AboutContent() {
 
 function SkillCategory({ title, skills: skillList }: { title: string; skills: string[] }) {
   return (
-    <m.div
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300 }}
-    >
-      <Card className="h-full min-h-[200px] hover:border-primary/50 transition-colors flex flex-col">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg">{title}</CardTitle>
-        </CardHeader>
-        <CardContent className="flex-1">
-          <div className="flex flex-wrap gap-2">
-            {skillList.map((skill, index) => {
-              const IconComponent = skillIcons[skill];
-              return (
-                <m.div
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.03 }}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <Link
-                    href={`https://www.google.com/search?q=${encodeURIComponent(skill)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block"
-                  >
-                    <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 transition-colors">
-                      {IconComponent && (
-                        <IconComponent 
-                          className="w-3.5 h-3.5 text-current" 
-                          strokeWidth={2}
-                        />
-                      )}
-                      {skill}
-                    </Badge>
-                  </Link>
-                </m.div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
-    </m.div>
+    <Card className="h-full min-h-[200px] hover:border-primary/50 transition-colors flex flex-col">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">{title}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex-1">
+        <div className="flex flex-wrap gap-2">
+          {skillList.map((skill) => {
+            const IconComponent = skillIcons[skill];
+            return (
+              <Link
+                key={skill}
+                href={`https://www.google.com/search?q=${encodeURIComponent(skill)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 hover:scale-105 transition-all">
+                  {IconComponent && (
+                    <IconComponent
+                      className="w-3.5 h-3.5 text-current"
+                      strokeWidth={2}
+                    />
+                  )}
+                  {skill}
+                </Badge>
+              </Link>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
   );
 }

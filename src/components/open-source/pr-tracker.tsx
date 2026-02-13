@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -43,7 +43,7 @@ export function PrTracker({ pullRequests }: PrTrackerProps) {
   }
 
   return (
-    <motion.div
+    <m.div
       className="space-y-3"
       initial="hidden"
       whileInView="visible"
@@ -55,7 +55,7 @@ export function PrTracker({ pullRequests }: PrTrackerProps) {
       {pullRequests.map((pr) => {
         const config = statusConfig[pr.state];
         return (
-          <motion.div
+          <m.div
             key={pr.url}
             variants={{
               hidden: { opacity: 0, x: -20 },
@@ -96,7 +96,7 @@ export function PrTracker({ pullRequests }: PrTrackerProps) {
                   )}
                 >
                   {pr.state === "open" && (
-                    <motion.span
+                    <m.span
                       className="h-1.5 w-1.5 rounded-full bg-current"
                       animate={{ opacity: [1, 0.4, 1] }}
                       transition={{ repeat: Infinity, duration: 2 }}
@@ -106,9 +106,9 @@ export function PrTracker({ pullRequests }: PrTrackerProps) {
                 </Badge>
               </Card>
             </a>
-          </motion.div>
+          </m.div>
         );
       })}
-    </motion.div>
+    </m.div>
   );
 }

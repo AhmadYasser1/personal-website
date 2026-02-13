@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Star, GitFork, ExternalLink } from "lucide-react";
 import type { GitHubRepo } from "@/lib/data/github-types";
@@ -11,7 +11,7 @@ interface RepoCardProps {
 
 export function RepoCard({ repo }: RepoCardProps) {
   return (
-    <motion.div
+    <m.div
       whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 20 } }}
       className="h-full"
     >
@@ -58,6 +58,6 @@ export function RepoCard({ repo }: RepoCardProps) {
           </CardContent>
         </Card>
       </a>
-    </motion.div>
+    </m.div>
   );
 }

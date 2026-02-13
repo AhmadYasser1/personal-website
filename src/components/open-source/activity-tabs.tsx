@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { motion, AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CommitTimeline } from "./commit-timeline";
 import type {
@@ -61,7 +62,7 @@ export function ActivityTabs({
       </Tabs>
 
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={activeTab}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,7 +79,7 @@ export function ActivityTabs({
           {activeTab === "timeline" && (
             <CommitTimeline commits={recentCommits} />
           )}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );

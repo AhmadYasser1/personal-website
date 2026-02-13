@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
@@ -15,7 +15,7 @@ export function ErrorFallback({
   onRetry,
 }: ErrorFallbackProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -31,6 +31,6 @@ export function ErrorFallback({
           )}
         </CardContent>
       </Card>
-    </motion.div>
+    </m.div>
   );
 }

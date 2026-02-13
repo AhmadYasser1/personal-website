@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { GitCommit } from "lucide-react";
 import type { CommitEvent } from "@/lib/data/github-types";
 
@@ -38,7 +38,7 @@ export function CommitTimeline({ commits }: CommitTimelineProps) {
   }
 
   return (
-    <motion.div
+    <m.div
       className="relative space-y-0"
       initial="hidden"
       animate="visible"
@@ -50,7 +50,7 @@ export function CommitTimeline({ commits }: CommitTimelineProps) {
       <div className="absolute left-[15px] top-3 bottom-3 w-px bg-border" />
 
       {commits.map((commit) => (
-        <motion.div
+        <m.div
           key={commit.url}
           variants={{
             hidden: { opacity: 0, x: -10 },
@@ -77,8 +77,8 @@ export function CommitTimeline({ commits }: CommitTimelineProps) {
               <span>{timeAgo(commit.committedDate)}</span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       ))}
-    </motion.div>
+    </m.div>
   );
 }
