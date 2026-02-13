@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import {
@@ -40,7 +40,7 @@ const statItems = [
 
 export function StatsOverview({ stats }: StatsOverviewProps) {
   return (
-    <motion.div
+    <m.div
       className="grid grid-cols-2 sm:grid-cols-4 gap-4"
       initial="hidden"
       whileInView="visible"
@@ -52,7 +52,7 @@ export function StatsOverview({ stats }: StatsOverviewProps) {
       {statItems.map((item) => {
         const Icon = item.icon;
         return (
-          <motion.div
+          <m.div
             key={item.key}
             variants={{
               hidden: { opacity: 0, y: 20, scale: 0.95 },
@@ -70,9 +70,9 @@ export function StatsOverview({ stats }: StatsOverviewProps) {
                 <p className="text-xs text-muted-foreground">{item.label}</p>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         );
       })}
-    </motion.div>
+    </m.div>
   );
 }

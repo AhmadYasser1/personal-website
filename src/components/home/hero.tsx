@@ -16,33 +16,9 @@ export function Hero() {
       {/* Animated background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-        <m.div
-          className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
-          animate={isInView ? { x: [0, 30, 0], y: [0, -20, 0] } : { x: 0, y: 0 }}
-          transition={{
-            duration: 8,
-            repeat: isInView ? Infinity : 0,
-            ease: "easeInOut",
-          }}
-        />
-        <m.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-          animate={isInView ? { x: [0, -40, 0], y: [0, 30, 0] } : { x: 0, y: 0 }}
-          transition={{
-            duration: 10,
-            repeat: isInView ? Infinity : 0,
-            ease: "easeInOut",
-          }}
-        />
-        <m.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl"
-          animate={isInView ? { scale: [1, 1.1, 1] } : { scale: 1 }}
-          transition={{
-            duration: 6,
-            repeat: isInView ? Infinity : 0,
-            ease: "easeInOut",
-          }}
-        />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl will-change-transform animate-orb-drift-1" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl will-change-transform animate-orb-drift-2" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl will-change-transform animate-orb-pulse" />
         
         {/* Animated grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
