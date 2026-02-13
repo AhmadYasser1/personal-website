@@ -77,13 +77,20 @@ export function Hero() {
             >
               Hi, I&apos;m{" "}
             </m.span>
-            <m.span 
+            <m.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60 inline-block"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
               Ahmad Yasser
+            </m.span>
+            <m.span
+              className="text-emerald-500"
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              .
             </m.span>
           </m.h1>
 
