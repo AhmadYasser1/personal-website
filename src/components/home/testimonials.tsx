@@ -1,6 +1,7 @@
 "use client";
 
 import * as m from "motion/react-m";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { testimonials } from "@/lib/data/testimonials";
@@ -67,14 +68,13 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </p>
 
           <div className="flex items-center gap-3 pt-3 border-t border-border/50 mt-auto shrink-0">
-            {/* Author initials avatar */}
-            <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-semibold shrink-0">
-              {testimonial.name
-                .split(" ")
-                .slice(0, 2)
-                .map((n) => n[0])
-                .join("")}
-            </div>
+            <Image
+              src={testimonial.image}
+              alt={testimonial.name}
+              width={36}
+              height={36}
+              className="w-9 h-9 rounded-full object-cover shrink-0"
+            />
             <div className="min-w-0">
               <p className="text-sm font-semibold truncate">
                 {testimonial.name}
