@@ -87,7 +87,7 @@ export function Hero() {
           >
             <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button asChild size="lg" className="min-w-[160px]">
-                <Link href="/projects">View Projects</Link>
+                <Link href="/projects">See My Work</Link>
               </Button>
             </m.div>
             <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
