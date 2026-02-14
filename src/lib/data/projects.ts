@@ -134,6 +134,54 @@ export const projects: Project[] = [
     featured: false,
     isPrivate: true,
   },
+  {
+    id: "event-survey-agent",
+    title: "Event Survey Intelligence Agent",
+    description:
+      "AI-powered agent that analyzes post-event survey data across Brooklyn Nets, NY Liberty, and Barclays Center events to surface actionable insights for operations and fan experience teams.",
+    longDescription:
+      "Built an AI agent that ingests and analyzes post-event survey responses across all Brooklyn Sports & Entertainment properties. The agent surfaces trends, sentiment shifts, and actionable recommendations for operations, marketing, and fan experience teams.",
+    technologies: ["LangGraph", "Python", "AWS Bedrock", "AWS Glue", "Snowflake", "React", "TypeScript", "DynamoDB"],
+    category: "ai-ml",
+    featured: false,
+    isPrivate: true,
+  },
+  {
+    id: "tkt-price-agent",
+    title: "Ticket Pricing Intelligence Agent",
+    description:
+      "AI agent that assists ticket pricing analysts with real-time market analysis, pricing recommendations, and competitive benchmarking for Brooklyn Nets and Barclays Center events.",
+    longDescription:
+      "Developed an AI-powered ticket pricing agent that helps pricing analysts at Brooklyn Sports & Entertainment make data-driven decisions. The agent provides real-time market analysis, pricing recommendations, and competitive benchmarking across Brooklyn Nets games and Barclays Center events.",
+    technologies: ["LangGraph", "Python", "AWS Bedrock", "React", "TypeScript", "Vite", "DynamoDB"],
+    category: "ai-ml",
+    featured: false,
+    isPrivate: true,
+  },
+  {
+    id: "chatgpt-usage-dashboard",
+    title: "ChatGPT Usage Analytics Dashboard",
+    description:
+      "Internal analytics dashboard tracking ChatGPT Enterprise usage patterns across Brooklyn Sports & Entertainment departments to measure AI adoption and optimize licensing.",
+    longDescription:
+      "Built an internal dashboard for Brooklyn Sports & Entertainment leadership to track ChatGPT Enterprise usage across departments. Provides adoption metrics, usage trends, and cost analysis to optimize AI tool licensing and identify training opportunities.",
+    technologies: ["Next.js", "TypeScript", "AWS DynamoDB", "AWS Amplify", "Tailwind CSS"],
+    category: "data-analysis",
+    featured: false,
+    isPrivate: true,
+  },
+  {
+    id: "happi",
+    title: "HAPPI - Interactive Wellness Device",
+    description:
+      "Interactive wellness device designed to enhance emotional wellness and community engagement through interactive messages. Paper accepted at CHI 2025 Student Design Competition.",
+    longDescription:
+      "Led authorship of 'Fostering Positive Connections Through Interactive Messages: HAPPI', a paper accepted at the CHI 2025 Student Design Competition. Designed and prototyped an interactive device that promotes emotional wellness through community-driven messaging.",
+    technologies: ["User Research", "Prototyping", "Academic Writing", "Thematic Analysis"],
+    category: "research",
+    githubUrl: "https://doi.org/10.1145/3706599.3720296",
+    featured: false,
+  },
 ];
 
 export const projectCategories = [
