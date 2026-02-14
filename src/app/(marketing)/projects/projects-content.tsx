@@ -166,7 +166,7 @@ function ProjectCard({ project }: ProjectCardProps) {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col grow">
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+        <p className="text-muted-foreground text-sm mb-4">
           {project.description}
         </p>
         <div className="flex flex-wrap gap-1.5 mt-auto">
