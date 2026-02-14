@@ -182,11 +182,12 @@ function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <m.div
+      className="h-full"
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {projectUrl && !isPrivate ? (
-        <Link href={projectUrl} target="_blank" rel="noopener noreferrer" className="block">
+        <Link href={projectUrl} target="_blank" rel="noopener noreferrer" className="block h-full">
           {cardContent}
         </Link>
       ) : (
