@@ -138,16 +138,11 @@ export function AboutContent() {
             <StaggerItem className="h-full">
               <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
-                  <CardContent className="pt-6">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                      </svg>
+                  <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
+                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Target className="w-7 h-7 text-primary" />
                     </div>
-                    <h3 className="font-heading font-semibold text-lg mb-2">Driving Change & Impact</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Passionate about creating technology that makes a real difference in people&apos;s lives and communities.
-                    </p>
+                    <h3 className="font-heading font-semibold text-lg">Driving Change & Impact</h3>
                   </CardContent>
                 </Card>
               </m.div>
@@ -155,16 +150,11 @@ export function AboutContent() {
             <StaggerItem className="h-full">
               <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
-                  <CardContent className="pt-6">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                      </svg>
+                  <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
+                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Zap className="w-7 h-7 text-primary" />
                     </div>
-                    <h3 className="font-heading font-semibold text-lg mb-2">Fast-Paced Environments</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Thrive in dynamic, high-energy settings where quick thinking and adaptability lead to innovation.
-                    </p>
+                    <h3 className="font-heading font-semibold text-lg">Fast-Paced Environments</h3>
                   </CardContent>
                 </Card>
               </m.div>
@@ -172,18 +162,11 @@ export function AboutContent() {
             <StaggerItem className="h-full">
               <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
-                  <CardContent className="pt-6">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                        <path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4Z" />
-                        <circle cx="12" cy="14" r="2" />
-                        <path d="M12 16v2" />
-                      </svg>
+                  <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
+                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Brain className="w-7 h-7 text-primary" />
                     </div>
-                    <h3 className="font-heading font-semibold text-lg mb-2">Building with AI</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Leveraging artificial intelligence to build intelligent systems that solve complex real-world problems.
-                    </p>
+                    <h3 className="font-heading font-semibold text-lg">Building with AI</h3>
                   </CardContent>
                 </Card>
               </m.div>

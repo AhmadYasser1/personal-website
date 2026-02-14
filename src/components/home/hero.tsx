@@ -76,7 +76,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            HCI Researcher and Dual-degree CS graduate from University of Minnesota - Twin Cities.
+            Human-Computer Interaction Researcher and Dual-degree CS graduate from University of Minnesota - Twin Cities.
           </m.p>
 
           <m.div
@@ -87,7 +87,7 @@ export function Hero() {
           >
             <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button asChild size="lg" className="min-w-[160px]">
-                <Link href="/projects">View Projects</Link>
+                <Link href="/projects">See My Work</Link>
               </Button>
             </m.div>
             <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -104,7 +104,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Stat label="GPA" value="4.0" isText />
-            <Stat label="HCI Publications" value="2+" isText />
+            <Stat label="Research Publications" value="2+" isText />
             <Stat label="Projects" value={20} suffix="+" />
           </m.div>
         </div>

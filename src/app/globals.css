@@ -49,6 +49,7 @@
   --animate-orb-drift-1: orb-drift-1 8s ease-in-out infinite;
   --animate-orb-drift-2: orb-drift-2 10s ease-in-out infinite;
   --animate-orb-pulse: orb-pulse 6s ease-in-out infinite;
+  --animate-marquee: marquee 30s linear infinite;
 }
 
 :root {
@@ -154,6 +155,11 @@
 @keyframes orb-pulse {
   0%, 100% { transform: translate(-50%, -50%) scale(1); }
   50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Accessibility: disable animations for users who prefer reduced motion */

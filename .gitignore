@@ -43,3 +43,4 @@ next-env.d.ts
 # Noodlbox/Cursor local artifacts
 .cursor/
 .fastembed_cache/
+.env*.local
