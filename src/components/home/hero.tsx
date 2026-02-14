@@ -76,7 +76,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            HCI Researcher and Dual-degree CS graduate from University of Minnesota - Twin Cities.
+            Human-Computer Interaction Researcher and Dual-degree CS graduate from University of Minnesota - Twin Cities.
           </m.p>
 
           <m.div
@@ -104,7 +104,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Stat label="GPA" value="4.0" isText />
-            <Stat label="HCI Publications" value="2+" isText />
+            <Stat label="Research Publications" value="2+" isText />
             <Stat label="Projects" value={20} suffix="+" />
           </m.div>
         </div>

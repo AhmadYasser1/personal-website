@@ -25,14 +25,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | HCI Researcher`,
+    default: `${siteConfig.name} | Human-Computer Interaction Researcher`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
     "Ahmad Yasser",
     "Software Engineer",
-    "HCI Researcher",
+    "Human-Computer Interaction Researcher",
     "Data Science",
     "Machine Learning",
     "Brooklyn Nets",
@@ -46,12 +46,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteConfig.url,
     siteName: `${siteConfig.name} Portfolio`,
-    title: `${siteConfig.name} | HCI Researcher`,
+    title: `${siteConfig.name} | Human-Computer Interaction Researcher`,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | HCI Researcher`,
+    title: `${siteConfig.name} | Human-Computer Interaction Researcher`,
     description: siteConfig.description,
   },
   robots: {

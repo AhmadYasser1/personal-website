@@ -3,7 +3,7 @@ const DEFAULT_SITE_URL = "https://ayasser.com";
 export const siteConfig = {
   name: "Ahmad Yasser",
   description:
-    "Dual-degree CS graduate from University of Minnesota-Twin Cities. Digital Fellow at Brooklyn Sports and Entertainment. HCI Researcher with 2+ publications.",
+    "Dual-degree CS graduate from University of Minnesota-Twin Cities. Digital Fellow at Brooklyn Sports and Entertainment. Human-Computer Interaction Researcher with 2+ publications.",
   url: (process.env.SITE_URL ?? DEFAULT_SITE_URL).replace(
     /\/$/,
     ""

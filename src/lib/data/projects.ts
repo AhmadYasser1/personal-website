@@ -24,6 +24,7 @@ export const projects: Project[] = [
     technologies: ["Python", "Computer Vision", "Thermal Imaging", "Research"],
     category: "research",
     githubUrl: "https://github.com/AhmadYasser1/C.O.R.R.A",
+    liveUrl: "https://zenodo.org/records/15203352/preview/Zhao%20et%20al%20-%20C.O.R.R.A.-%20Feasibility%20of%20Community%20Overdose%20Response%20Respiratory%20Alert.pdf?include_deleted=0",
     featured: true,
     featuredOrder: 1,
   },
@@ -147,18 +148,6 @@ export const projects: Project[] = [
     isPrivate: true,
   },
   {
-    id: "tkt-price-agent",
-    title: "Ticket Pricing Intelligence Agent",
-    description:
-      "AI agent that assists ticket pricing analysts with real-time market analysis, pricing recommendations, and competitive benchmarking for Brooklyn Nets and Barclays Center events.",
-    longDescription:
-      "Developed an AI-powered ticket pricing agent that helps pricing analysts at Brooklyn Sports & Entertainment make data-driven decisions. The agent provides real-time market analysis, pricing recommendations, and competitive benchmarking across Brooklyn Nets games and Barclays Center events.",
-    technologies: ["LangGraph", "Python", "AWS Bedrock", "React", "TypeScript", "Vite", "DynamoDB"],
-    category: "ai-ml",
-    featured: false,
-    isPrivate: true,
-  },
-  {
     id: "chatgpt-usage-dashboard",
     title: "ChatGPT Usage Analytics Dashboard",
     description:
@@ -180,6 +169,63 @@ export const projects: Project[] = [
     technologies: ["User Research", "Prototyping", "Academic Writing", "Thematic Analysis"],
     category: "research",
     githubUrl: "https://doi.org/10.1145/3706599.3720296",
+    featured: false,
+  },
+  {
+    id: "crm-enrichment-pipeline",
+    title: "CRM Enrichment Pipeline",
+    description:
+      "Automated MCP integration connecting ZoomInfo and Salesforce to enrich CRM records, deduplicate contacts, and sync account intelligence for Brooklyn Sports & Entertainment partnerships team.",
+    longDescription:
+      "Built an automated pipeline that connects ZoomInfo's enrichment data with Salesforce CRM via MCP servers. The system enriches prospect records, deduplicates contacts, and syncs account intelligence to help the partnerships team at Brooklyn Sports & Entertainment maintain accurate and up-to-date CRM data.",
+    technologies: ["TypeScript", "MCP", "Salesforce", "ZoomInfo", "Claude Code", "REST API"],
+    category: "web-dev",
+    featured: false,
+    isPrivate: true,
+  },
+  {
+    id: "shrine-bowl",
+    title: "Pro Transition Potential Score - Shrine Bowl",
+    description:
+      "Machine learning model predicting college football players' NFL transition potential for the 2026 Shrine Bowl x SumerSports analytics competition.",
+    longDescription:
+      "Developed a predictive model for the Shrine Bowl x SumerSports 2026 Analytics Competition. The model analyzes college football player stats, combine metrics, and game film data to generate a Pro Transition Potential (PTP) score predicting NFL success probability.",
+    technologies: ["Python", "Scikit-Learn", "Pandas", "Data Visualization", "Machine Learning"],
+    category: "data-analysis",
+    githubUrl: "https://github.com/AhmadYasser1/shrine-bowl-competition",
+    featured: false,
+  },
+  {
+    id: "personal-website",
+    title: "Personal Portfolio Website",
+    description:
+      "This website — a modern, animated portfolio built with Next.js 16, Tailwind CSS v4, and Motion. Features auto-scrolling testimonials, animated statistics, and dark mode.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Motion", "Vercel"],
+    category: "web-dev",
+    githubUrl: "https://github.com/AhmadYasser1/personal-website",
+    liveUrl: "https://ayasser.com",
+    featured: false,
+  },
+  {
+    id: "mudaris-os",
+    title: "Mudaris OS - Educational Operations Platform",
+    description:
+      "WhatsApp-centric operations platform for Egyptian tutors with student management, QR attendance tracking, InstaPay OCR payment verification, and automated WhatsApp notifications.",
+    longDescription:
+      "Building a full-stack educational operations platform that helps Egyptian tutors manage their students through WhatsApp. Features include QR-based attendance, OCR-powered InstaPay payment verification, automated WhatsApp notifications, and a comprehensive student management dashboard.",
+    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "WhatsApp API"],
+    category: "web-dev",
+    featured: false,
+    isPrivate: true,
+  },
+  {
+    id: "mental-health-analysis",
+    title: "Mental Health & Physical Appearance Analysis",
+    description:
+      "Statistical analysis investigating correlations between mental health conditions and physical appearance changes using survey data and hypothesis testing.",
+    technologies: ["Python", "Pandas", "Data Visualization", "Hypothesis Testing"],
+    category: "data-analysis",
+    githubUrl: "https://github.com/AhmadYasser1/Mental-Health-Physical-Appearance-Relation",
     featured: false,
   },
 ];

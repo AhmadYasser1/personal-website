@@ -99,7 +99,7 @@ export function Footer() {
               </m.span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              HCI Researcher | Digital Fellow at Brooklyn Sports and Entertainment
+              Human-Computer Interaction Researcher | Digital Fellow at Brooklyn Sports and Entertainment
             </p>
           </m.div>
 
