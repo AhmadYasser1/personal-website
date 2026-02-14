@@ -113,6 +113,7 @@ export const projects: Project[] = [
       "Collaborated with Dr. Lana Yarosh and Minzhu Zhao on the C.O.R.R.A. project at GroupLens, which utilizes Thermal Infrared and RGB cameras to track breathing patterns in public spaces, identifying potential opioid overdoses and triggering alarms for intervention.",
     technologies: ["Python", "Computer Vision", "Thermal Imaging", "Research"],
     category: "research",
+    liveUrl: "https://zenodo.org/records/15203352",
     featured: true,
     featuredOrder: 4,
   },
