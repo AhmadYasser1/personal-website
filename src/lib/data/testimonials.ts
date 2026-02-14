@@ -21,7 +21,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "mohammed-nasser",
-    name: "Mohammed Nasser Abdou",
+    name: "Mohammed Nasser",
     title: "Senior AI & DS Engineer | Software Engineer",
     relationship: "Colleague",
     date: "February 2024",
