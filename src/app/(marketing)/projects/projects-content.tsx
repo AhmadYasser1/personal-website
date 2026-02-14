@@ -100,7 +100,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   const isPrivate = project.isPrivate;
 
   const cardContent = (
-    <Card className="h-full group border-border/50 hover:border-primary/50 transition-colors cursor-pointer">
+    <Card className="h-full flex flex-col group border-border/50 hover:border-primary/50 transition-colors cursor-pointer">
       <CardHeader>
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2">
@@ -165,11 +165,11 @@ function ProjectCard({ project }: ProjectCardProps) {
           {project.title}
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col grow">
         <p className="text-muted-foreground text-sm mb-4">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5 mt-auto">
           {project.technologies.map((tech) => (
             <Badge key={tech} variant="secondary" className="text-xs">
               {tech}
@@ -182,11 +182,12 @@ function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <m.div
+      className="h-full"
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {projectUrl && !isPrivate ? (
-        <Link href={projectUrl} target="_blank" rel="noopener noreferrer" className="block">
+        <Link href={projectUrl} target="_blank" rel="noopener noreferrer" className="block h-full">
           {cardContent}
         </Link>
       ) : (
