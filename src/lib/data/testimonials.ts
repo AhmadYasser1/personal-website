@@ -32,7 +32,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "mohamed-hisham",
     name: "Mohamed Hisham",
-    title: "Orchestrating Corporate Innovation & Startup Growth at Banque Misr",
+    title: "Corporate Innovation & Startup Growth | Banque Misr",
     relationship: "Mentor",
     date: "February 2024",
     quote:
