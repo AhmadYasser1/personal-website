@@ -8,6 +8,9 @@ import { ScrollConfig } from "@/components/ui/scroll-config";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { MotionProvider } from "@/components/motion-provider";
+import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
+import { PageTransition } from "@/components/page-transition";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 import { siteConfig } from "@/config/site";
 
 const spaceGrotesk = Space_Grotesk({
@@ -79,10 +82,15 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <MotionProvider>
-            <ScrollConfig />
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <SmoothScrollProvider>
+              <ScrollConfig />
+              <Navbar />
+              <main className="flex-1">
+                <PageTransition>{children}</PageTransition>
+              </main>
+              <Footer />
+              <CustomCursor />
+            </SmoothScrollProvider>
           </MotionProvider>
         </ThemeProvider>
         {isVercelDeployment ? <SpeedInsights /> : null}
