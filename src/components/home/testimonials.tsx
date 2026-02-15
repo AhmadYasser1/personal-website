@@ -1,6 +1,3 @@
-"use client";
-
-import * as m from "motion/react-m";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,15 +6,9 @@ import type { Testimonial } from "@/lib/data/testimonials";
 
 export function Testimonials() {
   return (
-    <section className="py-24 overflow-hidden">
+    <section className="py-24 overflow-hidden [content-visibility:auto] [contain-intrinsic-size:auto_600px]">
       <div className="container mx-auto px-4">
-        <m.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="text-center mb-12">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
             What People Say
           </h2>
@@ -25,7 +16,7 @@ export function Testimonials() {
             Recommendations from mentors and colleagues I&apos;ve had the
             privilege of working with
           </p>
-        </m.div>
+        </div>
       </div>
 
       <div className="relative">
@@ -34,7 +25,7 @@ export function Testimonials() {
         {/* Gradient fade — right */}
         <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-        <div className="flex animate-marquee hover:[animation-play-state:paused]">
+        <div className="flex animate-marquee will-change-transform hover:[animation-play-state:paused]">
           {testimonials.map((t) => (
             <TestimonialCard key={t.id} testimonial={t} />
           ))}
@@ -73,6 +64,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               alt={testimonial.name}
               width={36}
               height={36}
+              sizes="36px"
               className="w-9 h-9 rounded-full object-cover shrink-0"
             />
             <div className="min-w-0">
