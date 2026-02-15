@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import * as m from "motion/react-m";
@@ -13,6 +13,7 @@ import { socialLinks } from "@/lib/data/research";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 import { submitContactForm, type ContactFormState } from "./actions";
+import { trackEvent } from "@/lib/clarity";
 
 const initialState: ContactFormState = {
   success: false,
@@ -29,6 +30,10 @@ export function ContactContent({
     initialState
   );
   const showSuccess = state.success;
+
+  useEffect(() => {
+    if (state.success) trackEvent("contact-form-submit");
+  }, [state.success]);
 
   const handleSendAnother = () => {
     window.location.reload();
@@ -343,6 +348,7 @@ function SocialLink({
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2 p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-colors"
+        onClick={() => trackEvent(`social-click-${label.toLowerCase()}`)}
       >
         <span className="text-muted-foreground">{icon}</span>
         <span className="font-medium">{label}</span>

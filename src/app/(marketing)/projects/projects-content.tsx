@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 import { projects, projectCategories, getCategoryLabel } from "@/lib/data/projects";
+import { trackEvent } from "@/lib/clarity";
 
 export function ProjectsContent() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -54,7 +55,10 @@ export function ProjectsContent() {
               key={category.id}
               variant={activeCategory === category.id ? "default" : "outline"}
               size="sm"
-              onClick={() => setActiveCategory(category.id)}
+              onClick={() => {
+                setActiveCategory(category.id);
+                trackEvent(`filter-${category.id}`);
+              }}
               className="transition-all"
             >
               {category.label}
@@ -194,7 +198,7 @@ function ProjectCard({ project }: ProjectCardProps) {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         {projectUrl && !isPrivate ? (
-          <Link href={projectUrl} target="_blank" rel="noopener noreferrer" className="block h-full">
+          <Link href={projectUrl} target="_blank" rel="noopener noreferrer" className="block h-full" onClick={() => trackEvent(`project-click-${project.id}`)}>
             {cardContent}
           </Link>
         ) : (
