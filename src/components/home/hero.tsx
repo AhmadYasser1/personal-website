@@ -16,80 +16,85 @@ export function Hero() {
       const heading = headingRef.current;
       if (!heading) return;
 
-      const split = SplitText.create(heading, {
-        type: "chars",
-        mask: "chars",
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const split = SplitText.create(heading, {
+          type: "chars",
+          mask: "chars",
+        });
+
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        tl.from("[data-hero-badge]", {
+          opacity: 0,
+          y: 15,
+          duration: 0.5,
+        })
+          .from(
+            split.chars,
+            {
+              y: "100%",
+              opacity: 0,
+              duration: 0.6,
+              stagger: 0.025,
+            },
+            "-=0.2",
+          )
+          .from(
+            "[data-hero-dot]",
+            {
+              scale: 0,
+              opacity: 0,
+              duration: 0.4,
+              ease: "back.out(2)",
+            },
+            "-=0.3",
+          )
+          .from(
+            "[data-hero-subtitle]",
+            {
+              opacity: 0,
+              y: 20,
+              filter: "blur(8px)",
+              duration: 0.6,
+            },
+            "-=0.2",
+          )
+          .from(
+            "[data-hero-cta]",
+            {
+              opacity: 0,
+              y: 20,
+              duration: 0.5,
+              stagger: 0.1,
+            },
+            "-=0.3",
+          )
+          .from(
+            "[data-hero-stat]",
+            {
+              opacity: 0,
+              y: 15,
+              duration: 0.4,
+              stagger: 0.1,
+            },
+            "-=0.2",
+          )
+          .from(
+            "[data-hero-scroll]",
+            {
+              opacity: 0,
+              duration: 0.5,
+            },
+            "-=0.1",
+          );
+
+        return () => {
+          split.revert();
+        };
       });
 
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      tl.from("[data-hero-badge]", {
-        opacity: 0,
-        y: 15,
-        duration: 0.5,
-      })
-        .from(
-          split.chars,
-          {
-            y: "100%",
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.025,
-          },
-          "-=0.2",
-        )
-        .from(
-          "[data-hero-dot]",
-          {
-            scale: 0,
-            opacity: 0,
-            duration: 0.4,
-            ease: "back.out(2)",
-          },
-          "-=0.3",
-        )
-        .from(
-          "[data-hero-subtitle]",
-          {
-            opacity: 0,
-            y: 20,
-            filter: "blur(8px)",
-            duration: 0.6,
-          },
-          "-=0.2",
-        )
-        .from(
-          "[data-hero-cta]",
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.5,
-            stagger: 0.1,
-          },
-          "-=0.3",
-        )
-        .from(
-          "[data-hero-stat]",
-          {
-            opacity: 0,
-            y: 15,
-            duration: 0.4,
-            stagger: 0.1,
-          },
-          "-=0.2",
-        )
-        .from(
-          "[data-hero-scroll]",
-          {
-            opacity: 0,
-            duration: 0.5,
-          },
-          "-=0.1",
-        );
-
-      return () => {
-        split.revert();
-      };
+      return () => mm.revert();
     },
     { scope: sectionRef },
   );

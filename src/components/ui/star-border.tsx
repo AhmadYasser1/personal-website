@@ -31,7 +31,7 @@ export function StarBorder({
       />
 
       {/* Inner content with background to mask the gradient */}
-      <div className="relative rounded-[calc(0.75rem-1px)] bg-card h-full">
+      <div className="relative bg-card h-full" style={{ borderRadius: `calc(0.75rem - ${borderWidth}px)` }}>
         {children}
       </div>
     </div>
