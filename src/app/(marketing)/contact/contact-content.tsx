@@ -44,13 +44,12 @@ export function ContactContent({
       <div className="container mx-auto px-4 max-w-2xl">
         {/* Header */}
         <div className="text-center mb-16">
-          <SplitTextReveal
-            as="h1"
-            className="font-heading text-4xl sm:text-5xl font-bold mb-6"
-            trigger="load"
-          >
-            Get in Touch<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
+            <SplitTextReveal as="span" trigger="load">
+              Get in Touch
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h1>
           <m.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
