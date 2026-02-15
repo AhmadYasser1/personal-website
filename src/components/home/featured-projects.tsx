@@ -10,6 +10,7 @@ import { StarBorder } from "@/components/ui/star-border";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 import { projects } from "@/lib/data/projects";
+import { trackEvent } from "@/lib/clarity";
 
 // Get featured projects sorted by featuredOrder
 const featuredProjects = projects
@@ -106,11 +107,12 @@ function ProjectCard({ project }: ProjectCardProps) {
   const linkUrl = project.githubUrl || project.liveUrl || "#";
   
   return (
-    <Link 
+    <Link
       href={linkUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="block h-full"
+      onClick={() => trackEvent(`project-click-${project.id}`)}
     >
       <m.div
         whileHover={{ y: -8, scale: 1.02 }}
