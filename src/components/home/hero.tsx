@@ -143,7 +143,7 @@ export function Hero() {
       </div>
 
       {/* Desktop experience clouds — flanking hero */}
-      <div className="hidden md:block">
+      <div className="hidden md:block relative z-20">
         <div className="absolute top-1/3 left-6 lg:left-12 xl:left-20" data-cloud>
           <ExperienceCloud
             company="Brooklyn Sports & Entertainment"
