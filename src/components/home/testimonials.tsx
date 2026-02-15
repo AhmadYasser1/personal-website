@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +8,7 @@ import type { Testimonial } from "@/lib/data/testimonials";
 
 export function Testimonials() {
   return (
-    <section className="py-24 overflow-hidden [content-visibility:auto] [contain-intrinsic-size:auto_600px]">
+    <section className="py-24 [content-visibility:auto] [contain-intrinsic-size:auto_600px]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
@@ -19,11 +21,23 @@ export function Testimonials() {
         </div>
       </div>
 
-      <div className="relative">
+      {/* Mobile: snap-scrollable horizontal list */}
+      <div className="md:hidden">
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 scrollbar-hide">
+          {testimonials.map((t) => (
+            <div key={t.id} className="snap-start shrink-0 w-[85vw] max-w-[380px]">
+              <TestimonialCard testimonial={t} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: infinite marquee */}
+      <div className="hidden md:block relative overflow-hidden">
         {/* Gradient fade — left */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         {/* Gradient fade — right */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         <div className="flex animate-marquee will-change-transform hover:[animation-play-state:paused]">
           {testimonials.map((t) => (
@@ -41,7 +55,7 @@ export function Testimonials() {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="w-[320px] sm:w-[380px] px-3 shrink-0">
+    <div className="px-2 shrink-0 md:w-[380px]">
       <Card className="h-full border-border/50 hover:border-primary/30 transition-colors">
         <CardContent className="flex flex-col h-full pt-6">
           {/* Quote icon */}
