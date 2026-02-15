@@ -121,7 +121,7 @@ export function AboutContent() {
             className="font-heading text-4xl sm:text-5xl font-bold mb-6"
             trigger="load"
           >
-            About Me
+            About Me<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <FadeContent>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -129,6 +129,9 @@ export function AboutContent() {
             </p>
           </FadeContent>
         </div>
+
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-16" />
 
         {/* Passions Section - 3 Boxes */}
         <m.section
@@ -140,10 +143,10 @@ export function AboutContent() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.15}>
             <StaggerItem className="h-full">
               <div className="h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5">
-                <Card className="h-full text-center hover:border-primary/50 transition-colors">
+                <Card className="h-full text-center hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all">
                   <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
-                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Target className="w-7 h-7 text-primary" />
+                    <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <Target className="w-7 h-7 text-emerald-500" />
                     </div>
                     <h3 className="font-heading font-semibold text-lg">Driving Change & Impact</h3>
                   </CardContent>
@@ -152,10 +155,10 @@ export function AboutContent() {
             </StaggerItem>
             <StaggerItem className="h-full">
               <div className="h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5">
-                <Card className="h-full text-center hover:border-primary/50 transition-colors">
+                <Card className="h-full text-center hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all">
                   <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
-                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Zap className="w-7 h-7 text-primary" />
+                    <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <Zap className="w-7 h-7 text-emerald-500" />
                     </div>
                     <h3 className="font-heading font-semibold text-lg">Fast-Paced Environments</h3>
                   </CardContent>
@@ -164,10 +167,10 @@ export function AboutContent() {
             </StaggerItem>
             <StaggerItem className="h-full">
               <div className="h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5">
-                <Card className="h-full text-center hover:border-primary/50 transition-colors">
+                <Card className="h-full text-center hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all">
                   <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
-                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Brain className="w-7 h-7 text-primary" />
+                    <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <Brain className="w-7 h-7 text-emerald-500" />
                     </div>
                     <h3 className="font-heading font-semibold text-lg">Building with AI</h3>
                   </CardContent>
@@ -176,6 +179,9 @@ export function AboutContent() {
             </StaggerItem>
           </StaggerContainer>
         </m.section>
+
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-16" />
 
         {/* Education Section */}
         <m.section
@@ -186,14 +192,14 @@ export function AboutContent() {
           transition={{ duration: 0.5 }}
         >
           <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Education
+            Education<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <StaggerContainer className="space-y-4" staggerDelay={0.15}>
             {education.map((edu) => (
               <StaggerItem key={edu.id}>
                 <div className="transition-transform duration-200 hover:-translate-y-1">
-                  <Card className="overflow-hidden relative hover:border-primary/50 transition-colors">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary/50" />
+                  <Card className="overflow-hidden relative hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group">
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-500 to-emerald-500/50" />
                     <CardHeader className="pl-5">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
@@ -205,7 +211,7 @@ export function AboutContent() {
                           </p>
                         </div>
                         <div className="text-right">
-                          <Badge variant="secondary" className="text-lg px-3 transition-transform duration-200 hover:scale-110">
+                          <Badge className="text-lg px-3 bg-emerald-500/20 text-emerald-500 border border-emerald-500/30 transition-transform duration-200 hover:scale-110">
                             {edu.gpa} GPA
                           </Badge>
                           <p className="text-sm text-muted-foreground mt-1">
@@ -228,6 +234,9 @@ export function AboutContent() {
           </StaggerContainer>
         </m.section>
 
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-16" />
+
         {/* Skills Section */}
         <m.section
           className="mb-16"
@@ -237,7 +246,7 @@ export function AboutContent() {
           transition={{ duration: 0.5 }}
         >
           <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Technical Skills
+            Technical Skills<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <FadeContent delay={0}>
@@ -270,6 +279,9 @@ export function AboutContent() {
           </div>
         </m.section>
 
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-16" />
+
         {/* Awards Section */}
         <m.section
           initial={{ opacity: 0, y: 20 }}
@@ -278,13 +290,13 @@ export function AboutContent() {
           transition={{ duration: 0.5 }}
         >
           <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Awards & Recognition
+            Awards & Recognition<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <StaggerContainer className="space-y-4" staggerDelay={0.1}>
             {awards.map((award) => (
               <StaggerItem key={award.id}>
                 <div className="transition-transform duration-200 hover:scale-[1.02] hover:translate-x-1">
-                  <Card className="overflow-hidden hover:border-primary/50 transition-colors">
+                  <Card className="overflow-hidden hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all">
                     <CardContent className="pt-6">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <div>
@@ -316,7 +328,7 @@ export function AboutContent() {
 
 function SkillCategory({ title, skills: skillList }: { title: string; skills: string[] }) {
   return (
-    <Card className="h-full min-h-[200px] hover:border-primary/50 transition-colors flex flex-col">
+    <Card className="h-full min-h-[200px] hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all flex flex-col group">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg">{title}</CardTitle>
       </CardHeader>
@@ -332,7 +344,7 @@ function SkillCategory({ title, skills: skillList }: { title: string; skills: st
                 rel="noopener noreferrer"
                 className="inline-block"
               >
-                <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 hover:scale-105 transition-all">
+                <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer group-hover:bg-emerald-500/20 group-hover:text-emerald-400 group-hover:border-emerald-500/30 transition-colors">
                   {IconComponent && (
                     <IconComponent
                       className="w-3.5 h-3.5 text-current"
