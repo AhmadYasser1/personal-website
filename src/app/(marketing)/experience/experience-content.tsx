@@ -122,7 +122,7 @@ export function ExperienceContent() {
             className="font-heading text-4xl sm:text-5xl font-bold mb-6"
             trigger="load"
           >
-            Experience
+            Experience<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <m.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
@@ -135,12 +135,15 @@ export function ExperienceContent() {
           </m.p>
         </div>
 
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent my-6" />
+
         {/* Timeline */}
         <div ref={timelineRef} className="relative">
           {/* Timeline line - scroll-driven */}
           <div
             ref={lineRef}
-            className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent -translate-x-1/2 hidden md:block origin-top"
+            className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-emerald-500/50 to-transparent -translate-x-1/2 hidden md:block origin-top"
             style={{ transform: "scaleY(0)" }}
           />
 
@@ -161,7 +164,7 @@ export function ExperienceContent() {
                 {/* Timeline dot - GSAP scroll-driven */}
                 <div
                   data-timeline-dot
-                  className={`absolute top-8 w-4 h-4 bg-primary rounded-full hidden md:flex items-center justify-center shadow-lg shadow-primary/50 ${
+                  className={`absolute top-8 w-4 h-4 bg-emerald-500 rounded-full hidden md:flex items-center justify-center shadow-lg shadow-emerald-500/50 ${
                     index % 2 === 0
                       ? "left-[calc(100%+0.5rem)]"
                       : "right-[calc(100%+0.5rem)]"
@@ -185,12 +188,12 @@ interface ExperienceCardProps {
 function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
     <div className="transition-transform duration-200 hover:-translate-y-1.5 hover:scale-[1.02]">
-      <Card className="hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/5">
+      <Card className="hover:border-emerald-500/50 transition-all hover:shadow-lg hover:shadow-emerald-500/5 group">
         <CardHeader>
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <CardTitle className="text-xl">{experience.company}</CardTitle>
-              <p className="text-primary font-medium">{experience.role}</p>
+              <p className="text-emerald-500 font-medium">{experience.role}</p>
               <p className="text-sm text-muted-foreground">
                 {experience.location}
               </p>
@@ -239,7 +242,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                       rel="noopener noreferrer"
                       className="inline-block"
                     >
-                      <Badge variant="secondary" className="text-xs flex items-center gap-1.5 cursor-pointer hover:bg-primary/20 transition-colors">
+                      <Badge variant="secondary" className="text-xs flex items-center gap-1.5 cursor-pointer group-hover:bg-emerald-500/20 group-hover:text-emerald-400 transition-colors">
                         <Image
                           src={iconUrl}
                           alt={tech}
