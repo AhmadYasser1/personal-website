@@ -78,6 +78,22 @@ export const experiences: Experience[] = [
     type: "teaching",
   },
   {
+    id: "pmi",
+    company: "Philip Morris International",
+    role: "B2B2C Inkompass Intern",
+    location: "Cairo, Egypt",
+    startDate: "July 2023",
+    endDate: "September 2023",
+    description:
+      "Participated in the Inkompass internship program at Philip Morris International.",
+    achievements: [
+      "Collaborated on cross-functional B2B2C projects",
+      "Gained exposure to international business operations and strategy",
+    ],
+    technologies: ["Business Strategy", "Project Management"],
+    type: "work",
+  },
+  {
     id: "dajin-pm",
     company: "Dajin Platform",
     role: "Project Management Intern",
@@ -93,6 +109,22 @@ export const experiences: Experience[] = [
       "Developed project schedules streamlining development follow-up by 15%",
     ],
     technologies: ["SCRUM", "Chatbots", "Project Management", "Jira"],
+    type: "work",
+  },
+  {
+    id: "dajin-data",
+    company: "Dajin Platform",
+    role: "Data Analysis and System Administration Intern",
+    location: "Cairo, Egypt",
+    startDate: "March 2023",
+    endDate: "July 2023",
+    description:
+      "Performed data analysis and system administration at a Shark Tank Egypt featured startup.",
+    achievements: [
+      "Conducted data analysis to support business decision-making",
+      "Managed system administration tasks and maintained platform infrastructure",
+    ],
+    technologies: ["Python", "Data Analysis", "System Administration"],
     type: "work",
   },
   {

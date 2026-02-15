@@ -3,11 +3,11 @@ import type { NextConfig } from "next";
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com;
+  script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.clarity.ms;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' blob: data:;
+  img-src 'self' blob: data: https://cdn.simpleicons.org;
   font-src 'self';
-  connect-src 'self' https://challenges.cloudflare.com;
+  connect-src 'self' https://challenges.cloudflare.com https://www.clarity.ms https://*.clarity.ms;
   object-src 'none';
   base-uri 'self';
   form-action 'self';

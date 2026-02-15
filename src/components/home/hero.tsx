@@ -148,7 +148,7 @@ export function Hero() {
           <ExperienceCloud
             company="Brooklyn Sports & Entertainment"
             role="Digital Fellow"
-            tagline="Building AI agents and data pipelines for the Brooklyn Nets"
+            tagline="AI agents & data pipelines for the Brooklyn Nets"
             href="/experience"
             side="left"
           />
@@ -157,7 +157,7 @@ export function Hero() {
           <ExperienceCloud
             company="GroupLens Research"
             role="Student Researcher"
-            tagline="Thermal camera research for opioid overdose detection"
+            tagline="Thermal imaging for opioid overdose detection"
             href="/experience"
             side="right"
           />
@@ -237,7 +237,7 @@ export function Hero() {
             <ExperienceCloud
               company="Brooklyn Sports & Entertainment"
               role="Digital Fellow"
-              tagline="Building AI agents and data pipelines for the Brooklyn Nets"
+              tagline="AI agents & data pipelines for the Brooklyn Nets"
               href="/experience"
               side="left"
               className="rotate-0"

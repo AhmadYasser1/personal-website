@@ -44,13 +44,13 @@ export function ExperienceCloud({
   }, []);
 
   return (
-    <MagneticElement strength={0.2}>
-      <div ref={cloudRef}>
+    <MagneticElement strength={0.15}>
+      <div ref={cloudRef} className="p-2">
         <Link
           href={href}
           className={cn(
-            "group relative block overflow-hidden",
-            "w-[180px] p-4 rounded-xl",
+            "group relative block",
+            "w-[200px] p-5 rounded-xl",
             "bg-card/30 backdrop-blur-xl",
             "border border-emerald-500/20",
             "shadow-lg shadow-emerald-500/5",
@@ -67,10 +67,10 @@ export function ExperienceCloud({
           {/* Content */}
           <div className="relative space-y-1.5">
             <div className="text-xs font-medium text-emerald-500">{company}</div>
-            <div className="text-sm font-semibold text-foreground line-clamp-1">
+            <div className="text-sm font-semibold text-foreground">
               {role}
             </div>
-            <div className="text-xs text-muted-foreground line-clamp-2">
+            <div className="text-xs text-muted-foreground">
               {tagline}
             </div>
           </div>
