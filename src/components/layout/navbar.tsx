@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
+import { useLenis } from "@/components/smooth-scroll-provider";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
@@ -21,9 +22,14 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [indicatorProps, setIndicatorProps] = useState({ left: 0, width: 0 });
   const navLinksRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const navContainerRef = useRef<HTMLDivElement>(null);
+
+  useLenis(useCallback(({ scroll }: { scroll: number }) => {
+    setIsScrolled(scroll > 50);
+  }, []));
 
   useEffect(() => {
     const activeIndex = navLinks.findIndex(link => link.href === pathname);
@@ -44,13 +50,19 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <m.header 
-      className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm"
+    <m.header
+      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
+        isScrolled
+          ? "border-border/60 bg-background/90 backdrop-blur-md"
+          : "border-border/40 bg-background/80 backdrop-blur-sm"
+      }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <nav className="container mx-auto flex h-16 items-center justify-between px-4">
+      <nav className={`container mx-auto flex items-center justify-between px-4 transition-all duration-300 ${
+        isScrolled ? "h-14" : "h-16"
+      }`}>
         <Link
           href="/"
           className="font-heading text-xl font-bold tracking-tight transition-transform duration-200 hover:scale-105"

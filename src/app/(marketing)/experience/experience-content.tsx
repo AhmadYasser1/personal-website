@@ -1,10 +1,13 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SplitTextReveal } from "@/components/ui/split-text-reveal";
+import { gsap, useGSAP } from "@/lib/gsap/plugins";
 import { experiences } from "@/lib/data/experience";
 
 // Skill icons mapping - using simple-icons CDN for tech logos
@@ -65,34 +68,80 @@ const skillIcons: Record<string, string> = {
 };
 
 export function ExperienceContent() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const line = lineRef.current;
+      const timeline = timelineRef.current;
+      if (!line || !timeline) return;
+
+      // Timeline line grows with scroll using matchMedia for desktop only
+      gsap.matchMedia().add("(min-width: 768px)", () => {
+        gsap.fromTo(
+          line,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: timeline,
+              start: "top 60%",
+              end: "bottom 40%",
+              scrub: 1,
+            },
+          },
+        );
+      });
+
+      // Timeline dots scale in on scroll
+      gsap.utils.toArray<HTMLElement>("[data-timeline-dot]").forEach((dot) => {
+        gsap.from(dot, {
+          scale: 0,
+          duration: 0.4,
+          ease: "back.out(2)",
+          scrollTrigger: {
+            trigger: dot,
+            start: "top 75%",
+            once: true,
+          },
+        });
+      });
+    },
+    { scope: timelineRef },
+  );
+
   return (
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
-        <m.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
+        <div className="text-center mb-16">
+          <SplitTextReveal
+            as="h1"
+            className="font-heading text-4xl sm:text-5xl font-bold mb-6"
+            trigger="load"
+          >
             Experience
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          </SplitTextReveal>
+          <m.p
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             My professional journey across technology, data science, and
             education
-          </p>
-        </m.div>
+          </m.p>
+        </div>
 
         {/* Timeline */}
-        <div className="relative">
-          {/* Timeline line - animated */}
-          <m.div 
-            className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent -translate-x-1/2 hidden md:block"
-            initial={{ scaleY: 0, originY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+        <div ref={timelineRef} className="relative">
+          {/* Timeline line - scroll-driven */}
+          <div
+            ref={lineRef}
+            className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent -translate-x-1/2 hidden md:block origin-top"
+            style={{ transform: "scaleY(0)" }}
           />
 
           <div className="space-y-8">
@@ -109,17 +158,14 @@ export function ExperienceContent() {
                     : "md:ml-auto"
                 }`}
               >
-                {/* Timeline dot - animated */}
-                <m.div
+                {/* Timeline dot - GSAP scroll-driven */}
+                <div
+                  data-timeline-dot
                   className={`absolute top-8 w-4 h-4 bg-primary rounded-full hidden md:flex items-center justify-center shadow-lg shadow-primary/50 ${
                     index % 2 === 0
                       ? "left-[calc(100%+0.5rem)]"
                       : "right-[calc(100%+0.5rem)]"
                   }`}
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + index * 0.1, type: "spring", stiffness: 500 }}
                 />
 
                 <ExperienceCard experience={exp} />

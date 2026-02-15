@@ -45,6 +45,11 @@
   --animate-dot-pulse: dot-pulse 2s ease-in-out infinite;
   --animate-scroll-bounce: scroll-bounce 1.5s ease-in-out infinite;
   --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-gradient-shift: gradient-shift 3s ease-in-out infinite;
+  --animate-star-rotate: star-rotate 6s linear infinite;
+  --color-emerald-dark: var(--emerald-dark);
+  --color-emerald-medium: var(--emerald-medium);
+  --color-emerald-light: var(--emerald-light);
 }
 
 :root {
@@ -75,18 +80,18 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(0.13 0.005 260);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: oklch(0.17 0.005 260);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.17 0.005 260);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --muted-foreground: oklch(0.62 0.02 260);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -98,18 +103,32 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
+
+  /* Emerald accent ecosystem */
+  --emerald-dark: oklch(0.35 0.15 160);
+  --emerald-medium: oklch(0.55 0.2 160);
+  --emerald-light: oklch(0.75 0.18 160);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  html {
-    scroll-behavior: smooth;
-  }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Film grain overlay — adds texture depth to dark backgrounds */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
 /* Background orb animations — run on compositor thread */
@@ -151,6 +170,29 @@
   to { opacity: 1; }
 }
 
+/* Gradient text shimmer */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* StarBorder rotating gradient */
+@keyframes star-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Hide default cursor on desktop — custom cursor replaces it */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, [role="button"], input, textarea, select {
+    cursor: none;
+  }
+}
+
 /* Accessibility: disable animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -158,5 +200,12 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  body::after {
+    display: none;
+  }
+  /* Re-enable default cursor when animations are reduced */
+  body, a, button, [role="button"], input, textarea, select {
+    cursor: auto !important;
   }
 }

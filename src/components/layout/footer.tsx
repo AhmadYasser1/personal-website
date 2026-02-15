@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { socialLinks } from "@/lib/data/research";
+import { MagneticElement } from "@/components/ui/magnetic-element";
 
 const socialIcons = [
   {
@@ -84,16 +87,17 @@ export function Footer() {
 
           <div className="flex items-center gap-4">
             {socialIcons.map((social) => (
-              <Link
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-all duration-200 hover:text-foreground hover:-translate-y-0.5 hover:scale-110"
-                aria-label={social.label}
-              >
-                {social.icon}
-              </Link>
+              <MagneticElement key={social.label} strength={0.4}>
+                <Link
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground transition-all duration-200 hover:text-foreground hover:-translate-y-0.5 hover:scale-110"
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </Link>
+              </MagneticElement>
             ))}
           </div>
         </div>

@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { education, awards, skills } from "@/lib/data/research";
 import { StaggerContainer, StaggerItem } from "@/components/ui/animated-section";
+import { SplitTextReveal } from "@/components/ui/split-text-reveal";
+import { FadeContent } from "@/components/ui/fade-content";
 import {
   Code2,
   Database,
@@ -113,19 +115,20 @@ export function AboutContent() {
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
-        <m.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
+        <div className="text-center mb-16">
+          <SplitTextReveal
+            as="h1"
+            className="font-heading text-4xl sm:text-5xl font-bold mb-6"
+            trigger="load"
+          >
             About Me
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A versatile technologist with diverse skills across industries, driven by a passion to make meaningful change in the world.
-          </p>
-        </m.div>
+          </SplitTextReveal>
+          <FadeContent>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              A versatile technologist with diverse skills across industries, driven by a passion to make meaningful change in the world.
+            </p>
+          </FadeContent>
+        </div>
 
         {/* Passions Section - 3 Boxes */}
         <m.section
@@ -182,7 +185,9 @@ export function AboutContent() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-heading text-2xl font-bold mb-6">Education</h2>
+          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
+            Education
+          </SplitTextReveal>
           <StaggerContainer className="space-y-4" staggerDelay={0.15}>
             {education.map((edu) => (
               <StaggerItem key={edu.id}>
@@ -231,38 +236,38 @@ export function AboutContent() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-heading text-2xl font-bold mb-6">
+          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
             Technical Skills
-          </h2>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
-            <StaggerItem className="h-full">
+          </SplitTextReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <FadeContent delay={0}>
               <SkillCategory title="Programming Languages" skills={skills.programming} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
+            </FadeContent>
+            <FadeContent delay={0.1}>
               <SkillCategory title="Frameworks & Libraries" skills={skills.frameworks} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
+            </FadeContent>
+            <FadeContent delay={0.2}>
               <SkillCategory title="Data Science" skills={skills.dataScience} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
+            </FadeContent>
+            <FadeContent delay={0} className="lg:col-span-2">
               <SkillCategory title="Cloud Services" skills={skills.cloud} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
+            </FadeContent>
+            <FadeContent delay={0.1}>
               <SkillCategory title="Databases" skills={skills.databases} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
+            </FadeContent>
+            <FadeContent delay={0}>
               <SkillCategory title="Development Tools" skills={skills.devTools} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
-              <SkillCategory title="Analytics & BI" skills={skills.analytics} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
+            </FadeContent>
+            <FadeContent delay={0.1} className="lg:col-span-2">
               <SkillCategory title="AI Services" skills={skills.aiServices} />
-            </StaggerItem>
-            <StaggerItem className="h-full">
+            </FadeContent>
+            <FadeContent delay={0}>
+              <SkillCategory title="Analytics & BI" skills={skills.analytics} />
+            </FadeContent>
+            <FadeContent delay={0.1} className="lg:col-span-2">
               <SkillCategory title="Concepts" skills={skills.concepts} />
-            </StaggerItem>
-          </StaggerContainer>
+            </FadeContent>
+          </div>
         </m.section>
 
         {/* Awards Section */}
@@ -272,9 +277,9 @@ export function AboutContent() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-heading text-2xl font-bold mb-6">
+          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
             Awards & Recognition
-          </h2>
+          </SplitTextReveal>
           <StaggerContainer className="space-y-4" staggerDelay={0.1}>
             {awards.map((award) => (
               <StaggerItem key={award.id}>
