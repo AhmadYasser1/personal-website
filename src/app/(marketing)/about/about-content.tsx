@@ -116,13 +116,15 @@ export function AboutContent() {
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-16">
-          <SplitTextReveal
-            as="h1"
-            className="font-heading text-4xl sm:text-5xl font-bold mb-6"
-            trigger="load"
-          >
-            About Me<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
+            <SplitTextReveal
+              as="span"
+              trigger="load"
+            >
+              About Me
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h1>
           <FadeContent>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A versatile technologist with diverse skills across industries, driven by a passion to make meaningful change in the world.
@@ -191,9 +193,12 @@ export function AboutContent() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Education<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h2 className="font-heading text-2xl font-bold mb-6">
+            <SplitTextReveal as="span" trigger="scroll" type="words">
+              Education
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h2>
           <StaggerContainer className="space-y-4" staggerDelay={0.15}>
             {education.map((edu) => (
               <StaggerItem key={edu.id}>
@@ -245,9 +250,12 @@ export function AboutContent() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Technical Skills<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h2 className="font-heading text-2xl font-bold mb-6">
+            <SplitTextReveal as="span" trigger="scroll" type="words">
+              Technical Skills
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <FadeContent delay={0}>
               <SkillCategory title="Programming Languages" skills={skills.programming} />
@@ -289,9 +297,12 @@ export function AboutContent() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Awards & Recognition<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h2 className="font-heading text-2xl font-bold mb-6">
+            <SplitTextReveal as="span" trigger="scroll" type="words">
+              Awards & Recognition
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h2>
           <StaggerContainer className="space-y-4" staggerDelay={0.1}>
             {awards.map((award) => (
               <StaggerItem key={award.id}>
