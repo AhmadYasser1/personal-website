@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { MagneticElement } from "@/components/ui/magnetic-element";
+import { ExperienceCloud } from "@/components/home/experience-cloud";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap/plugins";
 
 export function Hero() {
@@ -99,6 +100,32 @@ export function Hero() {
     { scope: sectionRef },
   );
 
+  useGSAP(
+    () => {
+      const clouds = gsap.utils.toArray<HTMLElement>("[data-cloud]");
+      if (clouds.length === 0) return;
+
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        clouds.forEach((cloud, i) => {
+          gsap.to(cloud, {
+            y: i === 0 ? -40 : -60,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: 0.5,
+            },
+          });
+        });
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef },
+  );
+
   return (
     <section
       ref={sectionRef}
@@ -115,7 +142,29 @@ export function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
       </div>
 
-      <div className="container mx-auto px-4">
+      {/* Desktop experience clouds — flanking hero */}
+      <div className="hidden md:block">
+        <div className="absolute top-1/3 left-6 lg:left-12 xl:left-20" data-cloud>
+          <ExperienceCloud
+            company="Brooklyn Sports & Entertainment"
+            role="Digital Fellow"
+            tagline="Building AI agents and data pipelines for the Brooklyn Nets"
+            href="/experience"
+            side="left"
+          />
+        </div>
+        <div className="absolute top-[45%] right-6 lg:right-12 xl:right-20" data-cloud>
+          <ExperienceCloud
+            company="GroupLens Research"
+            role="Student Researcher"
+            tagline="Thermal camera research for opioid overdose detection"
+            href="/experience"
+            side="right"
+          />
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <div data-hero-badge>
             <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20 transition-transform duration-200 hover:scale-105">
@@ -181,6 +230,18 @@ export function Hero() {
             <div data-hero-stat>
               <Stat label="Projects" value={20} suffix="+" />
             </div>
+          </div>
+
+          {/* Mobile experience cloud — single card below hero content */}
+          <div className="md:hidden mt-8 flex justify-center">
+            <ExperienceCloud
+              company="Brooklyn Sports & Entertainment"
+              role="Digital Fellow"
+              tagline="Building AI agents and data pipelines for the Brooklyn Nets"
+              href="/experience"
+              side="left"
+              className="rotate-0"
+            />
           </div>
         </div>
       </div>
