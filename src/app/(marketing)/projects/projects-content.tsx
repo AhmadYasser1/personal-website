@@ -31,7 +31,7 @@ export function ProjectsContent() {
             className="font-heading text-4xl sm:text-5xl font-bold mb-6"
             trigger="load"
           >
-            Projects
+            Projects<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <m.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
@@ -43,6 +43,9 @@ export function ProjectsContent() {
             software development
           </m.p>
         </div>
+
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-8" />
 
         {/* Filter Tabs */}
         <m.div
@@ -60,7 +63,7 @@ export function ProjectsContent() {
                 setActiveCategory(category.id);
                 trackEvent(`filter-${category.id}`);
               }}
-              className="transition-all"
+              className={activeCategory === category.id ? "bg-emerald-500 text-white hover:bg-emerald-600 transition-all" : "transition-all"}
             >
               {category.label}
             </Button>
@@ -111,7 +114,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   const isPrivate = project.isPrivate;
 
   const cardContent = (
-    <Card className="h-full flex flex-col group border-border/50 hover:border-primary/50 transition-colors cursor-pointer">
+    <Card className="h-full flex flex-col group border-border/50 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all cursor-pointer">
       <CardHeader>
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2">
@@ -172,7 +175,7 @@ function ProjectCard({ project }: ProjectCardProps) {
             )}
           </div>
         </div>
-        <CardTitle className="font-heading text-lg group-hover:text-primary transition-colors mt-4">
+        <CardTitle className="font-heading text-lg group-hover:text-emerald-500 transition-colors mt-4">
           {project.title}
         </CardTitle>
       </CardHeader>
@@ -182,7 +185,7 @@ function ProjectCard({ project }: ProjectCardProps) {
         </p>
         <div className="flex flex-wrap gap-1.5 mt-auto">
           {project.technologies.map((tech) => (
-            <Badge key={tech} variant="secondary" className="text-xs">
+            <Badge key={tech} variant="secondary" className="text-xs group-hover:bg-emerald-500/20 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors">
               {tech}
             </Badge>
           ))}
