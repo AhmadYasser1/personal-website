@@ -136,7 +136,7 @@ export function AboutContent() {
         >
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.15}>
             <StaggerItem className="h-full">
-              <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+              <div className="h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
                     <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
@@ -145,10 +145,10 @@ export function AboutContent() {
                     <h3 className="font-heading font-semibold text-lg">Driving Change & Impact</h3>
                   </CardContent>
                 </Card>
-              </m.div>
+              </div>
             </StaggerItem>
             <StaggerItem className="h-full">
-              <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+              <div className="h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
                     <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
@@ -157,10 +157,10 @@ export function AboutContent() {
                     <h3 className="font-heading font-semibold text-lg">Fast-Paced Environments</h3>
                   </CardContent>
                 </Card>
-              </m.div>
+              </div>
             </StaggerItem>
             <StaggerItem className="h-full">
-              <m.div whileHover={{ scale: 1.03, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+              <div className="h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5">
                 <Card className="h-full text-center hover:border-primary/50 transition-colors">
                   <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
                     <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
@@ -169,7 +169,7 @@ export function AboutContent() {
                     <h3 className="font-heading font-semibold text-lg">Building with AI</h3>
                   </CardContent>
                 </Card>
-              </m.div>
+              </div>
             </StaggerItem>
           </StaggerContainer>
         </m.section>
@@ -186,10 +186,7 @@ export function AboutContent() {
           <StaggerContainer className="space-y-4" staggerDelay={0.15}>
             {education.map((edu) => (
               <StaggerItem key={edu.id}>
-                <m.div 
-                  whileHover={{ y: -3 }} 
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
+                <div className="transition-transform duration-200 hover:-translate-y-1">
                   <Card className="overflow-hidden relative hover:border-primary/50 transition-colors">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary/50" />
                     <CardHeader className="pl-5">
@@ -203,14 +200,9 @@ export function AboutContent() {
                           </p>
                         </div>
                         <div className="text-right">
-                          <m.div
-                            whileHover={{ scale: 1.1 }}
-                            transition={{ type: "spring", stiffness: 400 }}
-                          >
-                            <Badge variant="secondary" className="text-lg px-3">
-                              {edu.gpa} GPA
-                            </Badge>
-                          </m.div>
+                          <Badge variant="secondary" className="text-lg px-3 transition-transform duration-200 hover:scale-110">
+                            {edu.gpa} GPA
+                          </Badge>
                           <p className="text-sm text-muted-foreground mt-1">
                             {edu.startDate} - {edu.endDate}
                           </p>
@@ -225,7 +217,7 @@ export function AboutContent() {
                       </ul>
                     </CardContent>
                   </Card>
-                </m.div>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -286,10 +278,7 @@ export function AboutContent() {
           <StaggerContainer className="space-y-4" staggerDelay={0.1}>
             {awards.map((award) => (
               <StaggerItem key={award.id}>
-                <m.div
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
+                <div className="transition-transform duration-200 hover:scale-[1.02] hover:translate-x-1">
                   <Card className="overflow-hidden hover:border-primary/50 transition-colors">
                     <CardContent className="pt-6">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
@@ -310,7 +299,7 @@ export function AboutContent() {
                       </div>
                     </CardContent>
                   </Card>
-                </m.div>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>

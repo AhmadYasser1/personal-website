@@ -53,22 +53,10 @@ export function Navbar() {
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link
           href="/"
-          className="font-heading text-xl font-bold tracking-tight"
+          className="font-heading text-xl font-bold tracking-tight transition-transform duration-200 hover:scale-105"
         >
-          <m.span 
-            className="text-foreground"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400 }}
-          >
-            Ahmad
-          </m.span>
-          <m.span
-            className="text-emerald-500"
-            animate={{ opacity: [1, 0.5, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            .
-          </m.span>
+          <span className="text-foreground">Ahmad</span>
+          <span className="text-emerald-500 animate-dot-pulse">.</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -83,18 +71,13 @@ export function Navbar() {
               <Link
                 ref={(el) => { navLinksRefs.current[index] = el; }}
                 href={link.href}
-                className={`relative text-sm font-medium transition-colors hover:text-foreground ${
+                className={`relative text-sm font-medium transition-all duration-200 hover:text-foreground hover:-translate-y-0.5 ${
                   pathname === link.href
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}
               >
-                <m.span
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  {link.label}
-                </m.span>
+                {link.label}
               </Link>
             </m.div>
           ))}
@@ -123,8 +106,8 @@ export function Navbar() {
           <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <m.svg
+              <Button variant="ghost" size="icon" className="md:hidden transition-transform duration-200 hover:scale-110 active:scale-90">
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -134,13 +117,11 @@ export function Navbar() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
                 >
                   <line x1="4" x2="20" y1="12" y2="12" />
                   <line x1="4" x2="20" y1="6" y2="6" />
                   <line x1="4" x2="20" y1="18" y2="18" />
-                </m.svg>
+                </svg>
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
@@ -160,19 +141,13 @@ export function Navbar() {
                       <Link
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className={`block text-lg font-medium transition-colors hover:text-foreground ${
+                        className={`block text-lg font-medium transition-all duration-200 hover:text-foreground hover:translate-x-2 ${
                           pathname === link.href
                             ? "text-foreground"
                             : "text-muted-foreground"
                         }`}
                       >
-                        <m.span
-                          whileHover={{ x: 10 }}
-                          transition={{ type: "spring", stiffness: 400 }}
-                          className="inline-block"
-                        >
-                          {link.label}
-                        </m.span>
+                        {link.label}
                       </Link>
                     </m.div>
                   ))}
