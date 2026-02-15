@@ -9,16 +9,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
-import { projects, projectCategories, getCategoryLabel } from "@/lib/data/projects";
+import { projects, getSortedProjects, projectCategories, getCategoryLabel } from "@/lib/data/projects";
 import { trackEvent } from "@/lib/clarity";
 
 export function ProjectsContent() {
   const [activeCategory, setActiveCategory] = useState("all");
 
+  const sortedProjects = getSortedProjects();
   const filteredProjects =
     activeCategory === "all"
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      ? sortedProjects
+      : sortedProjects.filter((p) => p.category === activeCategory);
 
   return (
     <div className="min-h-screen py-24">
