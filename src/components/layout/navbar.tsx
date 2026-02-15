@@ -83,7 +83,7 @@ export function Navbar() {
               <Link
                 ref={(el) => { navLinksRefs.current[index] = el; }}
                 href={link.href}
-                className={`relative text-sm font-medium transition-all duration-200 hover:text-foreground hover:-translate-y-0.5 ${
+                className={`relative text-sm font-medium transition-all duration-200 hover:text-emerald-500 hover:-translate-y-0.5 ${
                   pathname === link.href
                     ? "text-foreground"
                     : "text-muted-foreground"
@@ -95,7 +95,7 @@ export function Navbar() {
           ))}
           {indicatorProps.width > 0 && (
             <m.div
-              className="absolute -bottom-1 h-0.5 bg-primary"
+              className="absolute -bottom-1 h-0.5 bg-emerald-500"
               initial={false}
               animate={{
                 left: indicatorProps.left,
@@ -153,7 +153,7 @@ export function Navbar() {
                       <Link
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className={`block text-lg font-medium transition-all duration-200 hover:text-foreground hover:translate-x-2 ${
+                        className={`block text-lg font-medium transition-all duration-200 hover:text-emerald-500 hover:translate-x-2 ${
                           pathname === link.href
                             ? "text-foreground"
                             : "text-muted-foreground"
