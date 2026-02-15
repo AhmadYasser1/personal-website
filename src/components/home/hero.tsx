@@ -11,9 +11,9 @@ export function Hero() {
       {/* Background — radial gradients (zero-cost vs blur-3xl) */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-        <div className="absolute top-20 left-10 w-72 h-72 [background:radial-gradient(circle,oklch(0.72_0.19_155/0.10)_0%,transparent_70%)] will-change-transform animate-orb-drift-1" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 [background:radial-gradient(circle,oklch(0.72_0.19_155/0.05)_0%,transparent_70%)] will-change-transform animate-orb-drift-2" />
-        <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] [background:radial-gradient(circle,oklch(0.72_0.19_155/0.05)_0%,transparent_70%)] will-change-transform animate-orb-pulse" />
+        <div className="absolute top-20 left-10 w-72 h-72 [background:radial-gradient(circle,oklch(from_var(--color-emerald-500)_l_c_h/0.10)_0%,transparent_70%)] will-change-transform animate-orb-drift-1" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 [background:radial-gradient(circle,oklch(from_var(--color-emerald-500)_l_c_h/0.05)_0%,transparent_70%)] will-change-transform animate-orb-drift-2" />
+        <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] [background:radial-gradient(circle,oklch(from_var(--color-emerald-500)_l_c_h/0.05)_0%,transparent_70%)] will-change-transform animate-orb-pulse" />
 
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
