@@ -235,6 +235,16 @@ export const projects: Project[] = [
   },
 ];
 
+export const getSortedProjects = (): Project[] => {
+  return [...projects].sort((a, b) => {
+    const aAccessible = !a.isPrivate;
+    const bAccessible = !b.isPrivate;
+    if (aAccessible && !bAccessible) return -1;
+    if (!aAccessible && bAccessible) return 1;
+    return 0;
+  });
+};
+
 export const projectCategories = [
   { id: "all", label: "All Projects" },
   { id: "ai-ml", label: "AI & ML" },
