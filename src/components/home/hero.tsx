@@ -4,7 +4,6 @@ import { useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { GradientText } from "@/components/ui/gradient-text";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap/plugins";
 
@@ -124,7 +123,7 @@ export function Hero() {
             className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
           >
             Hi, I&apos;m{" "}
-            <GradientText animate>Ahmad Yasser</GradientText>
+            <span className="text-emerald-400">Ahmad Yasser</span>
             <span
               data-hero-dot
               className="inline-block text-emerald-500 animate-dot-pulse"
