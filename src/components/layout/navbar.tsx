@@ -141,7 +141,7 @@ export function Navbar() {
               <VisuallyHidden.Root>
                 <SheetTitle>Navigation Menu</SheetTitle>
               </VisuallyHidden.Root>
-              <nav className="flex flex-col gap-4 mt-8">
+              <nav className="flex flex-col gap-4 mt-8 px-6">
                 <AnimatePresence>
                   {navLinks.map((link, index) => (
                     <m.div
