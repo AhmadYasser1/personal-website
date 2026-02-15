@@ -85,13 +85,12 @@ export function ResearchContent() {
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-16">
-          <SplitTextReveal
-            as="h1"
-            className="font-heading text-4xl sm:text-5xl font-bold mb-6"
-            trigger="load"
-          >
-            Research<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
+            <SplitTextReveal as="span" trigger="load">
+              Research
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h1>
           <m.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
@@ -108,9 +107,12 @@ export function ResearchContent() {
 
         {/* Publications Section */}
         <section className="mb-16">
-          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Publications<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h2 className="font-heading text-2xl font-bold mb-6">
+            <SplitTextReveal as="span" trigger="scroll" type="words">
+              Publications
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h2>
           <div className="space-y-4">
             {publications.map((pub, index) => (
               <m.div
@@ -137,9 +139,12 @@ export function ResearchContent() {
 
         {/* Research Experience Section */}
         <section>
-          <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Research Experience<span className="text-emerald-500">.</span>
-          </SplitTextReveal>
+          <h2 className="font-heading text-2xl font-bold mb-6">
+            <SplitTextReveal as="span" trigger="scroll" type="words">
+              Research Experience
+            </SplitTextReveal>
+            <span className="text-emerald-500">.</span>
+          </h2>
           <div className="space-y-4">
             {researchExperiences.map((exp, index) => (
               <m.div
