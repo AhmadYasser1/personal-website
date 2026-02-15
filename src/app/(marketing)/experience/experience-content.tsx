@@ -138,10 +138,7 @@ interface ExperienceCardProps {
 
 function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
-    <m.div
-      whileHover={{ y: -5, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    >
+    <div className="transition-transform duration-200 hover:-translate-y-1.5 hover:scale-[1.02]">
       <Card className="hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/5">
         <CardHeader>
           <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -187,7 +184,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + i * 0.05 }}
-                  whileHover={{ scale: 1.1 }}
+                  className="transition-transform duration-200 hover:scale-110"
                 >
                   {iconUrl ? (
                     <Link
@@ -223,6 +220,6 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           </div>
         </CardContent>
       </Card>
-    </m.div>
+    </div>
   );
 }

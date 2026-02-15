@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import * as m from "motion/react-m";
 import { socialLinks } from "@/lib/data/research";
 
 const socialIcons = [
@@ -69,70 +66,38 @@ const socialIcons = [
 
 export function Footer() {
   return (
-    <m.footer 
-      className="border-t border-border/40 bg-background"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
+    <footer className="border-t border-border/40 bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <m.div 
-            className="flex flex-col items-center gap-2 md:items-start"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <div className="flex flex-col items-center gap-2 md:items-start">
             <Link
               href="/"
               className="font-heading text-lg font-bold tracking-tight"
             >
               <span className="text-foreground">Ahmad Yasser</span>
-              <m.span
-                className="text-emerald-500"
-                animate={{ opacity: [1, 0.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                .
-              </m.span>
+              <span className="text-emerald-500 animate-dot-pulse">.</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               Human-Computer Interaction Researcher | Digital Fellow at Brooklyn Sports and Entertainment
             </p>
-          </m.div>
+          </div>
 
-          <m.div 
-            className="flex items-center gap-4"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {socialIcons.map((social, index) => (
-              <m.div
+          <div className="flex items-center gap-4">
+            {socialIcons.map((social) => (
+              <Link
                 key={social.label}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                whileHover={{ y: -3, scale: 1.1 }}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-all duration-200 hover:text-foreground hover:-translate-y-0.5 hover:scale-110"
+                aria-label={social.label}
               >
-                <Link
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                  aria-label={social.label}
-                >
-                  {social.icon}
-                </Link>
-              </m.div>
+                {social.icon}
+              </Link>
             ))}
-          </m.div>
+          </div>
         </div>
       </div>
-    </m.footer>
+    </footer>
   );
 }
