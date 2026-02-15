@@ -21,7 +21,7 @@ A portfolio site built with Next.js, TypeScript, Tailwind CSS, and Framer Motion
 
 ## Available scripts
 
-- `npm run dev` - start local development server (Webpack mode).
+- `npm run dev` - start local development server (Turbopack).
 - `npm run build` - create production build.
 - `npm run start` - start production server from build output.
 - `npm run lint` - run ESLint checks.

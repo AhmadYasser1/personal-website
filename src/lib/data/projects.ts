@@ -126,7 +126,7 @@ export const projects: Project[] = [
       "Led authorship of 'Fostering Positive Connections Through Interactive Messages: HAPPI', a paper accepted at the CHI 2025 Student Design Competition. Designed and prototyped an interactive device that promotes emotional wellness through community-driven messaging.",
     technologies: ["User Research", "Prototyping", "Academic Writing", "Thematic Analysis"],
     category: "research",
-    githubUrl: "https://doi.org/10.1145/3706599.3720296",
+    liveUrl: "https://doi.org/10.1145/3706599.3720296",
     featured: false,
   },
   {
