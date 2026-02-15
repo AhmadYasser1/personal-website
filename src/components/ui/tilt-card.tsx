@@ -72,6 +72,11 @@ export function TiltCard({
         card.removeEventListener("mousemove", handleMouseMove);
         card.removeEventListener("mouseenter", handleMouseEnter);
         card.removeEventListener("mouseleave", handleMouseLeave);
+        // Kill quickTo tweens and reset transforms before matchMedia reverts
+        gsap.killTweensOf(card);
+        gsap.set(card, { rotateX: 0, rotateY: 0, scale: 1 });
+        quickX.current = null;
+        quickY.current = null;
       };
     });
 
