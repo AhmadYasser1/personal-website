@@ -49,7 +49,7 @@ export function ContactContent({
             className="font-heading text-4xl sm:text-5xl font-bold mb-6"
             trigger="load"
           >
-            Get in Touch
+            Get in Touch<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <m.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
@@ -69,9 +69,9 @@ export function ContactContent({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Card>
+            <Card className="hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
               <CardHeader>
-                <CardTitle>Send a Message</CardTitle>
+                <CardTitle>Send a Message<span className="text-emerald-500">.</span></CardTitle>
               </CardHeader>
               <CardContent>
                 {showSuccess ? (
@@ -198,7 +198,7 @@ export function ContactContent({
 
                     <Button
                       type="submit"
-                      className="w-full"
+                      className="w-full hover:bg-emerald-600"
                       disabled={isPending}
                     >
                       {isPending ? (
@@ -235,15 +235,18 @@ export function ContactContent({
             </Card>
           </m.div>
 
+          {/* Section Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
+
           {/* Connect Card */}
           <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card>
+            <Card className="hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
               <CardHeader>
-                <CardTitle>Connect</CardTitle>
+                <CardTitle>Connect<span className="text-emerald-500">.</span></CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -347,10 +350,10 @@ function SocialLink({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-colors"
+        className="group flex items-center gap-2 p-3 rounded-lg border border-border hover:border-emerald-500/50 hover:bg-muted/50 transition-colors"
         onClick={() => trackEvent(`social-click-${label.toLowerCase()}`)}
       >
-        <span className="text-muted-foreground">{icon}</span>
+        <span className="text-muted-foreground group-hover:text-emerald-500 transition-colors">{icon}</span>
         <span className="font-medium">{label}</span>
       </Link>
     </MagneticElement>
