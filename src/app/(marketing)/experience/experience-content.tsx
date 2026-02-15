@@ -96,7 +96,7 @@ export function ExperienceContent() {
       });
 
       // Timeline dots scale in on scroll
-      gsap.utils.toArray<HTMLElement>("[data-timeline-dot]").forEach((dot) => {
+      gsap.utils.toArray<HTMLElement>("[data-timeline-dot]", timeline).forEach((dot) => {
         gsap.from(dot, {
           scale: 0,
           duration: 0.4,
