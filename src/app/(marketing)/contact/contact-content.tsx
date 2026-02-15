@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { socialLinks } from "@/lib/data/research";
+import { SplitTextReveal } from "@/components/ui/split-text-reveal";
+import { MagneticElement } from "@/components/ui/magnetic-element";
 import { submitContactForm, type ContactFormState } from "./actions";
 
 const initialState: ContactFormState = {
@@ -36,20 +38,24 @@ export function ContactContent({
     <div className="min-h-screen py-24">
       <div className="container mx-auto px-4 max-w-2xl">
         {/* Header */}
-        <m.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
+        <div className="text-center mb-16">
+          <SplitTextReveal
+            as="h1"
+            className="font-heading text-4xl sm:text-5xl font-bold mb-6"
+            trigger="load"
+          >
             Get in Touch
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          </SplitTextReveal>
+          <m.p
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             Interested in collaborating, have a question, or just want to say
             hello? I&apos;d love to hear from you.
-          </p>
-        </m.div>
+          </m.p>
+        </div>
 
         <div className="grid grid-cols-1 gap-8">
           {/* Contact Form */}
@@ -331,14 +337,16 @@ function SocialLink({
   icon: React.ReactNode;
 }) {
   return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-2 p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-colors"
-    >
-      <span className="text-muted-foreground">{icon}</span>
-      <span className="font-medium">{label}</span>
-    </Link>
+    <MagneticElement strength={0.3}>
+      <Link
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-colors"
+      >
+        <span className="text-muted-foreground">{icon}</span>
+        <span className="font-medium">{label}</span>
+      </Link>
+    </MagneticElement>
   );
 }

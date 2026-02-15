@@ -5,6 +5,10 @@ import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { StarBorder } from "@/components/ui/star-border";
+import { SplitTextReveal } from "@/components/ui/split-text-reveal";
+import { MagneticElement } from "@/components/ui/magnetic-element";
 import { projects } from "@/lib/data/projects";
 
 // Get featured projects sorted by featuredOrder
@@ -24,14 +28,14 @@ export function FeaturedProjects() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <m.h2 
+          <SplitTextReveal
+            as="h2"
             className="font-heading text-3xl sm:text-4xl font-bold mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            trigger="scroll"
+            type="words"
           >
             Featured Projects
-          </m.h2>
+          </SplitTextReveal>
           <m.p 
             className="text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
@@ -67,7 +71,11 @@ export function FeaturedProjects() {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="h-full"
             >
-              <ProjectCard project={project} />
+              <TiltCard className="h-full">
+                <StarBorder className="h-full">
+                  <ProjectCard project={project} />
+                </StarBorder>
+              </TiltCard>
             </m.div>
           ))}
         </m.div>
@@ -79,11 +87,11 @@ export function FeaturedProjects() {
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
         >
-          <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild variant="outline" size="lg">
+          <MagneticElement strength={0.3}>
+            <Button asChild variant="outline" size="lg" className="transition-transform duration-200 hover:scale-105 active:scale-95">
               <Link href="/projects">View All Projects</Link>
             </Button>
-          </m.div>
+          </MagneticElement>
         </m.div>
       </div>
     </section>

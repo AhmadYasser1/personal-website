@@ -1,25 +1,24 @@
 "use client";
 
 import { useEffect } from "react";
+import { useLenis } from "@/components/smooth-scroll-provider";
 
 export function ScrollConfig() {
+  const lenis = useLenis();
+
   useEffect(() => {
-    // Prevent scroll restoration on refresh - always start at top
-    if (typeof window !== 'undefined') {
-      // Disable scroll restoration
-      history.scrollRestoration = "manual";
-      
-      // Scroll to top on page load
+    if (typeof window === "undefined") return;
+
+    // Prevent scroll restoration on refresh — always start at top
+    history.scrollRestoration = "manual";
+
+    // Scroll to top via Lenis (immediate = no smooth animation)
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
       window.scrollTo(0, 0);
-      
-      // Add slight delay to ensure it works after hydration
-      const timer = setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 100);
-      
-      return () => clearTimeout(timer);
     }
-  }, []);
+  }, [lenis]);
 
   return null;
 }

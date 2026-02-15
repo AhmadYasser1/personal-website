@@ -1,13 +1,104 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
-import * as m from "motion/react-m";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { MagneticElement } from "@/components/ui/magnetic-element";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap/plugins";
 
 export function Hero() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useGSAP(
+    () => {
+      const heading = headingRef.current;
+      if (!heading) return;
+
+      const split = SplitText.create(heading, {
+        type: "chars",
+        mask: "chars",
+      });
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.from("[data-hero-badge]", {
+        opacity: 0,
+        y: 15,
+        duration: 0.5,
+      })
+        .from(
+          split.chars,
+          {
+            y: "100%",
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.025,
+          },
+          "-=0.2",
+        )
+        .from(
+          "[data-hero-dot]",
+          {
+            scale: 0,
+            opacity: 0,
+            duration: 0.4,
+            ease: "back.out(2)",
+          },
+          "-=0.3",
+        )
+        .from(
+          "[data-hero-subtitle]",
+          {
+            opacity: 0,
+            y: 20,
+            filter: "blur(8px)",
+            duration: 0.6,
+          },
+          "-=0.2",
+        )
+        .from(
+          "[data-hero-cta]",
+          {
+            opacity: 0,
+            y: 20,
+            duration: 0.5,
+            stagger: 0.1,
+          },
+          "-=0.3",
+        )
+        .from(
+          "[data-hero-stat]",
+          {
+            opacity: 0,
+            y: 15,
+            duration: 0.4,
+            stagger: 0.1,
+          },
+          "-=0.2",
+        )
+        .from(
+          "[data-hero-scroll]",
+          {
+            opacity: 0,
+            duration: 0.5,
+          },
+          "-=0.1",
+        );
+
+      return () => {
+        split.revert();
+      };
+    },
+    { scope: sectionRef },
+  );
+
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
+    >
       {/* Background — radial gradients (zero-cost vs blur-3xl) */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
@@ -21,67 +112,79 @@ export function Hero() {
 
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div data-hero-badge>
             <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20 transition-transform duration-200 hover:scale-105">
               Digital Fellow at Brooklyn Sports and Entertainment
             </span>
-          </m.div>
+          </div>
 
-          <m.h1
+          <h1
+            ref={headingRef}
             className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
           >
             Hi, I&apos;m{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">
-              Ahmad Yasser
+            <span className="text-emerald-400">Ahmad Yasser</span>
+            <span
+              data-hero-dot
+              className="inline-block text-emerald-500 animate-dot-pulse"
+            >
+              .
             </span>
-            <span className="text-emerald-500 animate-dot-pulse">.</span>
-          </m.h1>
+          </h1>
 
-          <m.p
+          <p
+            data-hero-subtitle
             className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Human-Computer Interaction Researcher and Dual-degree CS graduate from University of Minnesota - Twin Cities.
-          </m.p>
+            Human-Computer Interaction Researcher and Dual-degree CS graduate
+            from University of Minnesota - Twin Cities.
+          </p>
 
-          <m.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Button asChild size="lg" className="min-w-[160px] transition-transform duration-200 hover:scale-105 active:scale-95">
-              <Link href="/projects">See My Work</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="min-w-[160px] transition-transform duration-200 hover:scale-105 active:scale-95">
-              <Link href="/contact">Get in Touch</Link>
-            </Button>
-          </m.div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <MagneticElement strength={0.3}>
+              <div data-hero-cta>
+                <Button
+                  asChild
+                  size="lg"
+                  className="min-w-[160px] transition-transform duration-200 hover:scale-105 active:scale-95"
+                >
+                  <Link href="/projects">See My Work</Link>
+                </Button>
+              </div>
+            </MagneticElement>
+            <MagneticElement strength={0.3}>
+              <div data-hero-cta>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="min-w-[160px] transition-transform duration-200 hover:scale-105 active:scale-95"
+                >
+                  <Link href="/contact">Get in Touch</Link>
+                </Button>
+              </div>
+            </MagneticElement>
+          </div>
 
-          <m.div
-            className="mt-16 flex items-center justify-center gap-8 sm:gap-12 flex-wrap"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <Stat label="GPA" value="4.0" isText />
-            <Stat label="Research Publications" value="2+" isText />
-            <Stat label="Projects" value={20} suffix="+" />
-          </m.div>
+          <div className="mt-16 flex items-center justify-center gap-8 sm:gap-12 flex-wrap">
+            <div data-hero-stat>
+              <Stat label="GPA" value="4.0" isText />
+            </div>
+            <div data-hero-stat>
+              <Stat label="Research Publications" value="2+" isText />
+            </div>
+            <div data-hero-stat>
+              <Stat label="Projects" value={20} suffix="+" />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Scroll indicator — CSS-only */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in [animation-delay:1s] [animation-fill-mode:backwards]">
+      <div
+        data-hero-scroll
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
         <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2 animate-scroll-bounce">
           <div className="w-1 h-2 rounded-full bg-muted-foreground/50" />
         </div>
@@ -94,7 +197,7 @@ function Stat({
   label,
   value,
   suffix = "",
-  isText = false
+  isText = false,
 }: {
   label: string;
   value: number | string;
@@ -107,7 +210,11 @@ function Stat({
         {isText ? (
           <span>{value}</span>
         ) : (
-          <AnimatedCounter value={value as number} suffix={suffix} duration={1.5} />
+          <AnimatedCounter
+            value={value as number}
+            suffix={suffix}
+            duration={1.5}
+          />
         )}
       </div>
       <div className="text-sm text-muted-foreground">{label}</div>

@@ -44,3 +44,9 @@ next-env.d.ts
 .cursor/
 .fastembed_cache/
 .env*.local
+
+# GSD planning files (ephemeral, per-session)
+.planning/
+task_plan.md
+findings.md
+progress.md
