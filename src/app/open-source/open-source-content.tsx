@@ -31,7 +31,7 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Open Source
+              Open Source<span className="text-emerald-500">.</span>
             </m.h1>
             <m.p
               className="text-muted-foreground max-w-2xl mx-auto text-lg"
@@ -43,6 +43,9 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
               ecosystem
             </m.p>
           </m.div>
+
+          {/* Section Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
 
           {/* Stats Overview */}
           <section aria-label="GitHub statistics">
@@ -58,7 +61,7 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              Activity
+              Activity<span className="text-emerald-500">.</span>
             </m.h2>
             <GlassmorphismContainer>
               <ActivityTabs
@@ -79,7 +82,7 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                Contributed Repositories
+                Contributed Repositories<span className="text-emerald-500">.</span>
               </m.h2>
               <RepoGrid repos={data.repos} />
             </section>
@@ -95,7 +98,7 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                Pull Requests
+                Pull Requests<span className="text-emerald-500">.</span>
               </m.h2>
               <PrTracker pullRequests={data.pullRequests} />
             </section>

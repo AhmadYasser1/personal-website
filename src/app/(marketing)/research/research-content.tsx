@@ -23,9 +23,9 @@ function getPublicationBadge(type: Publication["type"]) {
 
 function PublicationCard({ pub }: { pub: Publication }) {
   const badge = getPublicationBadge(pub.type);
-  
+
   return (
-    <Card className="hover:border-primary/50 transition-colors cursor-pointer group">
+    <Card className="hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all cursor-pointer group">
       <CardHeader>
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -37,18 +37,18 @@ function PublicationCard({ pub }: { pub: Publication }) {
                 {pub.year}
               </span>
             </div>
-            <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">
+            <CardTitle className="text-xl mb-2 group-hover:text-emerald-500 transition-colors">
               {pub.title}
             </CardTitle>
             <p className="text-sm text-muted-foreground mb-2">
               {pub.authors.join(", ")}
             </p>
-            <p className="text-sm font-medium text-primary">
+            <p className="text-sm font-medium text-emerald-500">
               {pub.venue}
             </p>
           </div>
           {pub.doi && (
-            <div className="text-muted-foreground group-hover:text-primary transition-colors shrink-0">
+            <div className="text-muted-foreground group-hover:text-emerald-500 transition-colors shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -90,7 +90,7 @@ export function ResearchContent() {
             className="font-heading text-4xl sm:text-5xl font-bold mb-6"
             trigger="load"
           >
-            Research
+            Research<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <m.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
@@ -103,10 +103,13 @@ export function ResearchContent() {
           </m.p>
         </div>
 
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-16" />
+
         {/* Publications Section */}
         <section className="mb-16">
           <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Publications
+            Publications<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <div className="space-y-4">
             {publications.map((pub, index) => (
@@ -129,10 +132,13 @@ export function ResearchContent() {
           </div>
         </section>
 
+        {/* Section Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-16" />
+
         {/* Research Experience Section */}
         <section>
           <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
-            Research Experience
+            Research Experience<span className="text-emerald-500">.</span>
           </SplitTextReveal>
           <div className="space-y-4">
             {researchExperiences.map((exp, index) => (
@@ -142,12 +148,12 @@ export function ResearchContent() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
               >
-                <Card>
+                <Card className="hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all">
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                       <div>
                         <CardTitle className="text-xl">{exp.company}</CardTitle>
-                        <p className="text-primary font-medium">{exp.role}</p>
+                        <p className="text-emerald-500 font-medium">{exp.role}</p>
                         <p className="text-sm text-muted-foreground">
                           {exp.location}
                         </p>
