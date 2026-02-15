@@ -21,13 +21,13 @@ export function RepoCard({ repo }: RepoCardProps) {
         rel="noopener noreferrer"
         className="block h-full"
       >
-        <Card className="h-full group cursor-pointer border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors hover:shadow-lg hover:shadow-primary/5">
+        <Card className="h-full group cursor-pointer border-border/50 bg-card/50 backdrop-blur-sm hover:border-emerald-500/50 transition-all hover:shadow-lg hover:shadow-emerald-500/5">
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
-              <CardTitle className="font-heading text-base group-hover:text-primary transition-colors line-clamp-1">
+              <CardTitle className="font-heading text-base group-hover:text-emerald-500 transition-colors line-clamp-1">
                 {repo.name}
               </CardTitle>
-              <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-emerald-500 transition-all" />
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
