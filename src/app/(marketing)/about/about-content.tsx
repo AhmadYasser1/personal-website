@@ -264,7 +264,7 @@ export function AboutContent() {
             <FadeContent delay={0}>
               <SkillCategory title="Analytics & BI" skills={skills.analytics} />
             </FadeContent>
-            <FadeContent delay={0.1}>
+            <FadeContent delay={0.1} className="lg:col-span-2">
               <SkillCategory title="Concepts" skills={skills.concepts} />
             </FadeContent>
           </div>
