@@ -1,0 +1,53 @@
+"use client";
+
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap/plugins";
+import { cn } from "@/lib/utils";
+
+interface FadeContentProps {
+  children: React.ReactNode;
+  className?: string;
+  blur?: number;
+  duration?: number;
+  delay?: number;
+  y?: number;
+}
+
+export function FadeContent({
+  children,
+  className,
+  blur = 8,
+  duration = 0.8,
+  delay = 0,
+  y = 30,
+}: FadeContentProps) {
+  const elRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const el = elRef.current;
+      if (!el) return;
+
+      gsap.from(el, {
+        opacity: 0,
+        y,
+        filter: `blur(${blur}px)`,
+        duration,
+        delay,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    },
+    { scope: elRef },
+  );
+
+  return (
+    <div ref={elRef} className={cn(className)}>
+      {children}
+    </div>
+  );
+}
