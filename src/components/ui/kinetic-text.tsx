@@ -45,7 +45,7 @@ export function KineticText({
         split.revert();
       };
     },
-    { scope: textRef, dependencies: [children] },
+    { scope: textRef, dependencies: [children], revertOnUpdate: true },
   );
 
   return (
