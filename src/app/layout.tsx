@@ -96,7 +96,9 @@ export default function RootLayout({
         </ThemeProvider>
         {isVercelDeployment ? <SpeedInsights /> : null}
         {isVercelDeployment ? <Analytics /> : null}
-        <ClarityProvider />
+        {process.env.CLARITY_PROJECT_ID ? (
+          <ClarityProvider projectId={process.env.CLARITY_PROJECT_ID} />
+        ) : null}
       </body>
     </html>
   );
