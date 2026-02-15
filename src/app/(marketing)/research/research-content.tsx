@@ -104,12 +104,7 @@ export function ResearchContent() {
         </div>
 
         {/* Publications Section */}
-        <m.section
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
+        <section className="mb-16">
           <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
             Publications
           </SplitTextReveal>
@@ -132,14 +127,10 @@ export function ResearchContent() {
               </m.div>
             ))}
           </div>
-        </m.section>
+        </section>
 
         {/* Research Experience Section */}
-        <m.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        <section>
           <SplitTextReveal as="h2" className="font-heading text-2xl font-bold mb-6" trigger="scroll" type="words">
             Research Experience
           </SplitTextReveal>
@@ -187,7 +178,7 @@ export function ResearchContent() {
               </m.div>
             ))}
           </div>
-        </m.section>
+        </section>
       </div>
     </div>
   );

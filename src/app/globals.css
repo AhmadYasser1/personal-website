@@ -124,7 +124,7 @@ body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 1;
   pointer-events: none;
   opacity: 0.04;
   mix-blend-mode: overlay;
@@ -183,12 +183,17 @@ body::after {
   to { transform: rotate(360deg); }
 }
 
-/* Hide default cursor on desktop — custom cursor replaces it */
+/* Hide default cursor on desktop — only when custom cursor has mounted */
 @media (pointer: fine) {
-  body {
+  body.custom-cursor-active {
     cursor: none;
   }
-  a, button, [role="button"], input, textarea, select {
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active input,
+  body.custom-cursor-active textarea,
+  body.custom-cursor-active select {
     cursor: none;
   }
 }
@@ -205,7 +210,13 @@ body::after {
     display: none;
   }
   /* Re-enable default cursor when animations are reduced */
-  body, a, button, [role="button"], input, textarea, select {
+  body.custom-cursor-active,
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active input,
+  body.custom-cursor-active textarea,
+  body.custom-cursor-active select {
     cursor: auto !important;
   }
 }

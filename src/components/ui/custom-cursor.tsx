@@ -33,9 +33,16 @@ export function CustomCursor() {
 
   useEffect(() => {
     if (!isFinePointer) return;
+
+    // Check reduced motion preference
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const dot = dotRef.current;
     const follower = followerRef.current;
     if (!dot || !follower) return;
+
+    // Add body class so CSS hides the native cursor
+    document.body.classList.add("custom-cursor-active");
 
     // Pre-configure quickTo tweens for maximum perf
     xDot.current = gsap.quickTo(dot, "x", { duration: 0.15, ease: "power2.out" });
@@ -77,6 +84,9 @@ export function CustomCursor() {
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseover", onMouseOver);
       document.removeEventListener("mouseout", onMouseOut);
+      document.body.classList.remove("custom-cursor-active");
+      gsap.killTweensOf(dot);
+      gsap.killTweensOf(follower);
     };
   }, [isFinePointer]);
 
