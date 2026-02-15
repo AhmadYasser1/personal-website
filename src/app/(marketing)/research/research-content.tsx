@@ -5,7 +5,9 @@ import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { publications, type Publication } from "@/lib/data/research";
-import { researchExperiences } from "@/lib/data/experience";
+import { experiences } from "@/lib/data/experience";
+
+const researchExperiences = experiences.filter((exp) => exp.type === "research");
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 
 function getPublicationBadge(type: Publication["type"]) {
