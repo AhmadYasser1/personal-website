@@ -45,6 +45,55 @@ export const experiences: Experience[] = [
     type: "work",
   },
   {
+    id: "funk-lab",
+    company: "Russell J. Funk Lab - Carlson School of Management",
+    role: "Undergraduate Research Assistant",
+    location: "Minneapolis, MN",
+    startDate: "January 2025",
+    endDate: "May 2025",
+    description:
+      "Conducted word embedding research with professors Russell J. Funk, Thomas Gebhardt, and Alex Reineck.",
+    achievements: [
+      "Analyzed parameter combinations for embedding models to optimize performance metrics",
+      "Created visualization dashboards identifying effective approaches for word similarity",
+    ],
+    technologies: ["Python", "NLP", "Word2Vec", "Data Visualization"],
+    type: "research",
+  },
+  {
+    id: "grouplens",
+    company: "GroupLens - Human-Centered Computing Research Center",
+    role: "Student Researcher",
+    location: "Minneapolis, MN",
+    startDate: "September 2024",
+    endDate: "May 2025",
+    description:
+      "Collaborated on the C.O.R.R.A project for opioid overdose detection using thermal cameras.",
+    achievements: [
+      "Worked with Dr. Lana Yarosh and Minzhu Zhao on thermal infrared breathing detection",
+      "Conducted street surveys with 200+ participants on the Light Rail Transit",
+    ],
+    technologies: ["Python", "Computer Vision", "Thermal Imaging", "User Research"],
+    type: "research",
+  },
+  {
+    id: "chi-2025",
+    company: "CHI Student Design Competition 2025",
+    role: "Project Lead",
+    location: "Minneapolis, MN",
+    startDate: "September 2024",
+    endDate: "May 2025",
+    description:
+      "Led authorship of the HAPPI interactive wellness device paper accepted at CHI 2025.",
+    achievements: [
+      "Led authorship of 'Fostering Positive Connections Through Interactive Messages: HAPPI'",
+      "Paper accepted and presented at CHI 2025",
+      "Conducted qualitative user research and thematic analysis",
+    ],
+    technologies: ["User Research", "Design", "Academic Writing"],
+    type: "research",
+  },
+  {
     id: "umn-cse-it",
     company: "University of Minnesota - Twin Cities",
     role: "CSE-IT Service Desk Student Worker",
@@ -76,6 +125,40 @@ export const experiences: Experience[] = [
     ],
     technologies: ["Flutter", "Python", "AI Fundamentals", "Mobile Development"],
     type: "teaching",
+  },
+  {
+    id: "premio-ai",
+    company: "Premio.AI",
+    role: "Research Assistant",
+    location: "Remote",
+    startDate: "January 2024",
+    endDate: "June 2024",
+    description:
+      "Constructed The Arabic Pile, a 300GB+ Arabic language dataset for NLP research.",
+    achievements: [
+      "Partnered with Dr. Mohamed Alrefaie and Mahmoud Barbary",
+      "Collected, cleaned, and deduplicated diverse Arabic data sources",
+      "Dataset published on HuggingFace",
+    ],
+    technologies: ["Python", "NLP", "Data Engineering", "HuggingFace"],
+    type: "research",
+  },
+  {
+    id: "defi-ml",
+    company: "Digital Egypt for Investment Co.",
+    role: "Machine Learning Intern",
+    location: "Cairo, Egypt",
+    startDate: "August 2023",
+    endDate: "September 2023",
+    description:
+      "Developed machine learning models and led data analysis projects.",
+    achievements: [
+      "Developed ML models using Python, Pandas, PySpark, NumPy, Scikit Learn",
+      "Led a data analysis project and presented insights to senior professionals",
+      "Exceeded expectations through independent research",
+    ],
+    technologies: ["Python", "Pandas", "PySpark", "Scikit-Learn", "Matplotlib"],
+    type: "work",
   },
   {
     id: "pmi",
@@ -128,23 +211,6 @@ export const experiences: Experience[] = [
     type: "work",
   },
   {
-    id: "defi-ml",
-    company: "Digital Egypt for Investment Co.",
-    role: "Machine Learning Intern",
-    location: "Cairo, Egypt",
-    startDate: "August 2023",
-    endDate: "September 2023",
-    description:
-      "Developed machine learning models and led data analysis projects.",
-    achievements: [
-      "Developed ML models using Python, Pandas, PySpark, NumPy, Scikit Learn",
-      "Led a data analysis project and presented insights to senior professionals",
-      "Exceeded expectations through independent research",
-    ],
-    technologies: ["Python", "Pandas", "PySpark", "Scikit-Learn", "Matplotlib"],
-    type: "work",
-  },
-  {
     id: "crossworkers",
     company: "CrossWorkers Egypt",
     role: "ASP.Net Backend Intern",
@@ -160,74 +226,5 @@ export const experiences: Experience[] = [
     ],
     technologies: ["C#", "ASP.NET", "MVC", "REST API"],
     type: "work",
-  },
-];
-
-export const researchExperiences: Experience[] = [
-  {
-    id: "funk-lab",
-    company: "Russell J. Funk Lab - Carlson School of Management",
-    role: "Undergraduate Research Assistant",
-    location: "Minneapolis, MN",
-    startDate: "January 2025",
-    endDate: "May 2025",
-    description:
-      "Conducted word embedding research with professors Russell J. Funk, Thomas Gebhardt, and Alex Reineck.",
-    achievements: [
-      "Analyzed parameter combinations for embedding models to optimize performance metrics",
-      "Created visualization dashboards identifying effective approaches for word similarity",
-    ],
-    technologies: ["Python", "NLP", "Word2Vec", "Data Visualization"],
-    type: "research",
-  },
-  {
-    id: "grouplens",
-    company: "GroupLens - Human-Centered Computing Research Center",
-    role: "Student Researcher",
-    location: "Minneapolis, MN",
-    startDate: "September 2024",
-    endDate: "May 2025",
-    description:
-      "Collaborated on the C.O.R.R.A project for opioid overdose detection using thermal cameras.",
-    achievements: [
-      "Worked with Dr. Lana Yarosh and Minzhu Zhao on thermal infrared breathing detection",
-      "Conducted street surveys with 200+ participants on the Light Rail Transit",
-    ],
-    technologies: ["Python", "Computer Vision", "Thermal Imaging", "User Research"],
-    type: "research",
-  },
-  {
-    id: "chi-2025",
-    company: "CHI Student Design Competition 2025",
-    role: "Project Lead",
-    location: "Minneapolis, MN",
-    startDate: "September 2024",
-    endDate: "May 2025",
-    description:
-      "Led authorship of the HAPPI interactive wellness device paper accepted at CHI 2025.",
-    achievements: [
-      "Led authorship of 'Fostering Positive Connections Through Interactive Messages: HAPPI'",
-      "Paper accepted and presented at CHI 2025",
-      "Conducted qualitative user research and thematic analysis",
-    ],
-    technologies: ["User Research", "Design", "Academic Writing"],
-    type: "research",
-  },
-  {
-    id: "premio-ai",
-    company: "Premio.AI",
-    role: "Research Assistant",
-    location: "Remote",
-    startDate: "January 2024",
-    endDate: "June 2024",
-    description:
-      "Constructed The Arabic Pile, a 300GB+ Arabic language dataset for NLP research.",
-    achievements: [
-      "Partnered with Dr. Mohamed Alrefaie and Mahmoud Barbary",
-      "Collected, cleaned, and deduplicated diverse Arabic data sources",
-      "Dataset published on HuggingFace",
-    ],
-    technologies: ["Python", "NLP", "Data Engineering", "HuggingFace"],
-    type: "research",
   },
 ];

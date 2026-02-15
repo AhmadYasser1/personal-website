@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 import { gsap, useGSAP } from "@/lib/gsap/plugins";
-import { experiences, researchExperiences } from "@/lib/data/experience";
+import { experiences } from "@/lib/data/experience";
 
 // Skill icons mapping - using simple-icons CDN for tech logos
 const skillIcons: Record<string, string> = {
@@ -190,33 +190,6 @@ export function ExperienceContent() {
           </div>
         </div>
 
-        {/* Research Section */}
-        <div className="mt-20">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
-              Research<span className="text-emerald-500">.</span>
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Academic research across HCI, NLP, and computer vision
-            </p>
-          </div>
-
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-8" />
-
-          <div className="space-y-8">
-            {researchExperiences.map((exp, index) => (
-              <m.div
-                key={exp.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <ExperienceCard experience={exp} />
-              </m.div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
