@@ -27,13 +27,22 @@ export function AnimatedCounter({
   useEffect(() => {
     if (!isInView) return;
 
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReduced) {
+      const id = requestAnimationFrame(() => setDisplayValue(numericValue));
+      return () => cancelAnimationFrame(id);
+    }
+
     const startTime = Date.now();
     const endTime = startTime + duration * 1000;
 
     const updateValue = () => {
       const now = Date.now();
       const progress = Math.min((now - startTime) / (duration * 1000), 1);
-      
+
       // Easing function (ease out cubic)
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = eased * numericValue;
