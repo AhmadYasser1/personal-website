@@ -10,7 +10,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { MotionProvider } from "@/components/motion-provider";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { PageTransition } from "@/components/page-transition";
-import { CustomCursor } from "@/components/ui/custom-cursor";
+import { CustomCursorLoader } from "@/components/ui/custom-cursor-loader";
 import { ClarityProvider } from "@/components/clarity-provider";
 import { siteConfig } from "@/config/site";
 
@@ -90,7 +90,7 @@ export default function RootLayout({
                 <PageTransition>{children}</PageTransition>
               </main>
               <Footer />
-              <CustomCursor />
+              <CustomCursorLoader />
             </SmoothScrollProvider>
           </MotionProvider>
         </ThemeProvider>
