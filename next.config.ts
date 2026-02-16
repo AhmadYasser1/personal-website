@@ -41,8 +41,6 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-separator",
       "@radix-ui/react-slot",
       "@radix-ui/react-visually-hidden",
-      "gsap",
-      "@gsap/react",
     ],
     inlineCss: true,
   },
