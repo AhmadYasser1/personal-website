@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { ScrollTrigger } from "@/lib/gsap/plugins";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
  * Freezes the previous route's children so AnimatePresence

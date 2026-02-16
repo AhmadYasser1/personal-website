@@ -2,7 +2,8 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { gsap, useGSAP } from "@/lib/gsap/plugins";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/utils";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 

@@ -7,8 +7,12 @@ import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
-import { gsap, useGSAP } from "@/lib/gsap/plugins";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { experiences } from "@/lib/data/experience";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Skill icons mapping - using simple-icons CDN for tech logos
 const skillIcons: Record<string, string> = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useSyncExternalStore } from "react";
-import { gsap } from "@/lib/gsap/plugins";
+import gsap from "gsap";
 
 function subscribeToPointerMedia(callback: () => void) {
   const mql = window.matchMedia("(pointer: fine)");

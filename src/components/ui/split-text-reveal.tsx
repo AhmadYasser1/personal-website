@@ -1,8 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, SplitText, useGSAP } from "@/lib/gsap/plugins";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/utils";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 interface SplitTextRevealProps {
   children: string;
