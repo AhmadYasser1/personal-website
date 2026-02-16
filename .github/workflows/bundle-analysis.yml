@@ -1,3 +1,15 @@
+# Bundle Size Analysis
+#
+# Tracks total JS bundle size across PRs using filesystem analysis.
+# On push to main: saves baseline sizes as artifact.
+# On pull_request: compares against baseline and posts PR comment.
+#
+# Next.js 16 (Turbopack) no longer prints per-route "First Load JS"
+# in build output. This workflow measures .next/static/chunks/ directly
+# with gzip compression to match real transfer sizes.
+#
+# Required secrets: same 5 env vars as lighthouse-ci.yml (see src/env.ts)
+
 name: Bundle Size Analysis
 
 on:
@@ -38,49 +50,143 @@ jobs:
           UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
           UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
 
-      - name: Generate bundle analysis report
-        run: npx -p nextjs-bundle-analysis report
+      - name: Analyze bundle sizes
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const zlib = require('zlib');
 
-      - name: Upload bundle analysis report
+          const chunksDir = '.next/static/chunks';
+          const files = fs.readdirSync(chunksDir)
+            .filter(f => f.endsWith('.js'))
+            .map(f => {
+              const content = fs.readFileSync(path.join(chunksDir, f));
+              const gzipped = zlib.gzipSync(content);
+              return { name: f, rawBytes: content.length, gzipBytes: gzipped.length };
+            })
+            .sort((a, b) => b.gzipBytes - a.gzipBytes);
+
+          const totalRaw = files.reduce((s, f) => s + f.rawBytes, 0);
+          const totalGzip = files.reduce((s, f) => s + f.gzipBytes, 0);
+
+          const report = {
+            timestamp: new Date().toISOString(),
+            commit: process.env.GITHUB_SHA?.slice(0, 7) || 'local',
+            totalRawKB: Math.round(totalRaw / 1024 * 10) / 10,
+            totalGzipKB: Math.round(totalGzip / 1024 * 10) / 10,
+            fileCount: files.length,
+            files: files.map(f => ({
+              name: f.name,
+              rawKB: Math.round(f.rawBytes / 1024 * 10) / 10,
+              gzipKB: Math.round(f.gzipBytes / 1024 * 10) / 10
+            }))
+          };
+
+          fs.mkdirSync('.next/analyze', { recursive: true });
+          fs.writeFileSync('.next/analyze/bundle-report.json', JSON.stringify(report, null, 2));
+
+          console.log('Total JS (gzip):', report.totalGzipKB, 'kB');
+          console.log('Total JS (raw):', report.totalRawKB, 'kB');
+          console.log('Chunks:', report.fileCount);
+          "
+
+      - name: Upload bundle report
         uses: actions/upload-artifact@v4
         with:
-          name: bundle-analysis
-          path: .next/analyze/__bundle_analysis_report.json
+          name: bundle-report
+          path: .next/analyze/bundle-report.json
+          retention-days: 90
 
-      - name: Download baseline bundle analysis
+      - name: Download baseline report
         if: github.event_name == 'pull_request'
         uses: dawidd6/action-download-artifact@v6
         with:
           workflow: bundle-analysis.yml
           branch: main
-          name: bundle-analysis
+          name: bundle-report
           path: .next/analyze/base
           if_no_artifact_found: warn
 
-      - name: Compare bundle sizes
+      - name: Compare and comment
         if: github.event_name == 'pull_request'
-        id: compare
-        run: |
-          # Check if baseline exists
-          if [ ! -f .next/analyze/base/__bundle_analysis_report.json ]; then
-            echo "No baseline found - this is the first PR after bundle analysis was added"
-            echo "comment_body=## Bundle Analysis\n\nNo baseline found yet. The first push to \`main\` will establish the baseline for future comparisons." >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          # Run comparison
-          npx -p nextjs-bundle-analysis compare > comparison.txt || echo "Comparison completed with warnings"
-
-          # Create comment body
-          echo "comment_body<<EOF" >> $GITHUB_OUTPUT
-          echo "## Bundle Analysis" >> $GITHUB_OUTPUT
-          cat comparison.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Post or update PR comment
-        if: github.event_name == 'pull_request'
-        uses: peter-evans/create-or-update-comment@v4
+        uses: actions/github-script@v7
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.compare.outputs.comment_body }}
-          comment-tag: bundle-analysis
+          script: |
+            const fs = require('fs');
+
+            const current = JSON.parse(fs.readFileSync('.next/analyze/bundle-report.json', 'utf8'));
+
+            let baseline = null;
+            const basePath = '.next/analyze/base/bundle-report.json';
+            if (fs.existsSync(basePath)) {
+              baseline = JSON.parse(fs.readFileSync(basePath, 'utf8'));
+            }
+
+            let body = '## 📦 Bundle Size Analysis\n\n';
+
+            // Summary
+            body += `| Metric | Current |`;
+            if (baseline) body += ` Baseline | Change |`;
+            body += '\n';
+            body += `|--------|---------|`;
+            if (baseline) body += `----------|--------|`;
+            body += '\n';
+
+            const gzRow = `| **Total JS (gzip)** | ${current.totalGzipKB} kB |`;
+            const rawRow = `| **Total JS (raw)** | ${current.totalRawKB} kB |`;
+            const countRow = `| **Chunks** | ${current.fileCount} |`;
+
+            if (baseline) {
+              const gzDiff = current.totalGzipKB - baseline.totalGzipKB;
+              const rawDiff = current.totalRawKB - baseline.totalRawKB;
+              const countDiff = current.fileCount - baseline.fileCount;
+              const gzPct = baseline.totalGzipKB > 0 ? ((gzDiff / baseline.totalGzipKB) * 100).toFixed(1) : 'new';
+              const gzIcon = gzDiff > 5 ? '📈' : gzDiff < -5 ? '📉' : '✅';
+
+              body += gzRow + ` ${baseline.totalGzipKB} kB | ${gzDiff > 0 ? '+' : ''}${gzDiff.toFixed(1)} kB (${gzPct}%) ${gzIcon} |\n`;
+              body += rawRow + ` ${baseline.totalRawKB} kB | ${rawDiff > 0 ? '+' : ''}${rawDiff.toFixed(1)} kB |\n`;
+              body += countRow + ` ${baseline.fileCount} | ${countDiff > 0 ? '+' : ''}${countDiff} |\n`;
+            } else {
+              body += gzRow + '\n' + rawRow + '\n' + countRow + '\n';
+              body += '\n> No baseline yet — first push to `main` establishes it.\n';
+            }
+
+            // Top 10 largest chunks
+            body += '\n<details>\n<summary>Top 10 chunks by gzip size</summary>\n\n';
+            body += '| Chunk | Gzip | Raw |\n';
+            body += '|-------|------|-----|\n';
+            for (const f of current.files.slice(0, 10)) {
+              body += `| \`${f.name}\` | ${f.gzipKB} kB | ${f.rawKB} kB |\n`;
+            }
+            body += '\n</details>\n\n';
+
+            body += `**Commit:** \`${current.commit}\`\n`;
+
+            // Post or update comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const tag = '<!-- bundle-analysis -->';
+            body = tag + '\n' + body;
+
+            const existing = comments.find(c => c.body?.includes(tag));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
