@@ -33,7 +33,9 @@ export function FadeContent({
       if (!el) return;
 
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+
+      // DESKTOP: existing animation with blur
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         gsap.from(el, {
           opacity: 0,
           y,
@@ -47,6 +49,31 @@ export function FadeContent({
             once: true,
           },
         });
+      });
+
+      // MOBILE: same animation WITHOUT filter:blur (GPU-friendly only), deferred to idle
+      mm.add("(max-width: 767.98px) and (prefers-reduced-motion: no-preference)", () => {
+        const scheduleAnimation = () => {
+          gsap.from(el, {
+            opacity: 0,
+            y,
+            duration,
+            delay,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          });
+        };
+
+        if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+          const idleId = requestIdleCallback(scheduleAnimation);
+          return () => cancelIdleCallback(idleId);
+        } else {
+          scheduleAnimation();
+        }
       });
 
       return () => mm.revert();
