@@ -12,6 +12,7 @@ import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { PageTransition } from "@/components/page-transition";
 import { CustomCursorLoader } from "@/components/ui/custom-cursor-loader";
 import { ClarityProvider } from "@/components/clarity-provider";
+import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { siteConfig } from "@/config/site";
 
 const spaceGrotesk = Space_Grotesk({
@@ -90,6 +91,7 @@ export default function RootLayout({
                 <PageTransition>{children}</PageTransition>
               </main>
               <Footer />
+              <CookieConsentBanner />
               <CustomCursorLoader />
             </SmoothScrollProvider>
           </MotionProvider>
