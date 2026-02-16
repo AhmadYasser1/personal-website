@@ -35,40 +35,45 @@ export function SplitTextReveal({
       const el = textRef.current;
       if (!el) return;
 
-      const split = SplitText.create(el, { type });
-      const targets =
-        type === "chars"
-          ? split.chars
-          : type === "words"
-            ? split.words
-            : split.lines;
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const split = SplitText.create(el, { type });
+        const targets =
+          type === "chars"
+            ? split.chars
+            : type === "words"
+              ? split.words
+              : split.lines;
 
-      if (trigger === "scroll") {
-        gsap.from(targets, {
-          opacity: 0,
-          y: 20,
-          duration,
-          stagger,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            once: true,
-          },
-        });
-      } else {
-        gsap.from(targets, {
-          opacity: 0,
-          y: 20,
-          duration,
-          stagger,
-          ease: "power2.out",
-        });
-      }
+        if (trigger === "scroll") {
+          gsap.from(targets, {
+            opacity: 0,
+            y: 20,
+            duration,
+            stagger,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          });
+        } else {
+          gsap.from(targets, {
+            opacity: 0,
+            y: 20,
+            duration,
+            stagger,
+            ease: "power2.out",
+          });
+        }
 
-      return () => {
-        split.revert();
-      };
+        return () => {
+          split.revert();
+        };
+      });
+
+      return () => mm.revert();
     },
     { scope: textRef, dependencies: [children, type, trigger, duration, stagger] },
   );

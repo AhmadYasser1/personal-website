@@ -92,8 +92,10 @@ export function ExperienceContent() {
       const timeline = timelineRef.current;
       if (!line || !timeline) return;
 
-      // Timeline line grows with scroll using matchMedia for desktop only
-      gsap.matchMedia().add("(min-width: 768px)", () => {
+      const mm = gsap.matchMedia();
+
+      // Timeline line grows with scroll — desktop only + motion allowed
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
           line,
           { scaleY: 0 },
@@ -110,19 +112,23 @@ export function ExperienceContent() {
         );
       });
 
-      // Timeline dots scale in on scroll
-      gsap.utils.toArray<HTMLElement>("[data-timeline-dot]", timeline).forEach((dot) => {
-        gsap.from(dot, {
-          scale: 0,
-          duration: 0.4,
-          ease: "back.out(2)",
-          scrollTrigger: {
-            trigger: dot,
-            start: "top 75%",
-            once: true,
-          },
+      // Timeline dots scale in on scroll — motion allowed only
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.utils.toArray<HTMLElement>("[data-timeline-dot]", timeline).forEach((dot) => {
+          gsap.from(dot, {
+            scale: 0,
+            duration: 0.4,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: dot,
+              start: "top 75%",
+              once: true,
+            },
+          });
         });
       });
+
+      return () => mm.revert();
     },
     { scope: timelineRef },
   );
@@ -161,7 +167,6 @@ export function ExperienceContent() {
           <div
             ref={lineRef}
             className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-emerald-500/50 to-transparent -translate-x-1/2 hidden md:block origin-top"
-            style={{ transform: "scaleY(0)" }}
           />
 
           <div className="space-y-8">

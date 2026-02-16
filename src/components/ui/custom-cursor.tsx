@@ -17,11 +17,30 @@ function getPointerFineServerSnapshot() {
   return false;
 }
 
+function subscribeToReducedMotion(callback: () => void) {
+  const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mql.addEventListener("change", callback);
+  return () => mql.removeEventListener("change", callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getReducedMotionServerSnapshot() {
+  return false;
+}
+
 export function CustomCursor() {
   const isFinePointer = useSyncExternalStore(
     subscribeToPointerMedia,
     getPointerFineSnapshot,
     getPointerFineServerSnapshot,
+  );
+  const prefersReduced = useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot,
   );
 
   const dotRef = useRef<HTMLDivElement>(null);
@@ -32,10 +51,7 @@ export function CustomCursor() {
   const yFollower = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
 
   useEffect(() => {
-    if (!isFinePointer) return;
-
-    // Check reduced motion preference
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!isFinePointer || prefersReduced) return;
 
     const dot = dotRef.current;
     const follower = followerRef.current;
@@ -88,9 +104,9 @@ export function CustomCursor() {
       gsap.killTweensOf(dot);
       gsap.killTweensOf(follower);
     };
-  }, [isFinePointer]);
+  }, [isFinePointer, prefersReduced]);
 
-  if (!isFinePointer) return null;
+  if (!isFinePointer || prefersReduced) return null;
 
   return (
     <>

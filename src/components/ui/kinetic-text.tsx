@@ -27,28 +27,32 @@ export function KineticText({
       const el = textRef.current;
       if (!el) return;
 
-      const split = SplitText.create(el, { type: "chars" });
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const split = SplitText.create(el, { type: "chars" });
 
-      // Each character goes from dim (0.15) to full opacity tied to scroll
-      gsap.fromTo(
-        split.chars,
-        { opacity: 0.15 },
-        {
-          opacity: 1,
-          stagger: 0.03,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 80%",
-            end: "bottom 40%",
-            scrub: 1,
+        gsap.fromTo(
+          split.chars,
+          { opacity: 0.15 },
+          {
+            opacity: 1,
+            stagger: 0.03,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              end: "bottom 40%",
+              scrub: 1,
+            },
           },
-        },
-      );
+        );
 
-      return () => {
-        split.revert();
-      };
+        return () => {
+          split.revert();
+        };
+      });
+
+      return () => mm.revert();
     },
     { scope: textRef, dependencies: [children], revertOnUpdate: true },
   );
