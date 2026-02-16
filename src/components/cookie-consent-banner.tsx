@@ -1,54 +1,57 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 const CONSENT_KEY = "analytics-consent";
 
-type ConsentStatus = "granted" | "declined" | null;
+type ConsentValue = "granted" | "declined" | null;
 
-function getStoredConsent(): ConsentStatus {
-  if (typeof window === "undefined") return null;
+function getSnapshot(): ConsentValue {
   const value = localStorage.getItem(CONSENT_KEY);
   if (value === "granted" || value === "declined") return value;
   return null;
 }
 
+function subscribe(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
 function grantClarityConsent() {
-  // Clarity Consent API v2 — signals that the user accepted analytics cookies.
-  // This requires "Cookie consent" mode enabled in the Clarity dashboard.
   const clarity = (window as unknown as Record<string, unknown>).clarity as
     | ((...args: unknown[]) => void)
     | undefined;
   clarity?.("consent");
 }
 
+const SERVER_SNAPSHOT: ConsentValue = "granted";
+
 export function CookieConsentBanner() {
-  const [consent, setConsent] = useState<ConsentStatus | "pending">(() => {
-    // Initialize from localStorage during first render (client-side only)
-    return typeof window !== "undefined" ? getStoredConsent() : "pending";
-  });
+  const consent = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    () => SERVER_SNAPSHOT,
+  );
 
   useEffect(() => {
-    // If the user previously accepted, re-signal consent to Clarity
-    // (in case the page was reloaded after acceptance).
     if (consent === "granted") {
       grantClarityConsent();
     }
   }, [consent]);
 
-  function handleAccept() {
+  const handleAccept = useCallback(() => {
     localStorage.setItem(CONSENT_KEY, "granted");
-    setConsent("granted");
+    window.dispatchEvent(new StorageEvent("storage", { key: CONSENT_KEY }));
     grantClarityConsent();
-  }
+  }, []);
 
-  function handleDecline() {
+  const handleDecline = useCallback(() => {
     localStorage.setItem(CONSENT_KEY, "declined");
-    setConsent("declined");
-  }
+    window.dispatchEvent(new StorageEvent("storage", { key: CONSENT_KEY }));
+  }, []);
 
-  // Don't render during SSR hydration or if user has already chosen
+  // Hide if user has already chosen (or during SSR where snapshot is "granted")
   if (consent !== null) return null;
 
   return (
