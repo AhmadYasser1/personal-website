@@ -1,0 +1,60 @@
+# Lighthouse CI - Performance Budget Enforcement
+#
+# Runs Lighthouse audits on every PR targeting main.
+# Enforces performance budgets defined in lighthouserc.json.
+#
+# IMPORTANT: This workflow requires 5 env vars as GitHub Actions secrets because
+# @t3-oss/env-nextjs (src/env.ts) validates server env vars at build time.
+# Add these in: GitHub repo -> Settings -> Secrets and variables -> Actions
+#
+# Required secrets:
+#   - RESEND_API_KEY (Resend Dashboard -> API Keys)
+#   - TURNSTILE_SECRET_KEY (Cloudflare Dashboard -> Turnstile -> Settings)
+#   - TURNSTILE_SITE_KEY (Cloudflare Dashboard -> Turnstile -> Settings)
+#   - UPSTASH_REDIS_REST_URL (Upstash Console -> Redis Database -> REST API)
+#   - UPSTASH_REDIS_REST_TOKEN (Upstash Console -> Redis Database -> REST API)
+
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
