@@ -1,0 +1,33 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3,
+      "startServerCommand": "npm start",
+      "startServerReadyPattern": "Ready in",
+      "startServerReadyTimeout": 30000,
+      "url": [
+        "http://localhost:3000/",
+        "http://localhost:3000/projects",
+        "http://localhost:3000/contact"
+      ],
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "largest-contentful-paint": ["error", {"maxNumericValue": 2500}],
+        "first-contentful-paint": ["error", {"maxNumericValue": 1800}],
+        "total-blocking-time": ["error", {"maxNumericValue": 300}],
+        "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
+        "total-byte-weight": ["warn", {"maxNumericValue": 184320}],
+        "uses-long-cache-ttl": "warn",
+        "unused-javascript": "warn"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
