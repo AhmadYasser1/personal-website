@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, startTransition } from "react";
 import Link from "next/link";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
@@ -62,8 +62,10 @@ export function ProjectsContent() {
               variant={activeCategory === category.id ? "default" : "outline"}
               size="sm"
               onClick={() => {
-                setActiveCategory(category.id);
                 trackEvent(`filter-${category.id}`);
+                startTransition(() => {
+                  setActiveCategory(category.id);
+                });
               }}
               className={activeCategory === category.id ? "bg-emerald-500 text-white hover:bg-emerald-600 transition-all" : "transition-all"}
             >

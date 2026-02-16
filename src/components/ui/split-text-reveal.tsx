@@ -36,7 +36,9 @@ export function SplitTextReveal({
       if (!el) return;
 
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+
+      // DESKTOP: SplitText animation
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const split = SplitText.create(el, { type });
         const targets =
           type === "chars"
@@ -71,6 +73,30 @@ export function SplitTextReveal({
         return () => {
           split.revert();
         };
+      });
+
+      // MOBILE: Simple fade-in, no SplitText
+      mm.add("(max-width: 767.98px) and (prefers-reduced-motion: no-preference)", () => {
+        if (trigger === "scroll") {
+          gsap.from(el, {
+            opacity: 0,
+            y: 15,
+            duration,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          });
+        } else {
+          gsap.from(el, {
+            opacity: 0,
+            y: 15,
+            duration,
+            ease: "power2.out",
+          });
+        }
       });
 
       return () => mm.revert();

@@ -101,6 +101,22 @@ export function Footer() {
             ))}
           </div>
         </div>
+
+        <div className="mt-6 flex items-center justify-center gap-4 text-xs text-muted-foreground">
+          <Link
+            href="/privacy"
+            className="transition-colors hover:text-emerald-500"
+          >
+            Privacy Policy
+          </Link>
+          <span className="text-border">&middot;</span>
+          <Link
+            href="/terms"
+            className="transition-colors hover:text-emerald-500"
+          >
+            Terms of Service
+          </Link>
+        </div>
       </div>
     </footer>
   );

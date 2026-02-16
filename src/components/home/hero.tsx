@@ -23,7 +23,9 @@ export function Hero() {
       if (!heading) return;
 
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+
+      // DESKTOP: SplitText animation with all effects
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const split = SplitText.create(heading, {
           type: "chars",
           mask: "chars",
@@ -98,6 +100,73 @@ export function Hero() {
         return () => {
           split.revert();
         };
+      });
+
+      // MOBILE: Simple fade-in timeline, NO SplitText
+      mm.add("(max-width: 767.98px) and (prefers-reduced-motion: no-preference)", () => {
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        tl.from("[data-hero-badge]", {
+          opacity: 0,
+          y: 15,
+          duration: 0.5,
+        })
+          .from(
+            heading,
+            {
+              opacity: 0,
+              y: 20,
+              duration: 0.4,
+            },
+            "-=0.2",
+          )
+          .from(
+            "[data-hero-dot]",
+            {
+              scale: 0,
+              opacity: 0,
+              duration: 0.4,
+              ease: "back.out(2)",
+            },
+            "-=0.3",
+          )
+          .from(
+            "[data-hero-subtitle]",
+            {
+              opacity: 0,
+              y: 20,
+              duration: 0.5,
+            },
+            "-=0.2",
+          )
+          .from(
+            "[data-hero-cta]",
+            {
+              opacity: 0,
+              y: 20,
+              duration: 0.5,
+              stagger: 0.1,
+            },
+            "-=0.3",
+          )
+          .from(
+            "[data-hero-stat]",
+            {
+              opacity: 0,
+              y: 15,
+              duration: 0.4,
+              stagger: 0.1,
+            },
+            "-=0.2",
+          )
+          .from(
+            "[data-hero-scroll]",
+            {
+              opacity: 0,
+              duration: 0.5,
+            },
+            "-=0.1",
+          );
       });
 
       return () => mm.revert();
