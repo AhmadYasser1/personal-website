@@ -56,6 +56,15 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        source: "/((?!api/).*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=3600, stale-while-revalidate=86400",
+          },
+        ],
+      },
       { source: "/(.*)", headers: securityHeaders },
       ...(process.env.VERCEL_ENV !== "production"
         ? [
