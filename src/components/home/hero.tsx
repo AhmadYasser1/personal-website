@@ -6,7 +6,12 @@ import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 import { ExperienceCloud } from "@/components/home/experience-cloud";
-import { gsap, SplitText, useGSAP } from "@/lib/gsap/plugins";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);

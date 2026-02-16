@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
-import { ScrollTrigger } from "@/lib/gsap/plugins";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 
