@@ -271,6 +271,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                           alt={tech}
                           width={12}
                           height={12}
+                          sizes="12px"
                           unoptimized
                           className="w-3 h-3"
                           style={{ filter: "brightness(0) saturate(100%) invert(1)" }}
