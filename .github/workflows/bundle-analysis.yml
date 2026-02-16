@@ -1,0 +1,86 @@
+name: Bundle Size Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+
+      - name: Generate bundle analysis report
+        run: npx -p nextjs-bundle-analysis report
+
+      - name: Upload bundle analysis report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis
+          path: .next/analyze/__bundle_analysis_report.json
+
+      - name: Download baseline bundle analysis
+        if: github.event_name == 'pull_request'
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: bundle-analysis.yml
+          branch: main
+          name: bundle-analysis
+          path: .next/analyze/base
+          if_no_artifact_found: warn
+
+      - name: Compare bundle sizes
+        if: github.event_name == 'pull_request'
+        id: compare
+        run: |
+          # Check if baseline exists
+          if [ ! -f .next/analyze/base/__bundle_analysis_report.json ]; then
+            echo "No baseline found - this is the first PR after bundle analysis was added"
+            echo "comment_body=## Bundle Analysis\n\nNo baseline found yet. The first push to \`main\` will establish the baseline for future comparisons." >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Run comparison
+          npx -p nextjs-bundle-analysis compare > comparison.txt || echo "Comparison completed with warnings"
+
+          # Create comment body
+          echo "comment_body<<EOF" >> $GITHUB_OUTPUT
+          echo "## Bundle Analysis" >> $GITHUB_OUTPUT
+          cat comparison.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post or update PR comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.compare.outputs.comment_body }}
+          comment-tag: bundle-analysis
