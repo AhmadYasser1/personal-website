@@ -7,8 +7,12 @@
       "startServerReadyTimeout": 30000,
       "url": [
         "http://localhost:3000/",
+        "http://localhost:3000/about",
         "http://localhost:3000/projects",
-        "http://localhost:3000/contact"
+        "http://localhost:3000/experience",
+        "http://localhost:3000/contact",
+        "http://localhost:3000/open-source",
+        "http://localhost:3000/research"
       ],
       "settings": {
         "preset": "desktop"
@@ -17,9 +21,10 @@
     "assert": {
       "preset": "lighthouse:recommended",
       "assertions": {
-        "largest-contentful-paint": ["error", {"maxNumericValue": 2500}],
-        "first-contentful-paint": ["error", {"maxNumericValue": 1800}],
-        "total-blocking-time": ["error", {"maxNumericValue": 300}],
+        "largest-contentful-paint": ["error", {"maxNumericValue": 2000}],
+        "first-contentful-paint": ["error", {"maxNumericValue": 1500}],
+        "total-blocking-time": ["error", {"maxNumericValue": 200}],
+        "interactive": ["warn", {"maxNumericValue": 3800}],
         "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
         "total-byte-weight": ["warn", {"maxNumericValue": 184320}],
         "uses-long-cache-ttl": "warn",
