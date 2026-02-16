@@ -4,6 +4,8 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 
 function subscribePrefersReduced(callback: () => void) {

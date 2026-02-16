@@ -28,7 +28,9 @@ export function KineticText({
       if (!el) return;
 
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+
+      // DESKTOP: SplitText scrub animation
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const split = SplitText.create(el, { type: "chars" });
 
         gsap.fromTo(
@@ -50,6 +52,24 @@ export function KineticText({
         return () => {
           split.revert();
         };
+      });
+
+      // MOBILE: Simple opacity fade on scroll, no SplitText
+      mm.add("(max-width: 767.98px) and (prefers-reduced-motion: no-preference)", () => {
+        gsap.fromTo(
+          el,
+          { opacity: 0.15 },
+          {
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              end: "bottom 40%",
+              scrub: 1,
+            },
+          },
+        );
       });
 
       return () => mm.revert();
