@@ -45,6 +45,9 @@ next-env.d.ts
 .fastembed_cache/
 .env*.local
 
+# Analytics audit intermediate data
+.audit-data/
+
 # GSD planning files (ephemeral, per-session)
 .planning/
 task_plan.md

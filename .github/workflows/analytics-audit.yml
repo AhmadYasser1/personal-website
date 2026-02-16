@@ -1,0 +1,75 @@
+# Analytics Audit — Weekly UX Report
+#
+# Runs the analytics audit pipeline weekly and on-demand.
+# Collects data from Clarity + PageSpeed Insights, generates
+# a prioritized markdown report, and creates a GitHub Issue.
+#
+# Required secrets:
+#   - CLARITY_API_TOKEN (Microsoft Clarity -> Settings -> Data Export API -> JWT token)
+#   - PSI_API_KEY (Google Cloud Console -> APIs & Services -> Credentials -> API Key)
+
+name: Analytics Audit
+
+on:
+  schedule:
+    # Every Monday at 2:30 AM UTC
+    - cron: "30 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Restore previous report
+        uses: actions/cache/restore@v4
+        with:
+          path: .audit-data/previous-report.json
+          key: audit-previous-report
+
+      - name: Run audit
+        env:
+          CLARITY_API_TOKEN: ${{ secrets.CLARITY_API_TOKEN }}
+          PSI_API_KEY: ${{ secrets.PSI_API_KEY }}
+        run: node --import=tsx scripts/audit/index.ts
+
+      - name: Save report for next run
+        uses: actions/cache/save@v4
+        with:
+          path: .audit-data/previous-report.json
+          key: audit-previous-report-${{ github.run_id }}
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-report-${{ github.run_id }}
+          path: |
+            .audit-data/audit-report.md
+            .audit-data/previous-report.json
+          retention-days: 90
+
+      - name: Create GitHub Issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "📊 Weekly UX Audit — ${{ github.event.repository.name }}"
+          content-filepath: .audit-data/audit-report.md
+          labels: |
+            analytics
+            automated-report
