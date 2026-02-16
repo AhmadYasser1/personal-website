@@ -57,7 +57,9 @@ export function ContactContent({
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             Interested in collaborating, have a question, or just want to say
-            hello? I&apos;d love to hear from you.
+            hello?
+            <br />
+            I&apos;d love to hear from you.
           </m.p>
         </div>
 

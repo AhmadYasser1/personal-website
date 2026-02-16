@@ -96,7 +96,7 @@ export const projects: Project[] = [
     id: "personal-website",
     title: "Personal Portfolio Website",
     description:
-      "This website — a modern, animated portfolio built with Next.js 16, Tailwind CSS v4, and Motion. Features auto-scrolling testimonials, animated statistics, and dark mode.",
+      "This website, a modern, animated portfolio built with Next.js 16, Tailwind CSS v4, and Motion. Features auto-scrolling testimonials, animated statistics, and dark mode.",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Motion", "Vercel"],
     category: "web-dev",
     githubUrl: "https://github.com/AhmadYasser1/personal-website",
