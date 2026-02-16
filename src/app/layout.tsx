@@ -96,7 +96,7 @@ export default function RootLayout({
         </ThemeProvider>
         {isVercelDeployment ? <SpeedInsights /> : null}
         {isVercelDeployment ? <Analytics /> : null}
-        {process.env.CLARITY_PROJECT_ID ? (
+        {process.env.CLARITY_PROJECT_ID && process.env.VERCEL_ENV === "production" ? (
           <ClarityProvider projectId={process.env.CLARITY_PROJECT_ID} />
         ) : null}
       </body>
