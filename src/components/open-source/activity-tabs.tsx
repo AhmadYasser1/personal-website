@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, startTransition } from "react";
 import dynamic from "next/dynamic";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
@@ -53,7 +53,7 @@ export function ActivityTabs({
 
   return (
     <div>
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs value={activeTab} onValueChange={(value) => startTransition(() => setActiveTab(value))}>
         <TabsList className="rounded-xl bg-muted/50 backdrop-blur-sm">
           <TabsTrigger value="heatmap">Contributions</TabsTrigger>
           <TabsTrigger value="chart">Activity</TabsTrigger>
