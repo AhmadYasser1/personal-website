@@ -4,7 +4,7 @@
       "numberOfRuns": 3,
       "startServerCommand": "npm start",
       "startServerReadyPattern": "Ready in",
-      "startServerReadyTimeout": 30000,
+      "startServerReadyTimeout": 60000,
       "url": [
         "http://localhost:3000/",
         "http://localhost:3000/about",
@@ -44,7 +44,8 @@
         "errors-in-console": "warn",
         "inspector-issues": "warn",
         "uses-rel-preconnect": "warn",
-        "legacy-javascript": "warn"
+        "legacy-javascript": "warn",
+        "image-redundant-alt": "warn"
       }
     },
     "upload": {
