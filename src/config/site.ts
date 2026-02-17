@@ -13,8 +13,9 @@ export const siteConfig = {
     email: "hey@ayasser.com",
   },
   links: {
-    github: "https://github.com/ahmadyasser01",
-    linkedin: "https://linkedin.com/in/ahmad-yasser-hassanein",
+    twitter: "https://x.com/ahmaadyaasser1",
+    github: "https://github.com/AhmadYasser1",
+    linkedin: "https://www.linkedin.com/in/ahmadyasserhassanein/",
   },
 } as const;
 

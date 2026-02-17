@@ -162,8 +162,9 @@ export const skills = {
 };
 
 export const socialLinks = {
+  twitter: "https://x.com/ahmaadyaasser1",
   github: "https://github.com/AhmadYasser1",
-  linkedin: "https://linkedin.com/in/ahmedyhassanein",
+  linkedin: "https://www.linkedin.com/in/ahmadyasserhassanein/",
   email: "hey@ayasser.com",
   orcid: "https://orcid.org/0009-0000-8643-4747",
   medium: "https://medium.com/@ahmadyasser03",
