@@ -44,7 +44,8 @@
         "errors-in-console": "warn",
         "inspector-issues": "warn",
         "uses-rel-preconnect": "warn",
-        "legacy-javascript": "warn"
+        "legacy-javascript": "warn",
+        "image-redundant-alt": "warn"
       }
     },
     "upload": {
