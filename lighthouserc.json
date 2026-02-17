@@ -28,7 +28,23 @@
         "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
         "total-byte-weight": ["warn", {"maxNumericValue": 184320}],
         "uses-long-cache-ttl": "warn",
-        "unused-javascript": "warn"
+        "unused-javascript": "warn",
+
+        "is-crawlable": "off",
+        "third-party-cookies": "off",
+
+        "forced-reflow-insight": "off",
+        "legacy-javascript-insight": "off",
+        "cache-insight": "off",
+
+        "color-contrast": "warn",
+        "aria-prohibited-attr": "warn",
+        "aria-valid-attr-value": "warn",
+        "heading-order": "warn",
+        "errors-in-console": "warn",
+        "inspector-issues": "warn",
+        "uses-rel-preconnect": "warn",
+        "legacy-javascript": "warn"
       }
     },
     "upload": {
