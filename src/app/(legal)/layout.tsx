@@ -1,3 +1,5 @@
+import { BackButton } from "./back-button";
+
 export default function LegalLayout({
   children,
 }: {
@@ -5,6 +7,7 @@ export default function LegalLayout({
 }) {
   return (
     <div className="min-h-screen py-24">
+      <BackButton />
       <div className="container mx-auto max-w-3xl px-4">{children}</div>
     </div>
   );
