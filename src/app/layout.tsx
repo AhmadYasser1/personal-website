@@ -53,11 +53,21 @@ export const metadata: Metadata = {
     siteName: `${siteConfig.name} Portfolio`,
     title: `${siteConfig.name} | Human-Computer Interaction Researcher`,
     description: siteConfig.description,
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} - Human-Computer Interaction Researcher`,
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} | Human-Computer Interaction Researcher`,
     description: siteConfig.description,
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
