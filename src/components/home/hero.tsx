@@ -1,35 +1,52 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 import { ExperienceCloud } from "@/components/home/experience-cloud";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  useGSAP(
-    () => {
-      const heading = headingRef.current;
-      if (!heading) return;
+  useEffect(() => {
+    // Guard: skip GSAP entirely on mobile
+    if (!window.matchMedia("(min-width: 768px)").matches) return;
+    // Guard: skip GSAP if user prefers reduced motion
+    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
 
-      const mm = gsap.matchMedia();
+    const section = sectionRef.current;
+    const heading = headingRef.current;
+    if (!section || !heading) return;
 
-      // DESKTOP: SplitText animation with all effects
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
-        const split = SplitText.create(heading, {
+    let cancelled = false;
+    let split: { revert: () => void; chars: Element[] } | null = null;
+    const scrollTriggers: Array<{ kill: () => void } | undefined> = [];
+
+    // Dynamic import GSAP modules
+    Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+      import("gsap/SplitText"),
+    ])
+      .then(([gsapModule, scrollTriggerModule, splitTextModule]) => {
+        if (cancelled) return;
+
+        const gsap = gsapModule.default;
+        const { ScrollTrigger } = scrollTriggerModule;
+        const { SplitText } = splitTextModule;
+
+        // Register plugins
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+
+        // Hero heading animation (SplitText character stagger)
+        const splitInstance = SplitText.create(heading, {
           type: "chars",
           mask: "chars",
         });
+        split = splitInstance;
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -39,7 +56,7 @@ export function Hero() {
           duration: 0.5,
         })
           .from(
-            split.chars,
+            splitInstance.chars,
             {
               y: "100%",
               opacity: 0,
@@ -97,41 +114,32 @@ export function Hero() {
             "-=0.1",
           );
 
-        return () => {
-          split.revert();
-        };
-      });
-
-      return () => mm.revert();
-    },
-    { scope: sectionRef },
-  );
-
-  useGSAP(
-    () => {
-      const clouds = gsap.utils.toArray<HTMLElement>("[data-cloud]");
-      if (clouds.length === 0) return;
-
-      const mm = gsap.matchMedia();
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        // Cloud parallax animation
+        const clouds = gsap.utils.toArray<HTMLElement>("[data-cloud]");
         clouds.forEach((cloud, i) => {
-          gsap.to(cloud, {
+          const trigger = gsap.to(cloud, {
             y: i === 0 ? -40 : -60,
             ease: "none",
             scrollTrigger: {
-              trigger: sectionRef.current,
+              trigger: section,
               start: "top top",
               end: "bottom top",
               scrub: 0.5,
             },
           });
+          scrollTriggers.push(trigger.scrollTrigger);
         });
+      })
+      .catch((error) => {
+        console.error("Failed to load GSAP:", error);
       });
 
-      return () => mm.revert();
-    },
-    { scope: sectionRef },
-  );
+    return () => {
+      cancelled = true;
+      if (split) split.revert();
+      scrollTriggers.forEach((trigger) => trigger?.kill());
+    };
+  }, []);
 
   return (
     <section
