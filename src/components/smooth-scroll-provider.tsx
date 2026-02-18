@@ -1,10 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
-import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  useRef,
+} from "react";
 
-ScrollTrigger.config({ ignoreMobileResize: true });
+// Type for Lenis instance (matches lenis package exports)
+type LenisInstance = {
+  scrollTo: (
+    target: number | string,
+    options?: { immediate?: boolean; offset?: number; duration?: number }
+  ) => void;
+  on: (event: string, callback: (data: { scroll: number }) => void) => void;
+  off: (event: string, callback: (data: { scroll: number }) => void) => void;
+  raf: (time: number) => void;
+  destroy: () => void;
+};
+
+const LenisContext = createContext<LenisInstance | null>(null);
 
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 
@@ -27,7 +44,8 @@ export function SmoothScrollProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const lenisRef = useRef<LenisRef>(null);
+  const [lenis, setLenis] = useState<LenisInstance | null>(null);
+  const rafIdRef = useRef<number | null>(null);
 
   const prefersReduced = useSyncExternalStore(
     subscribePrefersReduced,
@@ -35,31 +53,81 @@ export function SmoothScrollProvider({
     getServerSnapshotPrefersReduced,
   );
 
-  // Sync Lenis scroll position with GSAP ScrollTrigger
   useEffect(() => {
-    const lenis = lenisRef.current?.lenis;
-    if (!lenis) return;
+    let cancelled = false;
+    let lenisInstance: LenisInstance | null = null;
 
-    lenis.on("scroll", ScrollTrigger.update);
+    // Dynamically import Lenis and ScrollTrigger
+    Promise.all([
+      import("lenis"),
+      import("gsap/ScrollTrigger"),
+    ]).then(([lenisModule, scrollTriggerModule]) => {
+      if (cancelled) return;
 
-    return () => {
-      lenis.off("scroll", ScrollTrigger.update);
-    };
-  }, []);
+      const Lenis = lenisModule.default;
+      const { ScrollTrigger } = scrollTriggerModule;
 
-  return (
-    <ReactLenis
-      ref={lenisRef}
-      root
-      options={{
+      // Configure ScrollTrigger
+      ScrollTrigger.config({ ignoreMobileResize: true });
+
+      // Create Lenis instance
+      lenisInstance = new Lenis({
         lerp: prefersReduced ? 1 : 0.1,
         smoothWheel: !prefersReduced,
         syncTouch: false,
-      }}
-    >
-      {children}
-    </ReactLenis>
+      }) as LenisInstance;
+
+      // Sync Lenis with ScrollTrigger
+      lenisInstance.on("scroll", ScrollTrigger.update);
+
+      // Set instance in state to make it available via context
+      setLenis(lenisInstance);
+
+      // Start RAF loop
+      function raf(time: number) {
+        if (lenisInstance && !cancelled) {
+          lenisInstance.raf(time);
+          rafIdRef.current = requestAnimationFrame(raf);
+        }
+      }
+      rafIdRef.current = requestAnimationFrame(raf);
+    });
+
+    return () => {
+      cancelled = true;
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      if (lenisInstance) {
+        lenisInstance.destroy();
+      }
+    };
+  }, [prefersReduced]);
+
+  return (
+    <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>
   );
 }
 
-export { useLenis };
+/**
+ * Custom useLenis hook that is API-compatible with lenis/react.
+ * Returns the Lenis instance (or null if not loaded yet).
+ * Optionally registers a scroll callback when Lenis is available.
+ */
+export function useLenis(
+  callback?: (data: { scroll: number }) => void
+): LenisInstance | null {
+  const lenis = useContext(LenisContext);
+
+  useEffect(() => {
+    if (!lenis || !callback) return;
+
+    lenis.on("scroll", callback);
+
+    return () => {
+      lenis.off("scroll", callback);
+    };
+  }, [lenis, callback]);
+
+  return lenis;
+}
