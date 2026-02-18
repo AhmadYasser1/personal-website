@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
  * Freezes the previous route's children so AnimatePresence
@@ -34,7 +33,9 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       onExitComplete={() => {
         // Critical: recalculate GSAP ScrollTrigger positions
         // after the old route finishes its exit animation
-        ScrollTrigger.refresh();
+        import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+          ScrollTrigger.refresh();
+        });
       }}
     >
       <m.div
