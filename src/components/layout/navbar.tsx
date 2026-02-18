@@ -50,15 +50,12 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <m.header
+    <header
       className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
         isScrolled
           ? "border-border/60 bg-background/90 backdrop-blur-md"
           : "border-border/40 bg-background/80 backdrop-blur-sm"
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <nav className={`container mx-auto flex items-center justify-between px-4 transition-all duration-300 ${
         isScrolled ? "h-14" : "h-16"
@@ -74,12 +71,7 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <div ref={navContainerRef} className="hidden md:flex md:items-center md:gap-6 relative">
           {navLinks.map((link, index) => (
-            <m.div
-              key={link.href}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
+            <div key={link.href}>
               <Link
                 ref={(el) => { navLinksRefs.current[index] = el; }}
                 href={link.href}
@@ -91,7 +83,7 @@ export function Navbar() {
               >
                 {link.label}
               </Link>
-            </m.div>
+            </div>
           ))}
           {indicatorProps.width > 0 && (
             <m.div
@@ -104,13 +96,9 @@ export function Navbar() {
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
             />
           )}
-          <m.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6 }}
-          >
+          <div>
             <ThemeToggle />
-          </m.div>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -169,6 +157,6 @@ export function Navbar() {
           </Sheet>
         </div>
       </nav>
-    </m.header>
+    </header>
   );
 }
