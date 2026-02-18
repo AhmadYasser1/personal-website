@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     "Ahmad Yasser's open source contributions, pull requests, and GitHub activity.",
 };
 
+export const revalidate = 3600;
+
 export default async function OpenSourcePage() {
   const data = await getOpenSourceData();
   return <OpenSourceContent data={data} />;
