@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
@@ -25,6 +25,11 @@ function FrozenRouter({ children }: { children: React.ReactNode }) {
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
 
   return (
     <AnimatePresence
@@ -37,7 +42,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
     >
       <m.div
         key={pathname}
-        initial={{ opacity: 0, y: 8 }}
+        initial={isInitialMount.current ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
