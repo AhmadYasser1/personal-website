@@ -25,7 +25,7 @@ export function Testimonials() {
       <div className="md:hidden">
         <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 scrollbar-hide">
           {testimonials.map((t) => (
-            <div key={t.id} className="snap-start shrink-0 w-[85vw] max-w-[380px]">
+            <div key={t.id} className="snap-start shrink-0 w-[85vw] max-w-[440px]">
               <TestimonialCard testimonial={t} />
             </div>
           ))}
@@ -55,7 +55,7 @@ export function Testimonials() {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="px-2 shrink-0 md:w-[380px]">
+    <div className="px-2 shrink-0 md:w-[440px]">
       <Card className="h-full border-border/50 hover:border-primary/30 transition-colors">
         <CardContent className="flex flex-col h-full pt-6">
           {/* Quote icon */}
