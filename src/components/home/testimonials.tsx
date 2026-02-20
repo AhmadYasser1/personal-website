@@ -57,7 +57,7 @@ function TestimonialCard({ testimonial, "aria-hidden": ariaHidden }: { testimoni
   return (
     <div className="px-2 shrink-0 md:w-[440px]" aria-hidden={ariaHidden}>
       <Card className="h-full border-border/50 hover:border-primary/30 transition-colors">
-        <CardContent className="flex flex-col h-full pt-6">
+        <CardContent className="flex flex-col flex-1 pt-6">
           {/* Quote icon */}
           <svg
             className="w-8 h-8 text-primary/20 mb-3 shrink-0"
@@ -81,17 +81,17 @@ function TestimonialCard({ testimonial, "aria-hidden": ariaHidden }: { testimoni
               sizes="36px"
               className="w-9 h-9 rounded-full object-cover shrink-0"
             />
-            <div className="min-w-0">
-              <p className="text-sm font-semibold">
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-semibold truncate">
                 {testimonial.name}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground truncate">
                 {testimonial.title}
               </p>
             </div>
             <Badge
               variant="secondary"
-              className="text-[10px] shrink-0 ml-auto"
+              className="text-[10px] shrink-0"
             >
               {testimonial.relationship}
             </Badge>
