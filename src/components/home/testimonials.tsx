@@ -33,19 +33,19 @@ export function Testimonials() {
       </div>
 
       {/* Desktop: infinite marquee */}
-      <div className="hidden md:block relative overflow-hidden">
+      <div className="group hidden md:block relative overflow-hidden">
         {/* Gradient fade — left */}
         <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         {/* Gradient fade — right */}
         <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-        <div className="flex animate-marquee will-change-transform hover:[animation-play-state:paused]">
+        <div className="flex w-max animate-marquee will-change-transform group-hover:[animation-play-state:paused]">
           {testimonials.map((t) => (
             <TestimonialCard key={t.id} testimonial={t} />
           ))}
           {/* Duplicate for seamless infinite loop */}
           {testimonials.map((t) => (
-            <TestimonialCard key={`${t.id}-dup`} testimonial={t} />
+            <TestimonialCard key={`${t.id}-dup`} testimonial={t} aria-hidden />
           ))}
         </div>
       </div>
@@ -53,9 +53,9 @@ export function Testimonials() {
   );
 }
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({ testimonial, "aria-hidden": ariaHidden }: { testimonial: Testimonial; "aria-hidden"?: boolean }) {
   return (
-    <div className="px-2 shrink-0 md:w-[440px]">
+    <div className="px-2 shrink-0 md:w-[440px]" aria-hidden={ariaHidden}>
       <Card className="h-full border-border/50 hover:border-primary/30 transition-colors">
         <CardContent className="flex flex-col h-full pt-6">
           {/* Quote icon */}
