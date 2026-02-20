@@ -10,16 +10,6 @@ export interface Testimonial {
 
 export const testimonials: Testimonial[] = [
   {
-    id: "darolyn-pierce",
-    name: "Darolyn Pierce",
-    title: "VP of Data Analytics & Insights",
-    relationship: "Manager",
-    date: "February 2026",
-    quote:
-      "I've had the privilege of working alongside Ahmad and can confidently say he is one of the most driven and high-character professionals I know. Ahmad brings a true growth mindset to everything he does. He is constantly pushing boundaries — not for the sake of disruption, but in pursuit of better outcomes, smarter solutions, and meaningful impact. He isn't afraid to challenge assumptions, explore new ideas, or lean into complexity. Beyond his strong work ethic and high intellectual capacity, what truly sets Ahmad apart is his character. He cares deeply about people. He shows up with kindness, integrity, and a genuine desire to see others succeed. That combination of sharp thinking and authentic care makes him both an exceptional professional and an outstanding teammate. Any team would be fortunate to have Ahmad's energy, discipline, and leadership.",
-    image: "/testimonials/darolyn-pierce.jpg",
-  },
-  {
     id: "jane-sitter",
     name: "Jane Sitter, MA",
     title: "Senior International Career Consultant & Training Facilitator",
@@ -38,6 +28,16 @@ export const testimonials: Testimonial[] = [
     quote:
       "Ahmad consistently demonstrated exceptional intelligence and outstanding communication skills. His ability to solve problems efficiently was also remarkable. Ahmad's dedication to his work and his proficiency in conveying complex ideas make him a valuable asset to any team.",
     image: "/testimonials/mohammed-nasser.jpg",
+  },
+  {
+    id: "darolyn-pierce",
+    name: "Darolyn Pierce",
+    title: "VP of Data Analytics & Insights",
+    relationship: "Manager",
+    date: "February 2026",
+    quote:
+      "I've had the privilege of working alongside Ahmad and can confidently say he is one of the most driven and high-character professionals I know. Ahmad brings a true growth mindset to everything he does. He is constantly pushing boundaries — not for the sake of disruption, but in pursuit of better outcomes, smarter solutions, and meaningful impact. He isn't afraid to challenge assumptions, explore new ideas, or lean into complexity. Beyond his strong work ethic and high intellectual capacity, what truly sets Ahmad apart is his character. He cares deeply about people. He shows up with kindness, integrity, and a genuine desire to see others succeed. That combination of sharp thinking and authentic care makes him both an exceptional professional and an outstanding teammate. Any team would be fortunate to have Ahmad's energy, discipline, and leadership.",
+    image: "/testimonials/darolyn-pierce.jpg",
   },
   {
     id: "mohamed-hisham",
