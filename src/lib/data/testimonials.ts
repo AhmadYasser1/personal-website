@@ -40,6 +40,16 @@ export const testimonials: Testimonial[] = [
     image: "/testimonials/darolyn-pierce.jpg",
   },
   {
+    id: "sohaib-hegazy",
+    name: "Sohaib Hegazy",
+    title: "Corporate Governance & Business Consultant | PGESCO",
+    relationship: "Mentor",
+    date: "February 2026",
+    quote:
+      "I've had the privilege of mentoring Ahmad Yasser and observing his growth over time, and I can confidently say he is an exceptional individual with strong technical ability and an impressive professional mindset. Ahmad brings a rare combination of intellectual curiosity, discipline, and genuine care for building meaningful, human-centered technology. Throughout our interactions, Ahmad consistently demonstrated the ability to think critically, ask the right questions, and translate complex ideas into well-structured, practical solutions. His work in areas such as AI, data systems, and applied research reflects not only technical competence, but also a thoughtful and responsible approach to innovation. He is receptive to feedback, eager to learn, and quick to apply insights in a way that meaningfully improves his work. What stands out most is Ahmad's character. He is reliable, reflective, and driven by a strong growth mindset. As a mentor, it has been rewarding to see him take initiative, develop confidence in his decision-making, and steadily elevate the quality and impact of his contributions. He approaches challenges with maturity and professionalism well beyond his years. I highly recommend Ahmad to any team or organization seeking someone with strong technical foundations, leadership potential, and a principled approach to collaboration and problem-solving. He has a very promising path ahead of him.",
+    image: "/testimonials/sohaib-hegazy.jpg",
+  },
+  {
     id: "mohamed-hisham",
     name: "Mohamed Hisham",
     title: "Corporate Innovation & Startup Growth | Banque Misr",
