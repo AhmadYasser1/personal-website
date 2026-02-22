@@ -25,7 +25,7 @@ export function Testimonials() {
       <div className="md:hidden">
         <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 scrollbar-hide">
           {testimonials.map((t) => (
-            <div key={t.id} className="snap-start shrink-0 w-[85vw] max-w-[480px]">
+            <div key={t.id} className="snap-start shrink-0 w-[85vw] max-w-[520px]">
               <TestimonialCard testimonial={t} />
             </div>
           ))}
@@ -55,7 +55,7 @@ export function Testimonials() {
 
 function TestimonialCard({ testimonial, "aria-hidden": ariaHidden }: { testimonial: Testimonial; "aria-hidden"?: boolean }) {
   return (
-    <div className="px-2 shrink-0 md:w-[480px]" aria-hidden={ariaHidden}>
+    <div className="px-2 shrink-0 md:w-[520px]" aria-hidden={ariaHidden}>
       <Card className="h-full border-border/50 hover:border-primary/30 transition-colors">
         <CardContent className="flex flex-col flex-1 pt-6">
           {/* Quote icon */}
