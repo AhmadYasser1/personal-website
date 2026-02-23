@@ -13,6 +13,7 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "https://medium.com/@ahmadyasser03", label: "Blog", external: true },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "/experience", label: "Experience" },
@@ -72,17 +73,32 @@ export function Navbar() {
         <div ref={navContainerRef} className="hidden md:flex md:items-center md:gap-6 relative">
           {navLinks.map((link, index) => (
             <div key={link.href}>
-              <Link
-                ref={(el) => { navLinksRefs.current[index] = el; }}
-                href={link.href}
-                className={`relative text-sm font-medium transition-all duration-200 hover:text-emerald-500 hover:-translate-y-0.5 ${
-                  pathname === link.href
-                    ? "text-foreground"
-                    : "text-muted-foreground"
-                }`}
-              >
-                {link.label}
-              </Link>
+              {link.external ? (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-muted-foreground transition-all duration-200 hover:text-emerald-500 hover:-translate-y-0.5 inline-flex items-center gap-1"
+                >
+                  {link.label}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </a>
+              ) : (
+                <Link
+                  ref={(el) => { navLinksRefs.current[index] = el; }}
+                  href={link.href}
+                  className={`relative text-sm font-medium transition-all duration-200 hover:text-emerald-500 hover:-translate-y-0.5 ${
+                    pathname === link.href
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )}
             </div>
           ))}
           {indicatorProps.width > 0 && (
@@ -138,17 +154,33 @@ export function Navbar() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                     >
-                      <Link
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className={`block text-lg font-medium transition-all duration-200 hover:text-emerald-500 hover:translate-x-2 ${
-                          pathname === link.href
-                            ? "text-foreground"
-                            : "text-muted-foreground"
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="text-lg font-medium text-muted-foreground transition-all duration-200 hover:text-emerald-500 hover:translate-x-2 inline-flex items-center gap-1.5"
+                        >
+                          {link.label}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M7 17L17 7" />
+                            <path d="M7 7h10v10" />
+                          </svg>
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`block text-lg font-medium transition-all duration-200 hover:text-emerald-500 hover:translate-x-2 ${
+                            pathname === link.href
+                              ? "text-foreground"
+                              : "text-muted-foreground"
+                          }`}
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </m.div>
                   ))}
                 </AnimatePresence>
