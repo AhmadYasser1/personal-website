@@ -11,7 +11,6 @@ import { MotionProvider } from "@/components/motion-provider";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { PageTransition } from "@/components/page-transition";
 import { CustomCursorLoader } from "@/components/ui/custom-cursor-loader";
-import { PostHogProvider } from "@/components/posthog-provider";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { siteConfig } from "@/config/site";
 
@@ -108,7 +107,6 @@ export default function RootLayout({
         </ThemeProvider>
         {isVercelDeployment ? <SpeedInsights /> : null}
         {isVercelDeployment ? <Analytics /> : null}
-        {process.env.NEXT_PUBLIC_POSTHOG_KEY ? <PostHogProvider /> : null}
       </body>
     </html>
   );
