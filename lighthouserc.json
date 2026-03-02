@@ -21,12 +21,12 @@
     "assert": {
       "preset": "lighthouse:recommended",
       "assertions": {
-        "largest-contentful-paint": ["error", {"maxNumericValue": 2000}],
-        "first-contentful-paint": ["error", {"maxNumericValue": 1500}],
-        "total-blocking-time": ["error", {"maxNumericValue": 200}],
-        "interactive": ["warn", {"maxNumericValue": 3800}],
-        "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
-        "total-byte-weight": ["warn", {"maxNumericValue": 184320}],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2000 }],
+        "first-contentful-paint": ["error", { "maxNumericValue": 1500 }],
+        "total-blocking-time": ["error", { "maxNumericValue": 200 }],
+        "interactive": ["warn", { "maxNumericValue": 3800 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "total-byte-weight": ["warn", { "maxNumericValue": 184320 }],
         "uses-long-cache-ttl": "warn",
         "unused-javascript": "warn",
 

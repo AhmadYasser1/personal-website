@@ -21,7 +21,7 @@ interface GraphQLResponse<T> {
 
 async function graphqlFetch<T>(
   query: string,
-  variables?: Record<string, unknown>
+  variables?: Record<string, unknown>,
 ): Promise<T> {
   const token = process.env.GITHUB_TOKEN;
   if (!token) throw new Error("GITHUB_TOKEN not configured");
@@ -198,23 +198,31 @@ function calculateLevel(count: number): 0 | 1 | 2 | 3 | 4 {
 }
 
 function transformContributions(
-  weeks: Array<{ contributionDays: RawContributionDay[] }>
+  weeks: Array<{ contributionDays: RawContributionDay[] }>,
 ): ContributionDay[] {
   return weeks.flatMap((week) =>
     week.contributionDays.map((day) => ({
       date: day.date,
       count: day.contributionCount,
       level: calculateLevel(day.contributionCount),
-    }))
+    })),
   );
 }
 
-function aggregateMonthlyActivity(
-  days: ContributionDay[]
-): MonthlyActivity[] {
+function aggregateMonthlyActivity(days: ContributionDay[]): MonthlyActivity[] {
   const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
   const monthMap = new Map<string, number>();
 
@@ -351,25 +359,24 @@ async function fetchCommits(): Promise<CommitsResponse> {
 export const getCachedContributions = unstable_cache(
   fetchContributions,
   ["github-contributions"],
-  { revalidate: 300, tags: ["github"] }
+  { revalidate: 300, tags: ["github"] },
 );
 
-export const getCachedRepos = unstable_cache(
-  fetchRepos,
-  ["github-repos"],
-  { revalidate: 300, tags: ["github"] }
-);
+export const getCachedRepos = unstable_cache(fetchRepos, ["github-repos"], {
+  revalidate: 300,
+  tags: ["github"],
+});
 
 export const getCachedPullRequests = unstable_cache(
   fetchPullRequests,
   ["github-prs"],
-  { revalidate: 300, tags: ["github"] }
+  { revalidate: 300, tags: ["github"] },
 );
 
 export const getCachedCommits = unstable_cache(
   fetchCommits,
   ["github-commits"],
-  { revalidate: 300, tags: ["github"] }
+  { revalidate: 300, tags: ["github"] },
 );
 
 // ─── Aggregator ───
@@ -416,8 +423,7 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
 
   // Extract PRs first — needed to filter repos
   // Query already splits into merged + open (no closed PRs returned)
-  const prsData =
-    prsResult.status === "fulfilled" ? prsResult.value : null;
+  const prsData = prsResult.status === "fulfilled" ? prsResult.value : null;
   const rawPRNodes = [
     ...(prsData?.merged.nodes ?? []),
     ...(prsData?.open.nodes ?? []),
@@ -439,7 +445,7 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
 
   // Build set of repos where we have open or merged PRs
   const reposWithActivePRs = new Set(
-    pullRequests.map((pr) => pr.repository.nameWithOwner)
+    pullRequests.map((pr) => pr.repository.nameWithOwner),
   );
 
   // Extract repos — only forked repos with open/merged PRs in the parent
@@ -450,8 +456,7 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
     .filter((r) => {
       if (r.isArchived || !r.isFork || !r.parent) return false;
       // Match parent's "owner/name" against PR repository nameWithOwner
-      const parentFullName = r.parent.url
-        .replace("https://github.com/", "");
+      const parentFullName = r.parent.url.replace("https://github.com/", "");
       return reposWithActivePRs.has(parentFullName);
     })
     .map((r) => ({
@@ -479,12 +484,12 @@ export async function getOpenSourceData(): Promise<OpenSourcePageData> {
         committedDate: commit.committedDate,
         url: commit.url,
         repository: { nameWithOwner: repo.nameWithOwner },
-      }))
+      })),
     )
     .sort(
       (a, b) =>
         new Date(b.committedDate).getTime() -
-        new Date(a.committedDate).getTime()
+        new Date(a.committedDate).getTime(),
     )
     .slice(0, 15);
 

@@ -22,13 +22,13 @@ Every Monday morning. The GitHub Actions workflow runs at 2:30 AM UTC and create
 
 ### What to look for
 
-| Metric | Good | Needs Work | Critical |
-|--------|------|------------|----------|
-| Performance Score | ≥ 90 | 70-89 | < 70 |
-| LCP | ≤ 2.5s | 2.5-4.0s | > 4.0s |
-| FCP | ≤ 1.8s | 1.8-3.0s | > 3.0s |
-| TBT | ≤ 300ms | 300-600ms | > 600ms |
-| CLS | ≤ 0.1 | 0.1-0.25 | > 0.25 |
+| Metric            | Good    | Needs Work | Critical |
+| ----------------- | ------- | ---------- | -------- |
+| Performance Score | ≥ 90    | 70-89      | < 70     |
+| LCP               | ≤ 2.5s  | 2.5-4.0s   | > 4.0s   |
+| FCP               | ≤ 1.8s  | 1.8-3.0s   | > 3.0s   |
+| TBT               | ≤ 300ms | 300-600ms  | > 600ms  |
+| CLS               | ≤ 0.1   | 0.1-0.25   | > 0.25   |
 
 ## Behavioral Review
 
@@ -62,11 +62,11 @@ The report will be saved to `.audit-data/audit-report.md`.
 
 ## Troubleshooting
 
-| Issue | Cause | Fix |
-|-------|-------|-----|
-| `CLARITY_API_TOKEN is required` | Missing env var | Check `.env.local` has the token |
-| `PSI_API_KEY is required` | Missing env var | Check `.env.local` has the key |
-| Clarity shows 0 sessions | Low traffic or token expired | Check Clarity dashboard; refresh JWT if expired |
-| PSI returns 429 | Rate limit hit | Wait 24h or check quota in Google Cloud Console |
-| GitHub Issue not created | Missing permissions | Check workflow has `issues: write` permission |
-| No trend data | First run | Expected — trends populate after second weekly run |
+| Issue                           | Cause                        | Fix                                                |
+| ------------------------------- | ---------------------------- | -------------------------------------------------- |
+| `CLARITY_API_TOKEN is required` | Missing env var              | Check `.env.local` has the token                   |
+| `PSI_API_KEY is required`       | Missing env var              | Check `.env.local` has the key                     |
+| Clarity shows 0 sessions        | Low traffic or token expired | Check Clarity dashboard; refresh JWT if expired    |
+| PSI returns 429                 | Rate limit hit               | Wait 24h or check quota in Google Cloud Console    |
+| GitHub Issue not created        | Missing permissions          | Check workflow has `issues: write` permission      |
+| No trend data                   | First run                    | Expected — trends populate after second weekly run |

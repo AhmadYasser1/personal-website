@@ -82,7 +82,8 @@ export function OpenSourceContent({ data }: OpenSourceContentProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                Contributed Repositories<span className="text-emerald-500">.</span>
+                Contributed Repositories
+                <span className="text-emerald-500">.</span>
               </m.h2>
               <RepoGrid repos={data.repos} />
             </section>

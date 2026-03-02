@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface TiltCardProps {
@@ -21,21 +19,28 @@ export function TiltCard({
   perspective = 1000,
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const quickX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
-  const quickY = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
 
-  useGSAP(() => {
+  useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
 
-    // Disable on touch devices and reduced motion
-    const mm = gsap.matchMedia();
-    mm.add("(pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
-      quickX.current = gsap.quickTo(card, "rotateY", {
+    // Skip on touch devices and reduced motion — avoid loading GSAP
+    const mq = window.matchMedia(
+      "(pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+    if (!mq.matches) return;
+
+    let cancelled = false;
+    let cleanup: (() => void) | null = null;
+
+    import("gsap").then(({ default: gsap }) => {
+      if (cancelled) return;
+
+      const quickX = gsap.quickTo(card, "rotateY", {
         duration: 0.3,
         ease: "power2.out",
       });
-      quickY.current = gsap.quickTo(card, "rotateX", {
+      const quickY = gsap.quickTo(card, "rotateX", {
         duration: 0.3,
         ease: "power2.out",
       });
@@ -47,8 +52,8 @@ export function TiltCard({
         const normalX = (e.clientX - centerX) / (rect.width / 2);
         const normalY = (e.clientY - centerY) / (rect.height / 2);
 
-        quickX.current?.(normalX * maxTilt);
-        quickY.current?.(-normalY * maxTilt);
+        quickX(normalX * maxTilt);
+        quickY(-normalY * maxTilt);
       };
 
       const handleMouseEnter = () => {
@@ -69,19 +74,19 @@ export function TiltCard({
       card.addEventListener("mouseenter", handleMouseEnter);
       card.addEventListener("mouseleave", handleMouseLeave);
 
-      return () => {
+      cleanup = () => {
         card.removeEventListener("mousemove", handleMouseMove);
         card.removeEventListener("mouseenter", handleMouseEnter);
         card.removeEventListener("mouseleave", handleMouseLeave);
-        // Kill quickTo tweens and reset transforms before matchMedia reverts
         gsap.killTweensOf(card);
         gsap.set(card, { rotateX: 0, rotateY: 0, scale: 1 });
-        quickX.current = null;
-        quickY.current = null;
       };
     });
 
-    return () => mm.revert();
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
   }, [maxTilt, scale]);
 
   return (

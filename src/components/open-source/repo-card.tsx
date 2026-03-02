@@ -12,7 +12,10 @@ interface RepoCardProps {
 export function RepoCard({ repo }: RepoCardProps) {
   return (
     <m.div
-      whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+      whileHover={{
+        y: -5,
+        transition: { type: "spring", stiffness: 300, damping: 20 },
+      }}
       className="h-full"
     >
       <a

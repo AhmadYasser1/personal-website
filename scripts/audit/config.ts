@@ -10,10 +10,11 @@ const PageSchema = z.object({
   url: z.string().url(),
 });
 
-const ClarityConfigSchema = z.object({
-  apiToken: z.string().min(1, "CLARITY_API_TOKEN is required"),
+const PostHogConfigSchema = z.object({
+  apiKey: z.string().min(1, "POSTHOG_PERSONAL_API_KEY is required"),
+  projectId: z.string().min(1, "POSTHOG_PROJECT_ID is required"),
   endpoint: z.string().url(),
-  numDays: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  numDays: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(7)]),
 });
 
 const PSIConfigSchema = z.object({
@@ -41,7 +42,7 @@ const ThresholdsSchema = z.object({
 const AuditConfigSchema = z.object({
   siteUrl: z.string().url(),
   pages: z.array(PageSchema),
-  clarity: ClarityConfigSchema,
+  posthog: PostHogConfigSchema,
   psi: PSIConfigSchema,
   thresholds: ThresholdsSchema,
   /** Directory for intermediate data (gitignored) */
@@ -87,9 +88,10 @@ export function loadConfig(): AuditConfig {
   const raw = {
     siteUrl: SITE_URL,
     pages: PAGES,
-    clarity: {
-      apiToken: process.env.CLARITY_API_TOKEN ?? "",
-      endpoint: "https://www.clarity.ms/export-data/api/v1/project-live-insights",
+    posthog: {
+      apiKey: process.env.POSTHOG_PERSONAL_API_KEY ?? "",
+      projectId: process.env.POSTHOG_PROJECT_ID ?? "",
+      endpoint: "https://us.i.posthog.com",
       numDays: 3 as const,
     },
     psi: {

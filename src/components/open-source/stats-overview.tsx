@@ -3,12 +3,7 @@
 import * as m from "motion/react-m";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import {
-  GitCommit,
-  GitPullRequest,
-  FolderGit2,
-  Activity,
-} from "lucide-react";
+import { GitCommit, GitPullRequest, FolderGit2, Activity } from "lucide-react";
 import type { GitHubStats } from "@/lib/data/github-types";
 
 interface StatsOverviewProps {

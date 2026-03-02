@@ -73,7 +73,12 @@ export const experiences: Experience[] = [
       "Worked with Dr. Lana Yarosh and Minzhu Zhao on thermal infrared breathing detection",
       "Conducted street surveys with 200+ participants on the Light Rail Transit",
     ],
-    technologies: ["Python", "Computer Vision", "Thermal Imaging", "User Research"],
+    technologies: [
+      "Python",
+      "Computer Vision",
+      "Thermal Imaging",
+      "User Research",
+    ],
     type: "research",
   },
   {
@@ -123,7 +128,12 @@ export const experiences: Experience[] = [
       "Designed engaging, student-centered learning experiences",
       "Earned high favor from students' parents for teaching quality",
     ],
-    technologies: ["Flutter", "Python", "AI Fundamentals", "Mobile Development"],
+    technologies: [
+      "Flutter",
+      "Python",
+      "AI Fundamentals",
+      "Mobile Development",
+    ],
     type: "teaching",
   },
   {

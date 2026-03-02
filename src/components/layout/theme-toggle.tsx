@@ -15,7 +15,7 @@ export function ThemeToggle() {
   const hydrated = useSyncExternalStore(
     subscribe,
     () => true,
-    () => false
+    () => false,
   );
 
   const isDark = hydrated ? theme === "dark" : false;

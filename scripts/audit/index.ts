@@ -13,15 +13,15 @@ async function main(): Promise<void> {
   const config = loadConfig();
   console.log(`Site: ${config.siteUrl}`);
   console.log(`Pages: ${config.pages.length}`);
-  console.log(`Clarity window: ${config.clarity.numDays} days`);
+  console.log(`PostHog window: ${config.posthog.numDays} days`);
   console.log(`Data dir: ${config.dataDir}\n`);
 
   // Phase 10: run data collectors
-  const { clarity, pages, errors } = await collectAllData(config);
+  const { behavioral, pages, errors } = await collectAllData(config);
 
   const report: AuditReport = {
     generatedAt: new Date().toISOString(),
-    clarity,
+    behavioral,
     pages,
     errors,
   };
@@ -44,7 +44,7 @@ async function main(): Promise<void> {
   // Console summary
   console.log("─".repeat(50));
   console.log(`✅ Audit complete — generated at ${report.generatedAt}`);
-  console.log(`   Clarity: ${report.clarity ? "collected" : "no data"}`);
+  console.log(`   PostHog: ${report.behavioral ? "collected" : "no data"}`);
   console.log(`   Pages analyzed: ${report.pages.length}`);
   console.log(`   Findings: ${findings.length}`);
 
@@ -53,7 +53,9 @@ async function main(): Promise<void> {
   const info = findings.filter((f) => f.severity === "info").length;
 
   if (findings.length > 0) {
-    console.log(`     🔴 Critical: ${critical}  🟡 Warning: ${warnings}  🔵 Info: ${info}`);
+    console.log(
+      `     🔴 Critical: ${critical}  🟡 Warning: ${warnings}  🔵 Info: ${info}`,
+    );
   }
 
   if (report.errors.length > 0) {
@@ -65,6 +67,9 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  console.error("❌ Audit failed:", error instanceof Error ? error.message : error);
+  console.error(
+    "❌ Audit failed:",
+    error instanceof Error ? error.message : error,
+  );
   process.exit(1);
 });

@@ -1,9 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/utils";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 
@@ -26,12 +24,19 @@ export function ExperienceCloud({
 }: ExperienceCloudProps) {
   const cloudRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
+  useEffect(() => {
     const cloud = cloudRef.current;
     if (!cloud) return;
 
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    const mq = window.matchMedia("(prefers-reduced-motion: no-preference)");
+    if (!mq.matches) return;
+
+    let cancelled = false;
+    let cleanup: (() => void) | null = null;
+
+    import("gsap").then(({ default: gsap }) => {
+      if (cancelled) return;
+
       gsap.to(cloud, {
         y: "-=12",
         duration: 3.5,
@@ -39,9 +44,16 @@ export function ExperienceCloud({
         repeat: -1,
         yoyo: true,
       });
+
+      cleanup = () => {
+        gsap.killTweensOf(cloud);
+      };
     });
 
-    return () => mm.revert();
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
   }, []);
 
   return (
@@ -68,13 +80,11 @@ export function ExperienceCloud({
 
           {/* Content */}
           <div className="relative space-y-1.5">
-            <div className="text-xs font-medium text-emerald-500">{company}</div>
-            <div className="text-sm font-semibold text-foreground">
-              {role}
+            <div className="text-xs font-medium text-emerald-500">
+              {company}
             </div>
-            <div className="text-xs text-muted-foreground">
-              {tagline}
-            </div>
+            <div className="text-sm font-semibold text-foreground">{role}</div>
+            <div className="text-xs text-muted-foreground">{tagline}</div>
           </div>
 
           {/* Hover arrow hint */}

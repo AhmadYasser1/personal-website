@@ -7,7 +7,12 @@ import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { useLenis } from "@/components/smooth-scroll-provider";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
@@ -28,23 +33,29 @@ export function Navbar() {
   const navLinksRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const navContainerRef = useRef<HTMLDivElement>(null);
 
-  useLenis(useCallback(({ scroll }: { scroll: number }) => {
-    setIsScrolled(scroll > 50);
-  }, []));
+  useLenis(
+    useCallback(({ scroll }: { scroll: number }) => {
+      setIsScrolled(scroll > 50);
+    }, []),
+  );
 
   useEffect(() => {
-    const activeIndex = navLinks.findIndex(link => link.href === pathname);
-    if (activeIndex !== -1 && navLinksRefs.current[activeIndex] && navContainerRef.current) {
+    const activeIndex = navLinks.findIndex((link) => link.href === pathname);
+    if (
+      activeIndex !== -1 &&
+      navLinksRefs.current[activeIndex] &&
+      navContainerRef.current
+    ) {
       const activeLink = navLinksRefs.current[activeIndex];
       const container = navContainerRef.current;
-      
+
       if (activeLink && container) {
         const linkRect = activeLink.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
-        
+
         const left = linkRect.left - containerRect.left;
         const width = linkRect.width;
-        
+
         setIndicatorProps({ left, width });
       }
     }
@@ -58,9 +69,11 @@ export function Navbar() {
           : "border-border/40 bg-background/80 backdrop-blur-sm"
       }`}
     >
-      <nav className={`container mx-auto flex items-center justify-between px-4 transition-all duration-300 ${
-        isScrolled ? "h-14" : "h-16"
-      }`}>
+      <nav
+        className={`container mx-auto flex items-center justify-between px-4 transition-all duration-300 ${
+          isScrolled ? "h-14" : "h-16"
+        }`}
+      >
         <Link
           href="/"
           className="font-heading text-xl font-bold tracking-tight transition-transform duration-200 hover:scale-105"
@@ -70,7 +83,10 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div ref={navContainerRef} className="hidden md:flex md:items-center md:gap-6 relative">
+        <div
+          ref={navContainerRef}
+          className="hidden md:flex md:items-center md:gap-6 relative"
+        >
           {navLinks.map((link, index) => (
             <div key={link.href}>
               {link.external ? (
@@ -81,14 +97,26 @@ export function Navbar() {
                   className="text-sm font-medium text-muted-foreground transition-all duration-200 hover:text-emerald-500 hover:-translate-y-0.5 inline-flex items-center gap-1"
                 >
                   {link.label}
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M7 17L17 7" />
                     <path d="M7 7h10v10" />
                   </svg>
                 </a>
               ) : (
                 <Link
-                  ref={(el) => { navLinksRefs.current[index] = el; }}
+                  ref={(el) => {
+                    navLinksRefs.current[index] = el;
+                  }}
                   href={link.href}
                   className={`relative text-sm font-medium transition-all duration-200 hover:text-emerald-500 hover:-translate-y-0.5 ${
                     pathname === link.href
@@ -122,7 +150,11 @@ export function Navbar() {
           <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden transition-transform duration-200 hover:scale-110 active:scale-90">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden transition-transform duration-200 hover:scale-110 active:scale-90"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -163,7 +195,17 @@ export function Navbar() {
                           className="text-lg font-medium text-muted-foreground transition-all duration-200 hover:text-emerald-500 hover:translate-x-2 inline-flex items-center gap-1.5"
                         >
                           {link.label}
-                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
                             <path d="M7 17L17 7" />
                             <path d="M7 7h10v10" />
                           </svg>

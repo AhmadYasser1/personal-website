@@ -13,11 +13,13 @@ interface PrTrackerProps {
 const statusConfig = {
   open: {
     label: "Open",
-    className: "bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 border-emerald-500/30",
+    className:
+      "bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 border-emerald-500/30",
   },
   merged: {
     label: "Merged",
-    className: "bg-purple-500/20 text-purple-500 dark:text-purple-400 border-purple-500/30",
+    className:
+      "bg-purple-500/20 text-purple-500 dark:text-purple-400 border-purple-500/30",
   },
   closed: {
     label: "Closed",
@@ -92,7 +94,7 @@ export function PrTracker({ pullRequests }: PrTrackerProps) {
                 <Badge
                   className={cn(
                     "shrink-0 inline-flex items-center gap-1.5 border",
-                    config.className
+                    config.className,
                   )}
                 >
                   {pr.state === "open" && (

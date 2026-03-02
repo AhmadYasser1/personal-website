@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { optInCapturing, optOutCapturing } from "@/lib/posthog";
 
 const CONSENT_KEY = "analytics-consent";
 
@@ -18,13 +19,6 @@ function subscribe(callback: () => void) {
   return () => window.removeEventListener("storage", callback);
 }
 
-function grantClarityConsent() {
-  const clarity = (window as unknown as Record<string, unknown>).clarity as
-    | ((...args: unknown[]) => void)
-    | undefined;
-  clarity?.("consent");
-}
-
 const SERVER_SNAPSHOT: ConsentValue = "granted";
 
 export function CookieConsentBanner() {
@@ -36,19 +30,20 @@ export function CookieConsentBanner() {
 
   useEffect(() => {
     if (consent === "granted") {
-      grantClarityConsent();
+      optInCapturing();
     }
   }, [consent]);
 
   const handleAccept = useCallback(() => {
     localStorage.setItem(CONSENT_KEY, "granted");
     window.dispatchEvent(new StorageEvent("storage", { key: CONSENT_KEY }));
-    grantClarityConsent();
+    optInCapturing();
   }, []);
 
   const handleDecline = useCallback(() => {
     localStorage.setItem(CONSENT_KEY, "declined");
     window.dispatchEvent(new StorageEvent("storage", { key: CONSENT_KEY }));
+    optOutCapturing();
   }, []);
 
   // Hide if user has already chosen (or during SSR where snapshot is "granted")

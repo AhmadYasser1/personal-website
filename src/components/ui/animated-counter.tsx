@@ -72,5 +72,3 @@ export function AnimatedCounter({
     </m.span>
   );
 }
-
-

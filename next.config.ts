@@ -3,11 +3,11 @@ import type { NextConfig } from "next";
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.clarity.ms;
+  script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://us.i.posthog.com;
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data: https://cdn.simpleicons.org;
   font-src 'self';
-  connect-src 'self' https://challenges.cloudflare.com https://www.clarity.ms https://*.clarity.ms;
+  connect-src 'self' https://challenges.cloudflare.com https://us.i.posthog.com;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
@@ -36,6 +36,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: [
       "lucide-react",
+      "gsap",
       "@radix-ui/react-dialog",
       "@radix-ui/react-label",
       "@radix-ui/react-separator",
@@ -70,9 +71,7 @@ const nextConfig: NextConfig = {
         ? [
             {
               source: "/:path*",
-              headers: [
-                { key: "X-Robots-Tag", value: "noindex, nofollow" },
-              ],
+              headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
             },
           ]
         : []),

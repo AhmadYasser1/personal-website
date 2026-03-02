@@ -1,13 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
-import { useGSAP } from "@gsap/react";
+import { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
 
 interface SplitTextRevealProps {
   children: string;
@@ -30,82 +24,109 @@ export function SplitTextReveal({
 }: SplitTextRevealProps) {
   const textRef = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      const el = textRef.current;
-      if (!el) return;
+  useEffect(() => {
+    const el = textRef.current;
+    if (!el) return;
+
+    let cancelled = false;
+    let cleanup: (() => void) | null = null;
+
+    Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+      import("gsap/SplitText"),
+    ]).then(([gsapMod, scrollMod, splitMod]) => {
+      if (cancelled) return;
+
+      const gsap = gsapMod.default;
+      const { ScrollTrigger } = scrollMod;
+      const { SplitText } = splitMod;
+      gsap.registerPlugin(ScrollTrigger, SplitText);
 
       const mm = gsap.matchMedia();
 
       // DESKTOP: SplitText animation
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
-        const split = SplitText.create(el, { type });
-        const targets =
-          type === "chars"
-            ? split.chars
-            : type === "words"
-              ? split.words
-              : split.lines;
+      mm.add(
+        "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const split = SplitText.create(el, { type });
+          const targets =
+            type === "chars"
+              ? split.chars
+              : type === "words"
+                ? split.words
+                : split.lines;
 
-        if (trigger === "scroll") {
-          gsap.from(targets, {
-            opacity: 0,
-            y: 20,
-            duration,
-            stagger,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              once: true,
-            },
-          });
-        } else {
-          gsap.from(targets, {
-            opacity: 0,
-            y: 20,
-            duration,
-            stagger,
-            ease: "power2.out",
-          });
-        }
+          if (trigger === "scroll") {
+            gsap.from(targets, {
+              opacity: 0,
+              y: 20,
+              duration,
+              stagger,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                once: true,
+              },
+            });
+          } else {
+            gsap.from(targets, {
+              opacity: 0,
+              y: 20,
+              duration,
+              stagger,
+              ease: "power2.out",
+            });
+          }
 
-        return () => {
-          split.revert();
-        };
-      });
+          return () => {
+            split.revert();
+          };
+        },
+      );
 
       // MOBILE: Simple fade-in, no SplitText
-      mm.add("(max-width: 767.98px) and (prefers-reduced-motion: no-preference)", () => {
-        if (trigger === "scroll") {
-          gsap.from(el, {
-            opacity: 0,
-            y: 15,
-            duration,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              once: true,
-            },
-          });
-        } else {
-          gsap.from(el, {
-            opacity: 0,
-            y: 15,
-            duration,
-            ease: "power2.out",
-          });
-        }
-      });
+      mm.add(
+        "(max-width: 767.98px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          if (trigger === "scroll") {
+            gsap.from(el, {
+              opacity: 0,
+              y: 15,
+              duration,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                once: true,
+              },
+            });
+          } else {
+            gsap.from(el, {
+              opacity: 0,
+              y: 15,
+              duration,
+              ease: "power2.out",
+            });
+          }
+        },
+      );
 
-      return () => mm.revert();
-    },
-    { scope: textRef, dependencies: [children, type, trigger, duration, stagger] },
-  );
+      cleanup = () => mm.revert();
+    });
+
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
+  }, [children, type, trigger, duration, stagger]);
 
   return (
-    <Tag ref={textRef as React.RefObject<HTMLHeadingElement>} className={cn(className)}>
+    <Tag
+      ref={textRef as React.RefObject<HTMLHeadingElement>}
+      className={cn(className)}
+    >
       {children}
     </Tag>
   );

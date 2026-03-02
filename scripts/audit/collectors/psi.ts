@@ -17,14 +17,24 @@ import type {
  * Rate limit: 25,000 queries/day with API key.
  * We run 7 pages × 2 strategies = 14 calls per audit (well within limits).
  */
-export async function collectPSIData(
-  config: AuditConfig,
-): Promise<{ results: Map<string, { mobile: PSIPageResult | null; desktop: PSIPageResult | null }>; errors: string[] }> {
-  const results = new Map<string, { mobile: PSIPageResult | null; desktop: PSIPageResult | null }>();
+export async function collectPSIData(config: AuditConfig): Promise<{
+  results: Map<
+    string,
+    { mobile: PSIPageResult | null; desktop: PSIPageResult | null }
+  >;
+  errors: string[];
+}> {
+  const results = new Map<
+    string,
+    { mobile: PSIPageResult | null; desktop: PSIPageResult | null }
+  >();
   const errors: string[] = [];
 
   for (const page of config.pages) {
-    const pageResults: { mobile: PSIPageResult | null; desktop: PSIPageResult | null } = {
+    const pageResults: {
+      mobile: PSIPageResult | null;
+      desktop: PSIPageResult | null;
+    } = {
       mobile: null,
       desktop: null,
     };
@@ -82,8 +92,12 @@ function parsePSIResponse(
   url: string,
   strategy: PSIStrategy,
 ): PSIPageResult {
-  const field = parseCrUXData(data.loadingExperience as Record<string, unknown> | undefined);
-  const lab = parseLighthouseData(data.lighthouseResult as Record<string, unknown> | undefined);
+  const field = parseCrUXData(
+    data.loadingExperience as Record<string, unknown> | undefined,
+  );
+  const lab = parseLighthouseData(
+    data.lighthouseResult as Record<string, unknown> | undefined,
+  );
 
   return {
     url,
@@ -109,7 +123,10 @@ function parseCrUXData(
     };
   }
 
-  const metrics = loadingExperience.metrics as Record<string, Record<string, unknown>>;
+  const metrics = loadingExperience.metrics as Record<
+    string,
+    Record<string, unknown>
+  >;
 
   return {
     available: true,
@@ -135,8 +152,12 @@ function extractCrUXMetric(
 function parseLighthouseData(
   lighthouseResult: Record<string, unknown> | undefined,
 ): LighthouseLabData {
-  const categories = lighthouseResult?.categories as Record<string, Record<string, unknown>> | undefined;
-  const audits = lighthouseResult?.audits as Record<string, Record<string, unknown>> | undefined;
+  const categories = lighthouseResult?.categories as
+    | Record<string, Record<string, unknown>>
+    | undefined;
+  const audits = lighthouseResult?.audits as
+    | Record<string, Record<string, unknown>>
+    | undefined;
 
   const perfScore = (categories?.performance?.score as number) ?? 0;
 

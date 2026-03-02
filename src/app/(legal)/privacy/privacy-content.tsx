@@ -7,7 +7,7 @@ export function PrivacyContent() {
         Privacy Policy<span className="text-emerald-500">.</span>
       </h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        Last updated: February 16, 2026
+        Last updated: March 1, 2026
       </p>
 
       <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
@@ -30,8 +30,8 @@ export function PrivacyContent() {
             </h3>
             <p>
               If you use the contact form, I collect the name, email address,
-              and message you submit. Nothing else is collected unless you choose
-              to send it.
+              and message you submit. Nothing else is collected unless you
+              choose to send it.
             </p>
           </div>
 
@@ -43,10 +43,10 @@ export function PrivacyContent() {
               When you visit the site, certain data is collected automatically:
               device type, browser, operating system, approximate location
               (country and city), pages visited, and how you interact with the
-              site. This includes behavioral data such as mouse movements, scroll
-              depth, clicks, and session recordings collected through Microsoft
-              Clarity. Your IP address is temporarily processed for rate limiting
-              and bot protection but is not stored long-term.
+              site. This includes behavioral data such as clicks, scrolling, and
+              page navigation collected through PostHog. Your IP address is
+              temporarily processed for rate limiting and bot protection but is
+              not stored long-term.
             </p>
           </div>
         </section>
@@ -90,18 +90,17 @@ export function PrivacyContent() {
             <li>
               <strong className="text-foreground">
                 <a
-                  href="https://privacy.microsoft.com/privacystatement"
+                  href="https://posthog.com/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-500 underline decoration-emerald-500/30 underline-offset-2 transition-colors hover:text-emerald-400"
                 >
-                  Microsoft Clarity
+                  PostHog
                 </a>
               </strong>{" "}
-              — records session replays, generates heatmaps, and collects
-              behavioral data including mouse movements, clicks, and scrolling.
-              Uses first-party and third-party cookies. Data may be used by
-              Microsoft for advertising purposes.
+              — collects behavioral analytics including clicks, page views, and
+              navigation patterns. Uses first-party cookies for session
+              tracking. Data is stored on PostHog&apos;s US Cloud infrastructure.
             </li>
             <li>
               <strong className="text-foreground">
@@ -181,20 +180,12 @@ export function PrivacyContent() {
             Cookies
           </h2>
           <p>
-            This site itself does not set cookies. However, Microsoft Clarity
-            sets first-party cookies (
+            PostHog sets a first-party cookie (
             <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">
-              _clck
-            </code>{" "}
-            and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">
-              _clsk
+              ph_phc_*
             </code>
-            ) for session tracking, and third-party Microsoft cookies (such as{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">
-              MUID
-            </code>
-            ) may also be set.
+            ) for session tracking and user identification. No third-party
+            cookies are set.
           </p>
           <p>
             You are asked for consent before analytics cookies are activated.
@@ -212,10 +203,8 @@ export function PrivacyContent() {
               — kept in my email inbox until I no longer need them
             </li>
             <li>
-              <strong className="text-foreground">
-                Microsoft Clarity data
-              </strong>{" "}
-              — retained 30 days to 13 months by Microsoft
+              <strong className="text-foreground">PostHog data</strong> —
+              retained according to PostHog&apos;s data retention policy
             </li>
             <li>
               <strong className="text-foreground">Rate limiting records</strong>{" "}

@@ -22,7 +22,18 @@ export const projects: Project[] = [
       "AI Agent for partnerships sales reps to create partnership stories between Brooklyn Sports & Entertainment properties and prospective brands using internal and public data.",
     longDescription:
       "Developed an AI agent that partnerships sales reps at Brooklyn Sports & Entertainment chat with to help create partnership stories between current properties and prospective brands. The agent researches brands and generates stories based on internal and public data.",
-    technologies: ["LangGraph", "LangChain", "Slack", "AWS EC2", "Cursor", "Codex", "AWS Athena", "DynamoDB", "AWS Bedrock", "AWS S3"],
+    technologies: [
+      "LangGraph",
+      "LangChain",
+      "Slack",
+      "AWS EC2",
+      "Cursor",
+      "Codex",
+      "AWS Athena",
+      "DynamoDB",
+      "AWS Bedrock",
+      "AWS S3",
+    ],
     category: "ai-ml",
     featured: true,
     featuredOrder: 1,
@@ -35,7 +46,16 @@ export const projects: Project[] = [
       "AI-powered agent that analyzes post-event survey data across Brooklyn Nets, NY Liberty, and Barclays Center events to surface actionable insights for operations and fan experience teams.",
     longDescription:
       "Built an AI agent that ingests and analyzes post-event survey responses across all Brooklyn Sports & Entertainment properties. The agent surfaces trends, sentiment shifts, and actionable recommendations for operations, marketing, and fan experience teams.",
-    technologies: ["LangGraph", "Python", "AWS Bedrock", "AWS Glue", "Snowflake", "React", "TypeScript", "DynamoDB"],
+    technologies: [
+      "LangGraph",
+      "Python",
+      "AWS Bedrock",
+      "AWS Glue",
+      "Snowflake",
+      "React",
+      "TypeScript",
+      "DynamoDB",
+    ],
     category: "ai-ml",
     featured: true,
     featuredOrder: 2,
@@ -48,7 +68,14 @@ export const projects: Project[] = [
       "Automated MCP integration connecting ZoomInfo and Salesforce to enrich CRM records, deduplicate contacts, and sync account intelligence for Brooklyn Sports & Entertainment partnerships team.",
     longDescription:
       "Built an automated pipeline that connects ZoomInfo's enrichment data with Salesforce CRM via MCP servers. The system enriches prospect records, deduplicates contacts, and syncs account intelligence to help the partnerships team at Brooklyn Sports & Entertainment maintain accurate and up-to-date CRM data.",
-    technologies: ["TypeScript", "MCP", "Salesforce", "ZoomInfo", "Claude Code", "REST API"],
+    technologies: [
+      "TypeScript",
+      "MCP",
+      "Salesforce",
+      "ZoomInfo",
+      "Claude Code",
+      "REST API",
+    ],
     category: "web-dev",
     featured: true,
     featuredOrder: 3,
@@ -62,7 +89,14 @@ export const projects: Project[] = [
       "Tableau dashboard for executives to make data-driven decisions based on customer feedback for Brooklyn Nets games, NY Liberty games, and Barclays Center events.",
     longDescription:
       "Built a comprehensive Tableau dashboard for executive stakeholders at Brooklyn Sports & Entertainment to analyze customer feedback across Brooklyn Nets games, New York Liberty games, and Barclays Center events & concerts, enabling data-driven decision making.",
-    technologies: ["Snowflake", "Tableau", "Python", "Monday.com", "Claude Code", "PostgreSQL"],
+    technologies: [
+      "Snowflake",
+      "Tableau",
+      "Python",
+      "Monday.com",
+      "Claude Code",
+      "PostgreSQL",
+    ],
     category: "data-analysis",
     featured: false,
     isPrivate: true,
@@ -74,7 +108,13 @@ export const projects: Project[] = [
       "Internal analytics dashboard tracking ChatGPT Enterprise usage patterns across Brooklyn Sports & Entertainment departments to measure AI adoption and optimize licensing.",
     longDescription:
       "Built an internal dashboard for Brooklyn Sports & Entertainment leadership to track ChatGPT Enterprise usage across departments. Provides adoption metrics, usage trends, and cost analysis to optimize AI tool licensing and identify training opportunities.",
-    technologies: ["Next.js", "TypeScript", "AWS DynamoDB", "AWS Amplify", "Tailwind CSS"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "AWS DynamoDB",
+      "AWS Amplify",
+      "Tailwind CSS",
+    ],
     category: "data-analysis",
     featured: false,
     isPrivate: true,
@@ -87,7 +127,13 @@ export const projects: Project[] = [
       "WhatsApp-centric operations platform for Egyptian tutors with student management, QR attendance tracking, InstaPay OCR payment verification, and automated WhatsApp notifications.",
     longDescription:
       "Building a full-stack educational operations platform that helps Egyptian tutors manage their students through WhatsApp. Features include QR-based attendance, OCR-powered InstaPay payment verification, automated WhatsApp notifications, and a comprehensive student management dashboard.",
-    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "WhatsApp API"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Tailwind CSS",
+      "WhatsApp API",
+    ],
     category: "web-dev",
     featured: false,
     isPrivate: true,
@@ -113,7 +159,8 @@ export const projects: Project[] = [
       "Collaborated with Dr. Lana Yarosh and Minzhu Zhao on the C.O.R.R.A. project at GroupLens, which utilizes Thermal Infrared and RGB cameras to track breathing patterns in public spaces, identifying potential opioid overdoses and triggering alarms for intervention.",
     technologies: ["Python", "Computer Vision", "Thermal Imaging", "Research"],
     category: "research",
-    liveUrl: "https://zenodo.org/records/15203352/preview/Zhao%20et%20al%20-%20C.O.R.R.A.-%20Feasibility%20of%20Community%20Overdose%20Response%20Respiratory%20Alert.pdf?include_deleted=0",
+    liveUrl:
+      "https://zenodo.org/records/15203352/preview/Zhao%20et%20al%20-%20C.O.R.R.A.-%20Feasibility%20of%20Community%20Overdose%20Response%20Respiratory%20Alert.pdf?include_deleted=0",
     featured: true,
     featuredOrder: 4,
   },
@@ -124,7 +171,12 @@ export const projects: Project[] = [
       "Interactive wellness device designed to enhance emotional wellness and community engagement through interactive messages. Paper accepted at CHI 2025 Student Design Competition.",
     longDescription:
       "Led authorship of 'Fostering Positive Connections Through Interactive Messages: HAPPI', a paper accepted at the CHI 2025 Student Design Competition. Designed and prototyped an interactive device that promotes emotional wellness through community-driven messaging.",
-    technologies: ["User Research", "Prototyping", "Academic Writing", "Thematic Analysis"],
+    technologies: [
+      "User Research",
+      "Prototyping",
+      "Academic Writing",
+      "Thematic Analysis",
+    ],
     category: "research",
     liveUrl: "https://doi.org/10.1145/3706599.3720296",
     featured: false,
@@ -149,7 +201,13 @@ export const projects: Project[] = [
       "Machine learning model predicting college football players' NFL transition potential for the 2026 Shrine Bowl x SumerSports analytics competition.",
     longDescription:
       "Developed a predictive model for the Shrine Bowl x SumerSports 2026 Analytics Competition. The model analyzes college football player stats, combine metrics, and game film data to generate a Pro Transition Potential (PTP) score predicting NFL success probability.",
-    technologies: ["Python", "Scikit-Learn", "Pandas", "Data Visualization", "Machine Learning"],
+    technologies: [
+      "Python",
+      "Scikit-Learn",
+      "Pandas",
+      "Data Visualization",
+      "Machine Learning",
+    ],
     category: "data-analysis",
     githubUrl: "https://github.com/AhmadYasser1/shrine-bowl-competition",
     featured: false,
@@ -174,9 +232,17 @@ export const projects: Project[] = [
       "Movie identification system using TF-IDF and cosine similarity to search 45,000+ movies based on fragmented memories.",
     longDescription:
       "Developed Cinemate, a movie identification system using Python and Flask, helping users recall titles based on fragmented memories. Utilized TF-IDF and cosine similarity to search a 45,000+ movie dataset with millisecond search speed.",
-    technologies: ["Python", "Flask", "SQL", "TF-IDF", "HTML/CSS", "JavaScript"],
+    technologies: [
+      "Python",
+      "Flask",
+      "SQL",
+      "TF-IDF",
+      "HTML/CSS",
+      "JavaScript",
+    ],
     category: "ai-ml",
-    githubUrl: "https://github.com/Weiwen58/Cinemate-A_Movie_Identification_System",
+    githubUrl:
+      "https://github.com/Weiwen58/Cinemate-A_Movie_Identification_System",
     featured: false,
   },
   {
@@ -208,9 +274,15 @@ export const projects: Project[] = [
     title: "Mental Health & Physical Appearance Analysis",
     description:
       "Statistical analysis investigating correlations between mental health conditions and physical appearance changes using survey data and hypothesis testing.",
-    technologies: ["Python", "Pandas", "Data Visualization", "Hypothesis Testing"],
+    technologies: [
+      "Python",
+      "Pandas",
+      "Data Visualization",
+      "Hypothesis Testing",
+    ],
     category: "data-analysis",
-    githubUrl: "https://github.com/AhmadYasser1/Mental-Health-Physical-Appearance-Relation",
+    githubUrl:
+      "https://github.com/AhmadYasser1/Mental-Health-Physical-Appearance-Relation",
     featured: false,
   },
   {
@@ -257,7 +329,7 @@ export const getCategoryLabel = (category: string): string => {
   const categoryMap: Record<string, string> = {
     "ai-ml": "AI & ML",
     "data-analysis": "Data Analysis",
-    "research": "Research",
+    research: "Research",
     "web-dev": "Development",
   };
   return categoryMap[category] || category;

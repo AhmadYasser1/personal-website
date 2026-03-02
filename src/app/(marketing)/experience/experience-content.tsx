@@ -1,18 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { experiences } from "@/lib/data/experience";
-
-gsap.registerPlugin(ScrollTrigger);
 
 // Skill icons mapping - using simple-icons CDN for tech logos
 const skillIcons: Record<string, string> = {
@@ -86,52 +81,73 @@ export function ExperienceContent() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      const line = lineRef.current;
-      const timeline = timelineRef.current;
-      if (!line || !timeline) return;
+  useEffect(() => {
+    const line = lineRef.current;
+    const timeline = timelineRef.current;
+    if (!line || !timeline) return;
+
+    let cancelled = false;
+    let cleanup: (() => void) | null = null;
+
+    Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+    ]).then(([gsapMod, scrollMod]) => {
+      if (cancelled) return;
+
+      const gsap = gsapMod.default;
+      const { ScrollTrigger } = scrollMod;
+      gsap.registerPlugin(ScrollTrigger);
 
       const mm = gsap.matchMedia();
 
       // Timeline line grows with scroll — desktop only + motion allowed
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
-        gsap.fromTo(
-          line,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: timeline,
-              start: "top 60%",
-              end: "bottom 40%",
-              scrub: 1,
+      mm.add(
+        "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          gsap.fromTo(
+            line,
+            { scaleY: 0 },
+            {
+              scaleY: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: timeline,
+                start: "top 60%",
+                end: "bottom 40%",
+                scrub: 1,
+              },
             },
-          },
-        );
-      });
+          );
+        },
+      );
 
       // Timeline dots scale in on scroll — motion allowed only
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-timeline-dot]", timeline).forEach((dot) => {
-          gsap.from(dot, {
-            scale: 0,
-            duration: 0.4,
-            ease: "back.out(2)",
-            scrollTrigger: {
-              trigger: dot,
-              start: "top 75%",
-              once: true,
-            },
+        gsap.utils
+          .toArray<HTMLElement>("[data-timeline-dot]", timeline)
+          .forEach((dot) => {
+            gsap.from(dot, {
+              scale: 0,
+              duration: 0.4,
+              ease: "back.out(2)",
+              scrollTrigger: {
+                trigger: dot,
+                start: "top 75%",
+                once: true,
+              },
+            });
           });
-        });
       });
 
-      return () => mm.revert();
-    },
-    { scope: timelineRef },
-  );
+      cleanup = () => mm.revert();
+    });
+
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
+  }, []);
 
   return (
     <div className="min-h-screen py-24">
@@ -139,10 +155,7 @@ export function ExperienceContent() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
-            <SplitTextReveal
-              as="span"
-              trigger="load"
-            >
+            <SplitTextReveal as="span" trigger="load">
               Experience
             </SplitTextReveal>
             <span className="text-emerald-500">.</span>
@@ -178,9 +191,7 @@ export function ExperienceContent() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`relative md:w-[calc(50%-1rem)] ${
-                  index % 2 === 0
-                    ? "md:mr-auto"
-                    : "md:ml-auto"
+                  index % 2 === 0 ? "md:mr-auto" : "md:ml-auto"
                 }`}
               >
                 {/* Timeline dot - GSAP scroll-driven */}
@@ -198,7 +209,6 @@ export function ExperienceContent() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );
@@ -233,7 +243,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
             <h4 className="text-sm font-semibold mb-2">Key Achievements</h4>
             <ul className="list-disc list-outside pl-5 text-sm text-muted-foreground space-y-1">
               {experience.achievements.map((achievement, i) => (
-                <m.li 
+                <m.li
                   key={achievement}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -265,7 +275,10 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                       rel="noopener noreferrer"
                       className="inline-block"
                     >
-                      <Badge variant="secondary" className="text-xs flex items-center gap-1.5 cursor-pointer group-hover:bg-emerald-500/20 group-hover:text-emerald-400 transition-colors">
+                      <Badge
+                        variant="secondary"
+                        className="text-xs flex items-center gap-1.5 cursor-pointer group-hover:bg-emerald-500/20 group-hover:text-emerald-400 transition-colors"
+                      >
                         <Image
                           src={iconUrl}
                           alt={tech}
@@ -274,9 +287,12 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
                           sizes="12px"
                           unoptimized
                           className="w-3 h-3"
-                          style={{ filter: "brightness(0) saturate(100%) invert(1)" }}
+                          style={{
+                            filter: "brightness(0) saturate(100%) invert(1)",
+                          }}
                           onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = "none";
+                            (e.target as HTMLImageElement).style.display =
+                              "none";
                           }}
                         />
                         {tech}

@@ -13,7 +13,7 @@ import {
 type LenisInstance = {
   scrollTo: (
     target: number | string,
-    options?: { immediate?: boolean; offset?: number; duration?: number }
+    options?: { immediate?: boolean; offset?: number; duration?: number },
   ) => void;
   on: (event: string, callback: (data: { scroll: number }) => void) => void;
   off: (event: string, callback: (data: { scroll: number }) => void) => void;
@@ -58,40 +58,39 @@ export function SmoothScrollProvider({
     let lenisInstance: LenisInstance | null = null;
 
     // Dynamically import Lenis and ScrollTrigger
-    Promise.all([
-      import("lenis"),
-      import("gsap/ScrollTrigger"),
-    ]).then(([lenisModule, scrollTriggerModule]) => {
-      if (cancelled) return;
+    Promise.all([import("lenis"), import("gsap/ScrollTrigger")]).then(
+      ([lenisModule, scrollTriggerModule]) => {
+        if (cancelled) return;
 
-      const Lenis = lenisModule.default;
-      const { ScrollTrigger } = scrollTriggerModule;
+        const Lenis = lenisModule.default;
+        const { ScrollTrigger } = scrollTriggerModule;
 
-      // Configure ScrollTrigger
-      ScrollTrigger.config({ ignoreMobileResize: true });
+        // Configure ScrollTrigger
+        ScrollTrigger.config({ ignoreMobileResize: true });
 
-      // Create Lenis instance
-      lenisInstance = new Lenis({
-        lerp: prefersReduced ? 1 : 0.1,
-        smoothWheel: !prefersReduced,
-        syncTouch: false,
-      }) as LenisInstance;
+        // Create Lenis instance
+        lenisInstance = new Lenis({
+          lerp: prefersReduced ? 1 : 0.1,
+          smoothWheel: !prefersReduced,
+          syncTouch: false,
+        }) as LenisInstance;
 
-      // Sync Lenis with ScrollTrigger
-      lenisInstance.on("scroll", ScrollTrigger.update);
+        // Sync Lenis with ScrollTrigger
+        lenisInstance.on("scroll", ScrollTrigger.update);
 
-      // Set instance in state to make it available via context
-      setLenis(lenisInstance);
+        // Set instance in state to make it available via context
+        setLenis(lenisInstance);
 
-      // Start RAF loop
-      function raf(time: number) {
-        if (lenisInstance && !cancelled) {
-          lenisInstance.raf(time);
-          rafIdRef.current = requestAnimationFrame(raf);
+        // Start RAF loop
+        function raf(time: number) {
+          if (lenisInstance && !cancelled) {
+            lenisInstance.raf(time);
+            rafIdRef.current = requestAnimationFrame(raf);
+          }
         }
-      }
-      rafIdRef.current = requestAnimationFrame(raf);
-    });
+        rafIdRef.current = requestAnimationFrame(raf);
+      },
+    );
 
     return () => {
       cancelled = true;
@@ -115,7 +114,7 @@ export function SmoothScrollProvider({
  * Optionally registers a scroll callback when Lenis is available.
  */
 export function useLenis(
-  callback?: (data: { scroll: number }) => void
+  callback?: (data: { scroll: number }) => void,
 ): LenisInstance | null {
   const lenis = useContext(LenisContext);
 

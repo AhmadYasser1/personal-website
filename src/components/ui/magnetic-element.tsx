@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface MagneticElementProps {
@@ -19,20 +17,28 @@ export function MagneticElement({
   as: Tag = "div",
 }: MagneticElementProps) {
   const elRef = useRef<HTMLDivElement>(null);
-  const quickX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
-  const quickY = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
 
-  useGSAP(() => {
+  useEffect(() => {
     const el = elRef.current;
     if (!el) return;
 
-    const mm = gsap.matchMedia();
-    mm.add("(pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
-      quickX.current = gsap.quickTo(el, "x", {
+    // Check matchMedia BEFORE importing gsap — skip entirely on mobile/touch
+    const mq = window.matchMedia(
+      "(pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+    if (!mq.matches) return;
+
+    let cancelled = false;
+    let cleanup: (() => void) | null = null;
+
+    import("gsap").then(({ default: gsap }) => {
+      if (cancelled) return;
+
+      const quickX = gsap.quickTo(el, "x", {
         duration: 0.4,
         ease: "power3.out",
       });
-      quickY.current = gsap.quickTo(el, "y", {
+      const quickY = gsap.quickTo(el, "y", {
         duration: 0.4,
         ease: "power3.out",
       });
@@ -41,26 +47,28 @@ export function MagneticElement({
         const rect = el.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-
-        quickX.current?.((e.clientX - centerX) * strength);
-        quickY.current?.((e.clientY - centerY) * strength);
+        quickX((e.clientX - centerX) * strength);
+        quickY((e.clientY - centerY) * strength);
       };
 
       const handleMouseLeave = () => {
-        quickX.current?.(0);
-        quickY.current?.(0);
+        quickX(0);
+        quickY(0);
       };
 
       el.addEventListener("mousemove", handleMouseMove);
       el.addEventListener("mouseleave", handleMouseLeave);
 
-      return () => {
+      cleanup = () => {
         el.removeEventListener("mousemove", handleMouseMove);
         el.removeEventListener("mouseleave", handleMouseLeave);
       };
     });
 
-    return () => mm.revert();
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
   }, [strength]);
 
   return (
