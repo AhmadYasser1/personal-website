@@ -31,6 +31,8 @@ export function CookieConsentBanner() {
   useEffect(() => {
     if (consent === "granted") {
       optInCapturing();
+    } else if (consent === "declined") {
+      optOutCapturing();
     }
   }, [consent]);
 
