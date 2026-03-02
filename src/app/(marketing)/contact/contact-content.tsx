@@ -13,7 +13,7 @@ import { socialLinks } from "@/lib/data/research";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 import { submitContactForm, type ContactFormState } from "./actions";
-import { trackEvent } from "@/lib/clarity";
+import { trackEvent } from "@/lib/posthog";
 
 const initialState: ContactFormState = {
   success: false,
@@ -27,7 +27,7 @@ export function ContactContent({
 }) {
   const [state, formAction, isPending] = useActionState(
     submitContactForm,
-    initialState
+    initialState,
   );
   const showSuccess = state.success;
 
@@ -72,7 +72,9 @@ export function ContactContent({
           >
             <Card className="hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
               <CardHeader>
-                <CardTitle>Send a Message<span className="text-emerald-500">.</span></CardTitle>
+                <CardTitle>
+                  Send a Message<span className="text-emerald-500">.</span>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 {showSuccess ? (
@@ -81,9 +83,11 @@ export function ContactContent({
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-8"
                   >
-                    <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
-                      state.emailDelivered ? 'bg-green-100' : 'bg-yellow-100'
-                    }`}>
+                    <div
+                      className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
+                        state.emailDelivered ? "bg-green-100" : "bg-yellow-100"
+                      }`}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="32"
@@ -94,7 +98,11 @@ export function ContactContent({
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className={state.emailDelivered ? 'text-green-600' : 'text-yellow-600'}
+                        className={
+                          state.emailDelivered
+                            ? "text-green-600"
+                            : "text-yellow-600"
+                        }
                       >
                         {state.emailDelivered ? (
                           <>
@@ -111,12 +119,17 @@ export function ContactContent({
                       </svg>
                     </div>
                     <h3 className="font-semibold text-lg mb-2">
-                      {state.emailDelivered ? 'Message Sent Successfully!' : 'Message Received!'}
+                      {state.emailDelivered
+                        ? "Message Sent Successfully!"
+                        : "Message Received!"}
                     </h3>
-                    <p className="text-muted-foreground mb-6">{state.message}</p>
+                    <p className="text-muted-foreground mb-6">
+                      {state.message}
+                    </p>
                     {!state.emailDelivered && (
                       <p className="text-sm text-yellow-600 mb-4">
-                        Email delivery failed - your message has been logged for manual follow-up
+                        Email delivery failed - your message has been logged for
+                        manual follow-up
                       </p>
                     )}
                     <Button onClick={handleSendAnother} variant="outline">
@@ -194,7 +207,9 @@ export function ContactContent({
                     />
 
                     {state.message && !state.success && (
-                      <p className="text-sm text-destructive">{state.message}</p>
+                      <p className="text-sm text-destructive">
+                        {state.message}
+                      </p>
                     )}
 
                     <Button
@@ -247,7 +262,9 @@ export function ContactContent({
           >
             <Card className="hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
               <CardHeader>
-                <CardTitle>Connect<span className="text-emerald-500">.</span></CardTitle>
+                <CardTitle>
+                  Connect<span className="text-emerald-500">.</span>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -371,7 +388,9 @@ function SocialLink({
         className="group flex items-center gap-2 p-3 rounded-lg border border-border hover:border-emerald-500/50 hover:bg-muted/50 transition-colors"
         onClick={() => trackEvent(`social-click-${label.toLowerCase()}`)}
       >
-        <span className="text-muted-foreground group-hover:text-emerald-500 transition-colors">{icon}</span>
+        <span className="text-muted-foreground group-hover:text-emerald-500 transition-colors">
+          {icon}
+        </span>
         <span className="font-medium">{label}</span>
       </Link>
     </MagneticElement>

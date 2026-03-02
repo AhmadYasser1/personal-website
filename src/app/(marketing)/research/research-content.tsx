@@ -7,7 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { publications, type Publication } from "@/lib/data/research";
 import { experiences } from "@/lib/data/experience";
 
-const researchExperiences = experiences.filter((exp) => exp.type === "research");
+const researchExperiences = experiences.filter(
+  (exp) => exp.type === "research",
+);
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 
 function getPublicationBadge(type: Publication["type"]) {
@@ -32,12 +34,8 @@ function PublicationCard({ pub }: { pub: Publication }) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <Badge variant={badge.variant}>
-                {badge.label}
-              </Badge>
-              <span className="text-sm text-muted-foreground">
-                {pub.year}
-              </span>
+              <Badge variant={badge.variant}>{badge.label}</Badge>
+              <span className="text-sm text-muted-foreground">{pub.year}</span>
             </div>
             <CardTitle className="text-xl mb-2 group-hover:text-emerald-500 transition-colors">
               {pub.title}
@@ -45,9 +43,7 @@ function PublicationCard({ pub }: { pub: Publication }) {
             <p className="text-sm text-muted-foreground mb-2">
               {pub.authors.join(", ")}
             </p>
-            <p className="text-sm font-medium text-emerald-500">
-              {pub.venue}
-            </p>
+            <p className="text-sm font-medium text-emerald-500">{pub.venue}</p>
           </div>
           {pub.doi && (
             <div className="text-muted-foreground group-hover:text-emerald-500 transition-colors shrink-0">
@@ -72,9 +68,7 @@ function PublicationCard({ pub }: { pub: Publication }) {
       </CardHeader>
       {pub.abstract && (
         <CardContent>
-          <p className="text-muted-foreground text-sm">
-            {pub.abstract}
-          </p>
+          <p className="text-muted-foreground text-sm">{pub.abstract}</p>
         </CardContent>
       )}
     </Card>
@@ -125,7 +119,12 @@ export function ResearchContent() {
                 whileHover={{ y: -3 }}
               >
                 {pub.doi ? (
-                  <Link href={pub.doi} target="_blank" rel="noopener noreferrer" className="block">
+                  <Link
+                    href={pub.doi}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
                     <PublicationCard pub={pub} />
                   </Link>
                 ) : (
@@ -160,7 +159,9 @@ export function ResearchContent() {
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                       <div>
                         <CardTitle className="text-xl">{exp.company}</CardTitle>
-                        <p className="text-emerald-500 font-medium">{exp.role}</p>
+                        <p className="text-emerald-500 font-medium">
+                          {exp.role}
+                        </p>
                         <p className="text-sm text-muted-foreground">
                           {exp.location}
                         </p>
@@ -181,7 +182,11 @@ export function ResearchContent() {
                     </ul>
                     <div className="flex flex-wrap gap-1.5">
                       {exp.technologies.map((tech) => (
-                        <Badge key={tech} variant="secondary" className="text-xs">
+                        <Badge
+                          key={tech}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {tech}
                         </Badge>
                       ))}
@@ -196,6 +201,3 @@ export function ResearchContent() {
     </div>
   );
 }
-
-
-

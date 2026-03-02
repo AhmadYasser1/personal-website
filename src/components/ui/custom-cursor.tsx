@@ -61,10 +61,22 @@ export function CustomCursor() {
     document.body.classList.add("custom-cursor-active");
 
     // Pre-configure quickTo tweens for maximum perf
-    xDot.current = gsap.quickTo(dot, "x", { duration: 0.15, ease: "power2.out" });
-    yDot.current = gsap.quickTo(dot, "y", { duration: 0.15, ease: "power2.out" });
-    xFollower.current = gsap.quickTo(follower, "x", { duration: 0.4, ease: "power2.out" });
-    yFollower.current = gsap.quickTo(follower, "y", { duration: 0.4, ease: "power2.out" });
+    xDot.current = gsap.quickTo(dot, "x", {
+      duration: 0.15,
+      ease: "power2.out",
+    });
+    yDot.current = gsap.quickTo(dot, "y", {
+      duration: 0.15,
+      ease: "power2.out",
+    });
+    xFollower.current = gsap.quickTo(follower, "x", {
+      duration: 0.4,
+      ease: "power2.out",
+    });
+    yFollower.current = gsap.quickTo(follower, "y", {
+      duration: 0.4,
+      ease: "power2.out",
+    });
 
     const onMouseMove = (e: MouseEvent) => {
       xDot.current?.(e.clientX);
@@ -77,18 +89,32 @@ export function CustomCursor() {
     const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (
-        target.closest("a, button, [role='button'], input, textarea, select, [data-magnetic]")
+        target.closest(
+          "a, button, [role='button'], input, textarea, select, [data-magnetic]",
+        )
       ) {
-        gsap.to(follower, { scale: 2, opacity: 0.5, duration: 0.3, ease: "power2.out" });
+        gsap.to(follower, {
+          scale: 2,
+          opacity: 0.5,
+          duration: 0.3,
+          ease: "power2.out",
+        });
       }
     };
 
     const onMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (
-        target.closest("a, button, [role='button'], input, textarea, select, [data-magnetic]")
+        target.closest(
+          "a, button, [role='button'], input, textarea, select, [data-magnetic]",
+        )
       ) {
-        gsap.to(follower, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
+        gsap.to(follower, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
       }
     };
 

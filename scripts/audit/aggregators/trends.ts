@@ -1,6 +1,11 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { AuditReport, TrendDelta, TrendDirection, WeeklyTrend } from "../types";
+import type {
+  AuditReport,
+  TrendDelta,
+  TrendDirection,
+  WeeklyTrend,
+} from "../types";
 
 /**
  * Calculate week-over-week trends by comparing the current report
@@ -50,18 +55,18 @@ export function calculateTrends(
       "lower-is-better",
     ),
     totalSessions: buildDelta(
-      current.clarity?.totalSessions ?? null,
-      previous?.clarity?.totalSessions ?? null,
+      current.behavioral?.totalSessions ?? null,
+      previous?.behavioral?.totalSessions ?? null,
       "higher-is-better",
     ),
     rageClicks: buildDelta(
-      current.clarity?.rageClicks ?? null,
-      previous?.clarity?.rageClicks ?? null,
+      current.behavioral?.rageClicks ?? null,
+      previous?.behavioral?.rageClicks ?? null,
       "lower-is-better",
     ),
     deadClicks: buildDelta(
-      current.clarity?.deadClicks ?? null,
-      previous?.clarity?.deadClicks ?? null,
+      current.behavioral?.deadClicks ?? null,
+      previous?.behavioral?.deadClicks ?? null,
       "lower-is-better",
     ),
   };
@@ -72,10 +77,7 @@ export function calculateTrends(
 /**
  * Save the current report as the baseline for next week's trend comparison.
  */
-export function savePreviousReport(
-  report: AuditReport,
-  dataDir: string,
-): void {
+export function savePreviousReport(report: AuditReport, dataDir: string): void {
   fs.mkdirSync(dataDir, { recursive: true });
   const filePath = path.join(dataDir, "previous-report.json");
   fs.writeFileSync(filePath, JSON.stringify(report, null, 2), "utf-8");

@@ -50,7 +50,7 @@ export function ContributionHeatmap({ days }: ContributionHeatmapProps) {
   const hydrated = useSyncExternalStore(
     subscribe,
     () => true,
-    () => false
+    () => false,
   );
 
   if (days.length === 0) {

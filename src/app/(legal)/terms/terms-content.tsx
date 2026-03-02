@@ -51,8 +51,8 @@ export function TermsContent() {
             This site is provided &ldquo;as is&rdquo; without warranties of any
             kind. I do not guarantee that the site will be error-free, available
             at all times, or that all information will be completely accurate.
-            Portfolio content may represent past work and may not reflect current
-            capabilities or views.
+            Portfolio content may represent past work and may not reflect
+            current capabilities or views.
           </p>
         </section>
 

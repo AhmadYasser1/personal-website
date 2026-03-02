@@ -2,7 +2,7 @@ import type { Thresholds } from "../config";
 import type {
   AuditFinding,
   AuditReport,
-  ClarityData,
+  BehavioralData,
   PageMetrics,
   Severity,
 } from "../types";
@@ -12,7 +12,7 @@ import type {
  *
  * Checks:
  * 1. Performance thresholds per page (LCP, FCP, TBT, CLS, perf score)
- * 2. Behavioral signals from Clarity (rage clicks, dead clicks, etc.)
+ * 2. Behavioral signals from PostHog (rage clicks, dead clicks, etc.)
  * 3. Cross-page patterns (consistent poor mobile scores, etc.)
  *
  * Findings are sorted by severity (critical > warning > info) then by
@@ -30,9 +30,9 @@ export function generateFindings(
     checkPagePerformance(page, "desktop", thresholds, findings);
   }
 
-  // Behavioral findings (site-wide from Clarity)
-  if (report.clarity) {
-    checkBehavioralSignals(report.clarity, thresholds, findings);
+  // Behavioral findings (site-wide from PostHog)
+  if (report.behavioral) {
+    checkBehavioralSignals(report.behavioral, thresholds, findings);
   }
 
   // Sort: critical first, then by how far over threshold
@@ -147,90 +147,90 @@ function checkPagePerformance(
 }
 
 // ---------------------------------------------------------------------------
-// Behavioral checks (Clarity)
+// Behavioral checks (PostHog)
 // ---------------------------------------------------------------------------
 
 function checkBehavioralSignals(
-  clarity: ClarityData,
+  behavioral: BehavioralData,
   thresholds: Thresholds,
   findings: AuditFinding[],
 ): void {
   // Rage clicks
-  if (clarity.rageClicks > thresholds.maxRageClicks) {
+  if (behavioral.rageClicks > thresholds.maxRageClicks) {
     findings.push({
       severity:
-        clarity.rageClicks > thresholds.maxRageClicks * 3
+        behavioral.rageClicks > thresholds.maxRageClicks * 3
           ? "critical"
           : "warning",
       category: "behavioral",
       page: null,
       metric: "Rage Clicks",
-      value: clarity.rageClicks,
+      value: behavioral.rageClicks,
       threshold: thresholds.maxRageClicks,
-      message: `${clarity.rageClicks} rage click sessions detected (threshold: ${thresholds.maxRageClicks})`,
+      message: `${behavioral.rageClicks} rage click sessions detected (threshold: ${thresholds.maxRageClicks})`,
       recommendation:
-        "Review Clarity session recordings for rage clicks. Look for non-clickable elements that appear clickable, slow-responding buttons, or broken interactive elements.",
+        "Review PostHog session recordings for rage clicks. Look for non-clickable elements that appear clickable, slow-responding buttons, or broken interactive elements.",
     });
   }
 
   // Dead clicks
-  if (clarity.deadClicks > thresholds.maxDeadClicks) {
+  if (behavioral.deadClicks > thresholds.maxDeadClicks) {
     findings.push({
       severity:
-        clarity.deadClicks > thresholds.maxDeadClicks * 3
+        behavioral.deadClicks > thresholds.maxDeadClicks * 3
           ? "critical"
           : "warning",
       category: "behavioral",
       page: null,
       metric: "Dead Clicks",
-      value: clarity.deadClicks,
+      value: behavioral.deadClicks,
       threshold: thresholds.maxDeadClicks,
-      message: `${clarity.deadClicks} dead click sessions detected (threshold: ${thresholds.maxDeadClicks})`,
+      message: `${behavioral.deadClicks} dead click sessions detected (threshold: ${thresholds.maxDeadClicks})`,
       recommendation:
-        "Review Clarity heatmaps. Dead clicks often indicate misleading visual cues — elements that look clickable but aren't (cards without links, styled text, decorative icons).",
+        "Review PostHog heatmaps. Dead clicks often indicate misleading visual cues — elements that look clickable but aren't (cards without links, styled text, decorative icons).",
     });
   }
 
   // Script errors (any is a problem)
-  if (clarity.scriptErrors > 0) {
+  if (behavioral.scriptErrors > 0) {
     findings.push({
-      severity: clarity.scriptErrors > 5 ? "critical" : "warning",
+      severity: behavioral.scriptErrors > 5 ? "critical" : "warning",
       category: "behavioral",
       page: null,
       metric: "Script Errors",
-      value: clarity.scriptErrors,
+      value: behavioral.scriptErrors,
       threshold: 0,
-      message: `${clarity.scriptErrors} sessions had JavaScript errors`,
+      message: `${behavioral.scriptErrors} sessions had JavaScript errors`,
       recommendation:
-        "Check Clarity's error dashboard and browser console logs. Fix any uncaught exceptions affecting user experience.",
+        "Check PostHog's error tracking dashboard and browser console logs. Fix any uncaught exceptions affecting user experience.",
     });
   }
 
   // Excessive scrolling
-  if (clarity.excessiveScrolls > 0) {
+  if (behavioral.excessiveScrolls > 0) {
     findings.push({
       severity: "info",
       category: "behavioral",
       page: null,
       metric: "Excessive Scrolling",
-      value: clarity.excessiveScrolls,
+      value: behavioral.excessiveScrolls,
       threshold: 0,
-      message: `${clarity.excessiveScrolls} sessions had excessive scrolling — users may be struggling to find content`,
+      message: `${behavioral.excessiveScrolls} sessions had excessive scrolling — users may be struggling to find content`,
       recommendation:
         "Review page structure and navigation. Consider adding anchor links, table of contents, or reorganizing content hierarchy.",
     });
   }
 
   // Quickback clicks (users navigated then immediately went back)
-  if (clarity.quickbackClicks > 0) {
+  if (behavioral.quickbackClicks > 0) {
     findings.push({
-      severity: clarity.quickbackClicks > 5 ? "warning" : "info",
+      severity: behavioral.quickbackClicks > 5 ? "warning" : "info",
       category: "behavioral",
       page: null,
       metric: "Quickback Clicks",
-      value: clarity.quickbackClicks,
+      value: behavioral.quickbackClicks,
       threshold: 0,
-      message: `${clarity.quickbackClicks} quickback sessions — users clicked a link then immediately returned`,
+      message: `${behavioral.quickbackClicks} quickback sessions — users clicked a link then immediately returned`,
       recommendation:
         "Review link destinations. Quickbacks suggest link text/context didn't match the destination content.",
     });
@@ -238,18 +238,18 @@ function checkBehavioralSignals(
 
   // Low scroll depth (if data available)
   if (
-    clarity.averageScrollDepth !== null &&
-    clarity.averageScrollDepth < 50 &&
-    clarity.totalSessions > 10
+    behavioral.averageScrollDepth !== null &&
+    behavioral.averageScrollDepth < 50 &&
+    behavioral.totalSessions > 10
   ) {
     findings.push({
       severity: "info",
       category: "behavioral",
       page: null,
       metric: "Scroll Depth",
-      value: Math.round(clarity.averageScrollDepth),
+      value: Math.round(behavioral.averageScrollDepth),
       threshold: 50,
-      message: `Average scroll depth is ${Math.round(clarity.averageScrollDepth)}% — less than half of visitors scroll past the fold`,
+      message: `Average scroll depth is ${Math.round(behavioral.averageScrollDepth)}% — less than half of visitors scroll past the fold`,
       recommendation:
         "Review above-the-fold content. Ensure the most important content is visible immediately. Consider adding visual cues to scroll.",
     });

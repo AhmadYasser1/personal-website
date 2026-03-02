@@ -2,17 +2,17 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { initClarity, tagSession } from "@/lib/clarity";
+import { initPostHog, trackPageView } from "@/lib/posthog";
 
-export function ClarityProvider({ projectId }: { projectId: string }) {
+export function PostHogProvider() {
   const pathname = usePathname();
 
   useEffect(() => {
-    initClarity(projectId);
-  }, [projectId]);
+    initPostHog();
+  }, []);
 
   useEffect(() => {
-    tagSession("page", pathname);
+    trackPageView(pathname);
   }, [pathname]);
 
   return null;

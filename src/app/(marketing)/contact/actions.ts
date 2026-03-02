@@ -43,7 +43,7 @@ async function verifyTurnstile(token: string): Promise<boolean> {
           secret: env.TURNSTILE_SECRET_KEY,
           response: token,
         }),
-      }
+      },
     );
     if (!res.ok) {
       console.error("Turnstile API error:", res.status, res.statusText);
@@ -52,7 +52,10 @@ async function verifyTurnstile(token: string): Promise<boolean> {
     const data = await res.json();
     return data.success === true;
   } catch (err) {
-    console.error("Turnstile verification failed:", err instanceof Error ? err.message : err);
+    console.error(
+      "Turnstile verification failed:",
+      err instanceof Error ? err.message : err,
+    );
     return false;
   }
 }
@@ -68,11 +71,15 @@ function escapeHtml(value: string): string {
 
 export async function submitContactForm(
   _prevState: ContactFormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<ContactFormState> {
   // Layer 1: Honeypot — silently "succeed" to avoid revealing detection
   if (formData.get("website")) {
-    return { success: true, message: "Thank you for your message!", emailDelivered: true };
+    return {
+      success: true,
+      message: "Thank you for your message!",
+      emailDelivered: true,
+    };
   }
 
   // Layer 2: Turnstile verification
@@ -145,7 +152,10 @@ export async function submitContactForm(
       message: "Thank you for your message! I will get back to you soon.",
     };
   } catch (err) {
-    console.error("Resend email failed:", err instanceof Error ? err.message : err);
+    console.error(
+      "Resend email failed:",
+      err instanceof Error ? err.message : err,
+    );
     return {
       success: false,
       emailDelivered: false,

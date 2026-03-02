@@ -15,11 +15,7 @@ function FrozenRouter({ children }: { children: React.ReactNode }) {
   // Capture context on mount; useState initializer runs only once
   const [frozen] = useState(() => context);
 
-  return (
-    <LayoutRouterContext value={frozen}>
-      {children}
-    </LayoutRouterContext>
-  );
+  return <LayoutRouterContext value={frozen}>{children}</LayoutRouterContext>;
 }
 
 export function PageTransition({ children }: { children: React.ReactNode }) {

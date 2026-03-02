@@ -1,10 +1,10 @@
 import type { AuditConfig } from "./config";
-import type { ClarityData, CollectorError, PageMetrics } from "./types";
-import { collectClarityData } from "./collectors/clarity";
+import type { BehavioralData, CollectorError, PageMetrics } from "./types";
+import { collectPostHogData } from "./collectors/posthog";
 import { collectPSIData } from "./collectors/psi";
 
 interface CollectionResult {
-  readonly clarity: ClarityData | null;
+  readonly behavioral: BehavioralData | null;
   readonly pages: readonly PageMetrics[];
   readonly errors: readonly CollectorError[];
 }
@@ -12,7 +12,7 @@ interface CollectionResult {
 /**
  * Run all data collectors in parallel where possible.
  *
- * Clarity: single API call (batched by the API itself)
+ * PostHog: single API call (batched by the API itself)
  * PSI: sequential per-page (Lighthouse analysis takes ~10-20s each)
  *
  * If one collector fails entirely, the other still runs.
@@ -22,26 +22,29 @@ export async function collectAllData(
 ): Promise<CollectionResult> {
   const errors: CollectorError[] = [];
 
-  // Run Clarity and PSI in parallel (Clarity is fast, PSI is slow)
+  // Run PostHog and PSI in parallel (PostHog is fast, PSI is slow)
   console.log("📡 Collecting data...\n");
 
-  const [clarityResult, psiResult] = await Promise.allSettled([
-    collectClarity(config),
+  const [posthogResult, psiResult] = await Promise.allSettled([
+    collectBehavioral(config),
     collectPSI(config),
   ]);
 
-  // Process Clarity result
-  let clarity: ClarityData | null = null;
-  if (clarityResult.status === "fulfilled") {
-    clarity = clarityResult.value;
-    console.log(`  ✅ Clarity: ${clarity.totalSessions} sessions, ${clarity.distinctUsers} users`);
+  // Process PostHog result
+  let behavioral: BehavioralData | null = null;
+  if (posthogResult.status === "fulfilled") {
+    behavioral = posthogResult.value;
+    console.log(
+      `  ✅ PostHog: ${behavioral.totalSessions} sessions, ${behavioral.distinctUsers} users`,
+    );
   } else {
-    const msg = clarityResult.reason instanceof Error
-      ? clarityResult.reason.message
-      : String(clarityResult.reason);
-    console.warn(`  ❌ Clarity failed: ${msg}`);
+    const msg =
+      posthogResult.reason instanceof Error
+        ? posthogResult.reason.message
+        : String(posthogResult.reason);
+    console.warn(`  ❌ PostHog failed: ${msg}`);
     errors.push({
-      source: "clarity",
+      source: "posthog",
       message: msg,
       timestamp: new Date().toISOString(),
     });
@@ -58,12 +61,17 @@ export async function collectAllData(
         timestamp: new Date().toISOString(),
       });
     }
-    const successCount = pages.filter((p) => p.psiMobile || p.psiDesktop).length;
-    console.log(`  ✅ PSI: ${successCount}/${config.pages.length} pages analyzed`);
+    const successCount = pages.filter(
+      (p) => p.psiMobile || p.psiDesktop,
+    ).length;
+    console.log(
+      `  ✅ PSI: ${successCount}/${config.pages.length} pages analyzed`,
+    );
   } else {
-    const msg = psiResult.reason instanceof Error
-      ? psiResult.reason.message
-      : String(psiResult.reason);
+    const msg =
+      psiResult.reason instanceof Error
+        ? psiResult.reason.message
+        : String(psiResult.reason);
     console.warn(`  ❌ PSI failed entirely: ${msg}`);
     errors.push({
       source: "psi",
@@ -77,18 +85,22 @@ export async function collectAllData(
   }
 
   console.log();
-  return { clarity, pages, errors };
+  return { behavioral, pages, errors };
 }
 
 // ---------------------------------------------------------------------------
 // Collector wrappers (add timing + logging)
 // ---------------------------------------------------------------------------
 
-async function collectClarity(config: AuditConfig): Promise<ClarityData> {
-  console.log("  🔍 Clarity: fetching behavioral data...");
+async function collectBehavioral(
+  config: AuditConfig,
+): Promise<BehavioralData> {
+  console.log("  🔍 PostHog: fetching behavioral data...");
   const start = Date.now();
-  const data = await collectClarityData(config);
-  console.log(`  🔍 Clarity: done in ${((Date.now() - start) / 1000).toFixed(1)}s`);
+  const data = await collectPostHogData(config);
+  console.log(
+    `  🔍 PostHog: done in ${((Date.now() - start) / 1000).toFixed(1)}s`,
+  );
   return data;
 }
 

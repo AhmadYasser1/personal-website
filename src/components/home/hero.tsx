@@ -15,7 +15,8 @@ export function Hero() {
     // Guard: skip GSAP entirely on mobile
     if (!window.matchMedia("(min-width: 768px)").matches) return;
     // Guard: skip GSAP if user prefers reduced motion
-    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches)
+      return;
 
     const section = sectionRef.current;
     const heading = headingRef.current;
@@ -159,7 +160,10 @@ export function Hero() {
 
       {/* Desktop experience clouds — flanking hero */}
       <div className="hidden md:block absolute inset-0 z-20 pointer-events-none [&>*]:pointer-events-auto">
-        <div className="absolute top-1/3 left-6 lg:left-12 xl:left-20" data-cloud>
+        <div
+          className="absolute top-1/3 left-6 lg:left-12 xl:left-20"
+          data-cloud
+        >
           <ExperienceCloud
             company="Brooklyn Sports & Entertainment"
             role="Digital Fellow"
@@ -168,7 +172,10 @@ export function Hero() {
             side="left"
           />
         </div>
-        <div className="absolute top-[45%] right-6 lg:right-12 xl:right-20" data-cloud>
+        <div
+          className="absolute top-[45%] right-6 lg:right-12 xl:right-20"
+          data-cloud
+        >
           <ExperienceCloud
             company="GroupLens Research"
             role="Student Researcher"
@@ -191,8 +198,7 @@ export function Hero() {
             ref={headingRef}
             className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
           >
-            Hi, I&apos;m{" "}
-            <span className="text-emerald-400">Ahmad Yasser</span>
+            Hi, I&apos;m <span className="text-emerald-400">Ahmad Yasser</span>
             <span
               data-hero-dot
               className="inline-block text-emerald-500 animate-dot-pulse"

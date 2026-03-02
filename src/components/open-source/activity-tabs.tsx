@@ -19,10 +19,8 @@ const ContributionHeatmap = dynamic(
     })),
   {
     ssr: false,
-    loading: () => (
-      <div className="h-32 animate-pulse rounded-lg bg-muted" />
-    ),
-  }
+    loading: () => <div className="h-32 animate-pulse rounded-lg bg-muted" />,
+  },
 );
 
 const ActivityChart = dynamic(
@@ -35,7 +33,7 @@ const ActivityChart = dynamic(
     loading: () => (
       <div className="h-[300px] w-full animate-pulse rounded-lg bg-muted" />
     ),
-  }
+  },
 );
 
 interface ActivityTabsProps {
@@ -53,7 +51,10 @@ export function ActivityTabs({
 
   return (
     <div>
-      <Tabs value={activeTab} onValueChange={(value) => startTransition(() => setActiveTab(value))}>
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => startTransition(() => setActiveTab(value))}
+      >
         <TabsList className="rounded-xl bg-muted/50 backdrop-blur-sm">
           <TabsTrigger value="heatmap">Contributions</TabsTrigger>
           <TabsTrigger value="chart">Activity</TabsTrigger>

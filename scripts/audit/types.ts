@@ -2,78 +2,16 @@
  * Shared types for the analytics audit pipeline.
  *
  * Two data sources:
- * - Microsoft Clarity (behavioral: rage clicks, dead clicks, scroll depth, sessions)
+ * - PostHog (behavioral: rage clicks, dead clicks, scroll depth, sessions)
  * - Google PageSpeed Insights (performance: CWV lab data, CrUX field data when available)
  */
 
 // ---------------------------------------------------------------------------
-// Clarity API types (from /export-data/api/v1/project-live-insights)
+// Behavioral data types (provider-agnostic)
 // ---------------------------------------------------------------------------
 
-export type ClarityMetricName =
-  | "DeadClickCount"
-  | "ExcessiveScroll"
-  | "RageClickCount"
-  | "QuickbackClick"
-  | "ScriptErrorCount"
-  | "ErrorClickCount"
-  | "ScrollDepth"
-  | "Traffic"
-  | "EngagementTime"
-  | "Browser"
-  | "Device"
-  | "OS"
-  | "Country"
-  | "PageTitle"
-  | "ReferrerUrl"
-  | "PopularPages";
-
-export interface ClaritySessionMetric {
-  readonly sessionsCount: string;
-  readonly sessionsWithMetricPercentage: number;
-  readonly sessionsWithoutMetricPercentage: number;
-  readonly pagesViews: string;
-  readonly subTotal: string;
-}
-
-export interface ClarityScrollDepthMetric {
-  readonly averageScrollDepth: number | null;
-}
-
-export interface ClarityTrafficMetric {
-  readonly totalSessionCount: string;
-  readonly totalBotSessionCount: string;
-  readonly distinctUserCount: string;
-  readonly pagesPerSessionPercentage: number | null;
-}
-
-export interface ClarityEngagementMetric {
-  readonly totalTime: number | null;
-  readonly activeTime: number | null;
-}
-
-export interface ClarityDimensionMetric {
-  readonly name?: string;
-  readonly sessionsCount?: string;
-  readonly pagesViews?: string;
-  readonly [key: string]: unknown;
-}
-
-export interface ClarityMetricEntry {
-  readonly metricName: ClarityMetricName;
-  readonly information: readonly (
-    | ClaritySessionMetric
-    | ClarityScrollDepthMetric
-    | ClarityTrafficMetric
-    | ClarityEngagementMetric
-    | ClarityDimensionMetric
-  )[];
-}
-
-export type ClarityApiResponse = readonly ClarityMetricEntry[];
-
-/** Normalized Clarity data after parsing */
-export interface ClarityData {
+/** Normalized behavioral data from analytics provider */
+export interface BehavioralData {
   readonly deadClicks: number;
   readonly rageClicks: number;
   readonly excessiveScrolls: number;
@@ -87,10 +25,10 @@ export interface ClarityData {
   readonly pagesPerSession: number | null;
   readonly totalEngagementTime: number | null;
   readonly activeEngagementTime: number | null;
-  readonly topPages: readonly ClarityPageData[];
+  readonly topPages: readonly BehavioralPageData[];
 }
 
-export interface ClarityPageData {
+export interface BehavioralPageData {
   readonly title: string;
   readonly sessions: number;
   readonly pageViews: number;
@@ -152,13 +90,13 @@ export interface PageMetrics {
 
 export interface AuditReport {
   readonly generatedAt: string;
-  readonly clarity: ClarityData | null;
+  readonly behavioral: BehavioralData | null;
   readonly pages: readonly PageMetrics[];
   readonly errors: readonly CollectorError[];
 }
 
 export interface CollectorError {
-  readonly source: "clarity" | "psi";
+  readonly source: "posthog" | "psi";
   readonly message: string;
   readonly timestamp: string;
 }

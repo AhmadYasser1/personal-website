@@ -5,7 +5,10 @@ import * as m from "motion/react-m";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { education, awards, skills } from "@/lib/data/research";
-import { StaggerContainer, StaggerItem } from "@/components/ui/animated-section";
+import {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/ui/animated-section";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 import { FadeContent } from "@/components/ui/fade-content";
 import {
@@ -117,17 +120,15 @@ export function AboutContent() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
-            <SplitTextReveal
-              as="span"
-              trigger="load"
-            >
+            <SplitTextReveal as="span" trigger="load">
               About Me
             </SplitTextReveal>
             <span className="text-emerald-500">.</span>
           </h1>
           <FadeContent>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A versatile technologist with diverse skills across industries, driven by a passion to make meaningful change in the world.
+              A versatile technologist with diverse skills across industries,
+              driven by a passion to make meaningful change in the world.
             </p>
           </FadeContent>
         </div>
@@ -142,7 +143,10 @@ export function AboutContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.15}>
+          <StaggerContainer
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            staggerDelay={0.15}
+          >
             <StaggerItem className="h-full">
               <div className="h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5">
                 <Card className="h-full text-center hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all">
@@ -150,7 +154,9 @@ export function AboutContent() {
                     <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center">
                       <Target className="w-7 h-7 text-emerald-500" />
                     </div>
-                    <h3 className="font-heading font-semibold text-lg">Driving Change & Impact</h3>
+                    <h3 className="font-heading font-semibold text-lg">
+                      Driving Change & Impact
+                    </h3>
                   </CardContent>
                 </Card>
               </div>
@@ -162,7 +168,9 @@ export function AboutContent() {
                     <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center">
                       <Zap className="w-7 h-7 text-emerald-500" />
                     </div>
-                    <h3 className="font-heading font-semibold text-lg">Fast-Paced Environments</h3>
+                    <h3 className="font-heading font-semibold text-lg">
+                      Fast-Paced Environments
+                    </h3>
                   </CardContent>
                 </Card>
               </div>
@@ -174,7 +182,9 @@ export function AboutContent() {
                     <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center">
                       <Brain className="w-7 h-7 text-emerald-500" />
                     </div>
-                    <h3 className="font-heading font-semibold text-lg">Building with AI</h3>
+                    <h3 className="font-heading font-semibold text-lg">
+                      Building with AI
+                    </h3>
                   </CardContent>
                 </Card>
               </div>
@@ -258,10 +268,16 @@ export function AboutContent() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <FadeContent delay={0}>
-              <SkillCategory title="Programming Languages" skills={skills.programming} />
+              <SkillCategory
+                title="Programming Languages"
+                skills={skills.programming}
+              />
             </FadeContent>
             <FadeContent delay={0.1}>
-              <SkillCategory title="Frameworks & Libraries" skills={skills.frameworks} />
+              <SkillCategory
+                title="Frameworks & Libraries"
+                skills={skills.frameworks}
+              />
             </FadeContent>
             <FadeContent delay={0.2}>
               <SkillCategory title="Data Science" skills={skills.dataScience} />
@@ -273,7 +289,10 @@ export function AboutContent() {
               <SkillCategory title="Databases" skills={skills.databases} />
             </FadeContent>
             <FadeContent delay={0}>
-              <SkillCategory title="Development Tools" skills={skills.devTools} />
+              <SkillCategory
+                title="Development Tools"
+                skills={skills.devTools}
+              />
             </FadeContent>
             <FadeContent delay={0.1} className="lg:col-span-2">
               <SkillCategory title="AI Services" skills={skills.aiServices} />
@@ -337,7 +356,13 @@ export function AboutContent() {
   );
 }
 
-function SkillCategory({ title, skills: skillList }: { title: string; skills: string[] }) {
+function SkillCategory({
+  title,
+  skills: skillList,
+}: {
+  title: string;
+  skills: string[];
+}) {
   return (
     <Card className="h-full min-h-[200px] hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 transition-all flex flex-col group">
       <CardHeader className="pb-3">
@@ -355,7 +380,10 @@ function SkillCategory({ title, skills: skillList }: { title: string; skills: st
                 rel="noopener noreferrer"
                 className="inline-block"
               >
-                <Badge variant="secondary" className="flex items-center gap-1.5 cursor-pointer group-hover:bg-emerald-500/20 group-hover:text-emerald-400 group-hover:border-emerald-500/30 transition-colors">
+                <Badge
+                  variant="secondary"
+                  className="flex items-center gap-1.5 cursor-pointer group-hover:bg-emerald-500/20 group-hover:text-emerald-400 group-hover:border-emerald-500/30 transition-colors"
+                >
                   {IconComponent && (
                     <IconComponent
                       className="w-3.5 h-3.5 text-current"

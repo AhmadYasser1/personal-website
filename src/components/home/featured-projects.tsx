@@ -10,7 +10,7 @@ import { StarBorder } from "@/components/ui/star-border";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
 import { MagneticElement } from "@/components/ui/magnetic-element";
 import { projects } from "@/lib/data/projects";
-import { trackEvent } from "@/lib/clarity";
+import { trackEvent } from "@/lib/posthog";
 
 // Get featured projects sorted by featuredOrder
 const featuredProjects = projects
@@ -37,7 +37,7 @@ export function FeaturedProjects() {
           >
             Featured Projects
           </SplitTextReveal>
-          <m.p 
+          <m.p
             className="text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -49,7 +49,7 @@ export function FeaturedProjects() {
           </m.p>
         </m.div>
 
-        <m.div 
+        <m.div
           className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto"
           initial="hidden"
           whileInView="visible"
@@ -89,7 +89,12 @@ export function FeaturedProjects() {
           transition={{ delay: 0.6 }}
         >
           <MagneticElement strength={0.3}>
-            <Button asChild variant="outline" size="lg" className="transition-transform duration-200 hover:scale-105 active:scale-95">
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="transition-transform duration-200 hover:scale-105 active:scale-95"
+            >
               <Link href="/projects">View All Projects</Link>
             </Button>
           </MagneticElement>
@@ -105,7 +110,7 @@ interface ProjectCardProps {
 
 function ProjectCard({ project }: ProjectCardProps) {
   const linkUrl = project.githubUrl || project.liveUrl || "#";
-  
+
   return (
     <Link
       href={linkUrl}

@@ -95,5 +95,3 @@ export function StaggerItem({
     </m.div>
   );
 }
-
-

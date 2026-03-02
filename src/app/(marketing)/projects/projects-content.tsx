@@ -9,8 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { SplitTextReveal } from "@/components/ui/split-text-reveal";
-import { projects, getSortedProjects, projectCategories, getCategoryLabel } from "@/lib/data/projects";
-import { trackEvent } from "@/lib/clarity";
+import {
+  projects,
+  getSortedProjects,
+  projectCategories,
+  getCategoryLabel,
+} from "@/lib/data/projects";
+import { trackEvent } from "@/lib/posthog";
 
 export function ProjectsContent() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -27,10 +32,7 @@ export function ProjectsContent() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="font-heading text-4xl sm:text-5xl font-bold mb-6">
-            <SplitTextReveal
-              as="span"
-              trigger="load"
-            >
+            <SplitTextReveal as="span" trigger="load">
               Projects
             </SplitTextReveal>
             <span className="text-emerald-500">.</span>
@@ -67,7 +69,11 @@ export function ProjectsContent() {
                   setActiveCategory(category.id);
                 });
               }}
-              className={activeCategory === category.id ? "bg-emerald-500 text-white hover:bg-emerald-600 transition-all" : "transition-all"}
+              className={
+                activeCategory === category.id
+                  ? "bg-emerald-500 text-white hover:bg-emerald-600 transition-all"
+                  : "transition-all"
+              }
             >
               {category.label}
             </Button>
@@ -122,15 +128,26 @@ function ProjectCard({ project }: ProjectCardProps) {
       <CardHeader>
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2">
-            {project.featured && (
-              <Badge className="text-xs">Featured</Badge>
-            )}
+            {project.featured && <Badge className="text-xs">Featured</Badge>}
             <Badge variant="outline" className="text-xs">
               {getCategoryLabel(project.category)}
             </Badge>
             {isPrivate && (
-              <Badge variant="secondary" className="text-xs flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <Badge
+                variant="secondary"
+                className="text-xs flex items-center gap-1"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
@@ -189,7 +206,11 @@ function ProjectCard({ project }: ProjectCardProps) {
         </p>
         <div className="flex flex-wrap gap-1.5 mt-auto">
           {project.technologies.map((tech) => (
-            <Badge key={tech} variant="secondary" className="text-xs group-hover:bg-emerald-500/20 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors">
+            <Badge
+              key={tech}
+              variant="secondary"
+              className="text-xs group-hover:bg-emerald-500/20 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors"
+            >
               {tech}
             </Badge>
           ))}
@@ -206,7 +227,13 @@ function ProjectCard({ project }: ProjectCardProps) {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         {projectUrl && !isPrivate ? (
-          <Link href={projectUrl} target="_blank" rel="noopener noreferrer" className="block h-full" onClick={() => trackEvent(`project-click-${project.id}`)}>
+          <Link
+            href={projectUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block h-full"
+            onClick={() => trackEvent(`project-click-${project.id}`)}
+          >
             {cardContent}
           </Link>
         ) : (
@@ -216,6 +243,3 @@ function ProjectCard({ project }: ProjectCardProps) {
     </TiltCard>
   );
 }
-
-
-

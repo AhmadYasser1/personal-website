@@ -66,7 +66,8 @@ export function Footer() {
               <span className="text-emerald-500 animate-dot-pulse">.</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Human-Computer Interaction Researcher | Digital Fellow at Brooklyn Sports and Entertainment
+              Human-Computer Interaction Researcher | Digital Fellow at Brooklyn
+              Sports and Entertainment
             </p>
           </div>
 
