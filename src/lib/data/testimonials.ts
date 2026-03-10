@@ -40,6 +40,16 @@ export const testimonials: Testimonial[] = [
     image: "/testimonials/darolyn-pierce.jpg",
   },
   {
+    id: "eli-steinfield",
+    name: "Eli Steinfield",
+    title: "Director of Analytics at E15 Group",
+    relationship: "Manager",
+    date: "March 2026",
+    quote:
+      "I had the privilege of managing Ahmad during his time as a Digital Fellow within the Data, Analytics & Insights team at Brooklyn Sports & Entertainment, where he worked closely with both our Digital and AI teams. In my four years at BSE, Ahmad quickly established himself as one of the most impressive early-career professionals I've had the opportunity to work with.\n\nOne of Ahmad's most impactful contributions was building our Customer Feedback dashboard for the Barclays Center fan experience. Beyond designing what is easily the most aesthetically pleasing and engaging Tableau dashboard I've seen at the organization, Ahmad did the difficult work behind the scenes - extensive data cleansing, structuring, and analysis - to ensure the insights were truly meaningful and actionable.\n\nHe also brought strong technical capabilities in SQL and Python, applying them not only to analytics work but also to developing AI agents and experimenting with emerging tools using AWS. Ahmad regularly presented his work to senior leadership, including our VP of AI and Chief Digital Officer, and consistently demonstrated the ability to translate complex technical work into clear, thoughtful insights.\n\nJust as impressive as Ahmad's technical ability is his character. He is endlessly curious, has an A+++ work ethic, and approaches his work with humility, compassion, and a willingness to be vulnerable and keep learning. Over time he became not only an outstanding employee but also a close friend, and he's firmly in the small group of people I will always reference as one of the best colleagues I've ever worked with.\n\nI'm extremely confident Ahmad is going to accomplish remarkable things, particularly in the AI space, and I couldn't be more excited to see what he does next. Any team would be incredibly fortunate to have him.",
+    image: "/testimonials/eli-steinfield.jpg",
+  },
+  {
     id: "sohaib-hegazy",
     name: "Sohaib Hegazy",
     title: "Corporate Governance & Business Consultant | PGESCO",
