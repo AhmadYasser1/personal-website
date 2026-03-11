@@ -42,7 +42,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "eli-steinfield",
     name: "Eli Steinfield",
-    title: "Director of Analytics at E15 Group",
+    title: "Director, Strategy & Analytics at E15 Group",
     relationship: "Manager",
     date: "March 2026",
     quote:
