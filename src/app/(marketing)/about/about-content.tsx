@@ -337,9 +337,6 @@ export function AboutContent() {
                             </p>
                           )}
                         </div>
-                        <Badge variant="outline" className="shrink-0">
-                          {award.date}
-                        </Badge>
                       </div>
                     </CardContent>
                   </Card>

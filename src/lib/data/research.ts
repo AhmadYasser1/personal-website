@@ -144,7 +144,7 @@ export const awards: Award[] = [
     organization: "Egypt University of Informatics",
     date: "October 2023",
     description:
-      "Ranked 6th in the Faculty of Computing & Information Sciences' Class of 2025",
+      "Ranked 6th in the Faculty of Computing & Information Sciences",
   },
   {
     id: "salutatorian",

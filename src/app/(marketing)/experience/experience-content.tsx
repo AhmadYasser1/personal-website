@@ -239,22 +239,24 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
         <CardContent>
           <p className="text-muted-foreground mb-4">{experience.description}</p>
 
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold mb-2">Key Achievements</h4>
-            <ul className="list-disc list-outside pl-5 text-sm text-muted-foreground space-y-1">
-              {experience.achievements.map((achievement, i) => (
-                <m.li
-                  key={achievement}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
-                >
-                  {achievement}
-                </m.li>
-              ))}
-            </ul>
-          </div>
+          {experience.achievements.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-sm font-semibold mb-2">Key Achievements</h4>
+              <ul className="list-disc list-outside pl-5 text-sm text-muted-foreground space-y-1">
+                {experience.achievements.map((achievement, i) => (
+                  <m.li
+                    key={achievement}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                  >
+                    {achievement}
+                  </m.li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="flex flex-wrap gap-1.5">
             {experience.technologies.map((tech, i) => {
