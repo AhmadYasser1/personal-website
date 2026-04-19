@@ -211,8 +211,7 @@ export function Hero() {
             data-hero-subtitle
             className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
-            Human-Computer Interaction Researcher and Dual-degree CS graduate
-            from University of Minnesota - Twin Cities.
+            Human-Computer Interaction Researcher.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
