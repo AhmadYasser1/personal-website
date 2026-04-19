@@ -165,9 +165,9 @@ export function Hero() {
           data-cloud
         >
           <ExperienceCloud
-            company="Brooklyn Sports & Entertainment"
-            role="Digital Fellow"
-            tagline="AI agents & data pipelines for the Brooklyn Nets"
+            company="QuantHub"
+            role="Chief of Staff"
+            tagline="Strategic operations at an AI-native edtech company"
             href="/experience"
             side="left"
           />
@@ -190,7 +190,7 @@ export function Hero() {
         <div className="max-w-4xl mx-auto text-center">
           <div data-hero-badge>
             <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20 transition-transform duration-200 hover:scale-105">
-              Digital Fellow at Brooklyn Sports and Entertainment
+              Chief of Staff at QuantHub
             </span>
           </div>
 
@@ -256,9 +256,9 @@ export function Hero() {
           {/* Mobile experience cloud — single card below hero content */}
           <div className="md:hidden mt-8 flex justify-center">
             <ExperienceCloud
-              company="Brooklyn Sports & Entertainment"
-              role="Digital Fellow"
-              tagline="AI agents & data pipelines for the Brooklyn Nets"
+              company="QuantHub"
+              role="Chief of Staff"
+              tagline="Strategic operations at an AI-native edtech company"
               href="/experience"
               side="left"
               className="rotate-0"

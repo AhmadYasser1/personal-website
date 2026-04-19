@@ -35,11 +35,12 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "Ahmad Yasser",
+    "Chief of Staff",
+    "QuantHub",
     "Software Engineer",
     "Human-Computer Interaction Researcher",
     "Data Science",
     "Machine Learning",
-    "Brooklyn Nets",
     "Brooklyn Sports and Entertainment",
     "University of Minnesota",
   ],

@@ -13,14 +13,31 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    id: "quanthub",
+    company: "QuantHub",
+    role: "Chief of Staff",
+    location: "Birmingham, AL",
+    startDate: "April 2026",
+    endDate: "Present",
+    description:
+      "Chief of Staff to the CEO at an AI-native edtech company spanning K-12, Higher Ed, and Corporate.",
+    achievements: [
+      "Partner with the CEO on investments, acquisitions, and product strategy",
+      "Drive operational initiatives and cross-functional coordination across the organization",
+      "Lead AI fluency deployment and organizational change management",
+    ],
+    technologies: ["Strategy", "Operations", "AI Deployment"],
+    type: "work",
+  },
+  {
     id: "bse-global",
     company: "Brooklyn Sports & Entertainment",
     role: "Digital Fellow",
     location: "Brooklyn, NY",
     startDate: "June 2025",
-    endDate: "Present",
+    endDate: "March 2026",
     description:
-      "Building AI agents and data pipelines for the Brooklyn Nets, Barclays Center, and New York Liberty.",
+      "Built AI agents and data pipelines for the Brooklyn Nets, Barclays Center, and New York Liberty.",
     achievements: [
       "Built internal AI agents connected to third-party tools to automate workflows across multiple departments",
       "Engineered data pipelines to streamline data optimally and sustainably",
