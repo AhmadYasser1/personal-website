@@ -229,9 +229,6 @@ export function AboutContent() {
                           <Badge className="text-lg px-3 bg-emerald-500/20 text-emerald-500 border border-emerald-500/30 transition-transform duration-200 hover:scale-110">
                             {edu.gpa} GPA
                           </Badge>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {edu.startDate} - {edu.endDate}
-                          </p>
                         </div>
                       </div>
                     </CardHeader>

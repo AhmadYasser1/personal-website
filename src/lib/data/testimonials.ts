@@ -76,7 +76,7 @@ export const testimonials: Testimonial[] = [
     relationship: "Mentor",
     date: "August 2023",
     quote:
-      "He has an entrepreneurial and mature mindset that is rare to find nowadays among people his age. One of Ahmad's best traits is that he knows how to evolve and he always finds creative and innovative ways to solve a problem. Having Ahmad around is a great asset to any organization.",
+      "He has an entrepreneurial and mature mindset that is rare to find nowadays among young professionals. One of Ahmad's best traits is that he knows how to evolve and he always finds creative and innovative ways to solve a problem. Having Ahmad around is a great asset to any organization.",
     image: "/testimonials/nadeen-galal.jpg",
   },
 ];
