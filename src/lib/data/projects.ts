@@ -14,7 +14,7 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  // --- BSE AI Agents (most market-relevant) ---
+  // --- Brooklyn Sports & Entertainment AI Agents (most market-relevant) ---
   {
     id: "partnerships-sales-agent",
     title: "Partnerships Sales Agent",
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     featuredOrder: 3,
     isPrivate: true,
   },
-  // --- BSE Dashboards ---
+  // --- Brooklyn Sports & Entertainment Dashboards ---
   {
     id: "customer-feedback-dashboard",
     title: "Customer Feedback Executive Dashboard",
